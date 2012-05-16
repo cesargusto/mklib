@@ -99,7 +99,7 @@ public class MkDialog extends MkWindow {
 
 	public static void info(String message) {
 		
-		ImageIcon icon = new ImageIcon(MkDialog.class.getClassLoader().getResource("META-INF/informacao.png"));
+		ImageIcon icon = new ImageIcon(MkDialog.class.getClassLoader().getResource("resource/icon/informacao.png"));
 		final JLabel labelMessage = new JLabel("<html><font size=+1 color='blue' >&nbsp;&nbsp;"+message+"&nbsp;&nbsp;</font></html>", icon, SwingConstants.CENTER);
         
         final MkApplication application = MkApplication.getInstance();
@@ -118,7 +118,7 @@ public class MkDialog extends MkWindow {
 //        final JInternalFrame popFrame = new JInternalFrame();
 //        popFrame.add(labelMessage);
 //        popFrame.setFocusable(false);
-//        popFrame.setFrameIcon(new ImageIcon(MkDialog.class.getClassLoader().getResource("META-INF/informacao.png")));
+//        popFrame.setFrameIcon(new ImageIcon(MkDialog.class.getClassLoader().getResource("resource/icon/informacao.png")));
 //        popFrame.setTitle("Aviso");
 //        popFrame.pack();
 //       
@@ -204,10 +204,10 @@ public class MkDialog extends MkWindow {
 	}
 
 	private enum EnumDialog {
-		INFO("Aviso", "/META-INF/informacao.png"),
-		CONFIRM("Confirmação", "/META-INF/questao.png"),
-		ERROR("Erro", "/META-INF/erro.png"),
-		WARM("Atenção", "/META-INF/atencao.png");
+		INFO("Aviso", "/resource/icon/informacao.png"),
+		CONFIRM("Confirmação", "/resource/icon/questao.png"),
+		ERROR("Erro", "/resource/icon/erro.png"),
+		WARM("Atenção", "/resource/icon/atencao.png");
 		
 		private final String title;
 		private final String icon;
