@@ -31,7 +31,7 @@ public enum EnumMkButton {
 	}
 	
 	public Icon getIcon() {
-		return new ImageIcon(getClass().getClassLoader().getResource("META-INF/"+this.toString()+".png"));
+		return new ImageIcon(getClass().getClassLoader().getResource("resource/icon/"+this.toString()+".png"));
 	}
 
 	@Override
