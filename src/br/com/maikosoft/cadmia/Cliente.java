@@ -1,8 +1,10 @@
 package br.com.maikosoft.cadmia;
 
-import br.com.maikosoft.core.MkBean;
+import java.math.BigDecimal;
+import java.util.LinkedList;
+import java.util.List;
 
-//Nome do cliente, data de nascimento, endereço, fone, data de pagamento e valor da mensalidade, qual mes esta pago
+import br.com.maikosoft.core.MkBean;
 
 @SuppressWarnings("serial")
 public class Cliente extends MkBean {
@@ -21,8 +23,11 @@ public class Cliente extends MkBean {
 	private String telefone2;
 	private String telefone3;
 	private String email;
-	private String observacao;
+	private String observacao;	
+	private Long diaPagamento;
+	private BigDecimal valorMensalidade;
 	
+	private List<ClienteModalidade> listModalidade;
 	
 	public String getNome() {
 		return nome;
@@ -114,7 +119,26 @@ public class Cliente extends MkBean {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+	public List<ClienteModalidade> getListModalidade() {
+		if (listModalidade == null) {
+			listModalidade = new LinkedList<ClienteModalidade>();
+		}
+		return listModalidade;
+	}
+	public void setListModalidade(List<ClienteModalidade> listModalidade) {
+		this.listModalidade = listModalidade;
+	}
+	public Long getDiaPagamento() {
+		return diaPagamento;
+	}
+	public void setDiaPagamento(Long diaPagamento) {
+		this.diaPagamento = diaPagamento;
+	}
+	public BigDecimal getValorMensalidade() {
+		return valorMensalidade;
+	}
+	public void setValorMensalidade(BigDecimal valorMensalidade) {
+		this.valorMensalidade = valorMensalidade;
+	}
 	
-	
-
 }

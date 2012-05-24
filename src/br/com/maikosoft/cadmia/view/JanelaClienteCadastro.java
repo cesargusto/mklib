@@ -2,10 +2,22 @@ package br.com.maikosoft.cadmia.view;
 
 import java.awt.GridBagConstraints;
 import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.List;
+
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListDataListener;
 
 import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteModalidade;
 import br.com.maikosoft.cadmia.EnumUF;
 import br.com.maikosoft.cadmia.service.ClienteService;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonAdicionar;
 import br.com.maikosoft.layout.swing.MkComboBox;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldDate;
@@ -18,6 +30,7 @@ import br.com.maikosoft.layout.swing.MkWindow;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonExcluir;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonNovo;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonRemover;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonSalvar;
 import br.com.maikosoft.layout.swing.MkFieldMask.EnumMask;
 
@@ -40,6 +53,12 @@ public class JanelaClienteCadastro extends MkWindow {
 	private MkFieldText fieldTelefone3;
 	private MkFieldText fieldEmail;
 	private MkTextArea textObservacao;
+	
+	private JList listModalidade;
+	private MkButtonAdicionar buttonAdicionar;
+	private MkButtonRemover buttonRemover;
+	
+	private JList listMensalidade;
 	
 	private MkButtonNovo buttonNovo;
 	private MkButtonSalvar buttonSalvar;
@@ -65,7 +84,18 @@ public class JanelaClienteCadastro extends MkWindow {
 		panelTable.addRow("e-mail", fieldEmail);
 		panelTable.addRow(textObservacao.getJScrollPane("Observação"), GridBagConstraints.BOTH);
 		
-		addPanelCenter(panelTable, 800, 450);
+		MkPanelTable panelTableModalidade = new MkPanelTable();
+		panelTableModalidade.setTitle("Modalidades");
+		panelTableModalidade.addRow(buttonAdicionar, buttonRemover);
+		panelTableModalidade.addRow(new JScrollPane(listModalidade));
+		
+		MkPanelTable panelTableMensalidade = new MkPanelTable();
+		panelTableMensalidade.setTitle("Ultimas Mensalidades");
+		panelTableMensalidade.addRow(new JScrollPane(listMensalidade));
+		
+		panelTable.addRow(panelTableModalidade, MkPanelTable.getDefaultCell(3) , panelTableMensalidade, MkPanelTable.getDefaultCell(3));
+		
+		addPanelCenter(panelTable, 800, 550);
 		
 		comboUf.setList(Arrays.asList(EnumUF.values()));
 		fieldCpf.setMask(EnumMask.CPF);
@@ -74,14 +104,17 @@ public class JanelaClienteCadastro extends MkWindow {
 	
 		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir);
 		
-		beanToForm(false);
+		if (bean.getId() == null) {
+			novo();
+		} else {
+			beanToForm(false);
+		}
 	}
 	
-	public void novo() {
+	protected void novo() {
 		bean = new Cliente();
 		beanToForm(true);
 		fieldCidade.setText("Londrina");
-
 	}
 
 	protected void editar() {
@@ -174,6 +207,13 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldTelefone3.setEditable(isEditMode);
 		fieldEmail.setEditable(isEditMode);
 		textObservacao.setEditable(isEditMode);
+		
+		DefaultListModel listModelModalidade = new DefaultListModel();		
+		for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
+			listModelModalidade.addElement(clienteModalidade.getModalidade());
+		}
+		listModalidade.setModel(listModelModalidade);
+
 		
 		buttonNovo.setEnabled(!isEditMode);
 		buttonSalvar.setEnabled(isEditMode);

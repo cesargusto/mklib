@@ -86,7 +86,7 @@ public class MkApplication extends JFrame {
             }
         });
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		this.setSize(1000,600);
+		this.setSize(1000,800);
 //		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLayout(new BorderLayout());
 		this.getContentPane().add(desktopPane, BorderLayout.CENTER);

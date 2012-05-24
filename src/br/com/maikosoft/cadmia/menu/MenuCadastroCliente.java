@@ -16,8 +16,6 @@ public class MenuCadastroCliente extends MkMenu {
 			public void execute() {
 				JanelaClienteCadastro janela = new JanelaClienteCadastro(new Cliente());
 				janela.showView("Cadastro Cliente", false);
-				janela.novo();
-				
 			}
 		};
 	}

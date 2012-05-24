@@ -31,4 +31,9 @@ public class Modalidade extends MkBean {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+	@Override
+	public String toString() {
+		return nome + " #" + this.id;
+	}
+	
 }
