@@ -5,9 +5,9 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class MkBean implements Serializable {
 	
-	private Long id;
+	protected Long id;
 	
-	private Long owner;
+	protected Long owner;
 
 	public Long getId() {
 		return id;

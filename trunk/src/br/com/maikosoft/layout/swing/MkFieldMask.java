@@ -40,6 +40,9 @@ public class MkFieldMask extends JFormattedTextField {
 		if (format==null) {
 			super.setValue(value); 
 		} else {
+			if (value == null) {
+				value = 0;
+			}
 			this.setText(format.format(value));
 		}
 	}

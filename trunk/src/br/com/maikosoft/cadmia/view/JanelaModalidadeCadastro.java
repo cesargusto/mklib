@@ -1,25 +1,21 @@
 package br.com.maikosoft.cadmia.view;
 
 import java.awt.GridBagConstraints;
-import java.util.Arrays;
 
 import br.com.maikosoft.cadmia.Modalidade;
-import br.com.maikosoft.cadmia.EnumUF;
 import br.com.maikosoft.cadmia.service.ModalidadeService;
-import br.com.maikosoft.layout.swing.MkComboBox;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonExcluir;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonNovo;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonSalvar;
 import br.com.maikosoft.layout.swing.MkDialog;
-import br.com.maikosoft.layout.swing.MkFieldDate;
 import br.com.maikosoft.layout.swing.MkFieldMask;
+import br.com.maikosoft.layout.swing.MkFieldMask.EnumMask;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkTextArea;
 import br.com.maikosoft.layout.swing.MkUtil;
 import br.com.maikosoft.layout.swing.MkWindow;
-import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
-import br.com.maikosoft.layout.swing.MkButton.MkButtonExcluir;
-import br.com.maikosoft.layout.swing.MkButton.MkButtonNovo;
-import br.com.maikosoft.layout.swing.MkButton.MkButtonSalvar;
-import br.com.maikosoft.layout.swing.MkFieldMask.EnumMask;
 
 @SuppressWarnings("serial")
 public class JanelaModalidadeCadastro extends MkWindow {
@@ -109,7 +105,7 @@ public class JanelaModalidadeCadastro extends MkWindow {
 			fieldId.setText(bean.getId()+"");
 		}
 		fieldNome.setText(bean.getNome());
-		fieldValor.setText(MkUtil.toString(bean.getValor()));
+		fieldValor.setValue(bean.getValor());
 		textObservacao.setText(bean.getObservacao());
 		
 		fieldNome.setEditable(isEditMode);
