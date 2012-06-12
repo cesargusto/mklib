@@ -106,4 +106,8 @@ public class MkUtil {
 		return result;
 	}
 
+	public static Long toLong(String value) {
+		return toBigDecimal(value).longValue();
+	}
+
 }

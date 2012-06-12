@@ -10,7 +10,7 @@ import br.com.maikosoft.layout.swing.MkButton.MkButtonNovo;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonSalvar;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldMask;
-import br.com.maikosoft.layout.swing.MkFieldMask.EnumMask;
+import br.com.maikosoft.layout.swing.MkFieldMask.EnumMkMask;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkTextArea;
@@ -47,7 +47,7 @@ public class JanelaModalidadeCadastro extends MkWindow {
 		
 		addPanelCenter(panelTable, 500, 250);
 		
-		fieldValor.setMask(EnumMask.CURRENCY);
+		fieldValor.setMask(EnumMkMask.CURRENCY);
 		fieldId.setEnabled(false);
 	
 		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir);
