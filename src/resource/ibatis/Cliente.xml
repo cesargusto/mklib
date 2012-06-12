@@ -25,6 +25,8 @@
 		<result property="cidade" column="cidade" />
 		<result property="uf" column="uf" />
 		<result property="dataNascimento" column="data_nascimento" />
+		<result property="diaPagamento" column="dia_pagamento" />
+		<result property="valorMensalidade" column="valor_mensalidade" />
 	</resultMap>
 		
 	<sql id="fragmentWhereCliente">
@@ -59,7 +61,7 @@
 	<update id="updateCliente" parameterClass="Cliente">
 		UPDATE cliente SET nome= #nome#, cpf= #cpf#, rg= #rg#, telefone1= #telefone1#, telefone2= #telefone2#,
 		   endereco= #endereco#, numero= #numero#, bairro= #bairro#, 
-			cep= #cep#, cidade= #cidade#, uf= #uf#, 
+			cep= #cep#, cidade= #cidade#, uf= #uf#, dia_pagamento=#diaPagamento#, valor_mensalidade= #valorMensalidade#,
 			telefone3= #telefone3#, email= #email#, observacao= #observacao#,
 			data_nascimento=#dataNascimento#
 		WHERE id=#id#
@@ -71,10 +73,10 @@
 	
 	<insert id="insertCliente" parameterClass="Cliente">
 		INSERT INTO cliente (id, nome, cpf, rg, telefone1, telefone2, telefone3, 
-			email, observacao, endereco, numero, bairro, cep, cidade, uf , data_nascimento) VALUES
+			email, observacao, endereco, numero, bairro, cep, cidade, uf , data_nascimento, dia_pagamento, valor_mensalidade) VALUES
 		(#id#, #nome#, #cpf#, #rg#, #telefone1#, #telefone2#, #telefone3#, 
 		#email#, #observacao#, #endereco#, #numero#, #bairro#,
-		 #cep#, #cidade#, #uf#,  #dataNascimento#)
+		 #cep#, #cidade#, #uf#,  #dataNascimento#, #diaPagamento#, #valorMensalidade#)
 	</insert>
 	
 	<delete id="deleteCliente" parameterClass="long" >

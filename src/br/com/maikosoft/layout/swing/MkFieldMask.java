@@ -66,7 +66,7 @@ public class MkFieldMask extends JFormattedTextField {
     }
 
 
-	public void setMask(EnumMask mask) {
+	public void setMask(EnumMkMask mask) {
 		if (mask.isInstall()) {
 			try {
 				if (maskFormatter==null) {
@@ -83,7 +83,7 @@ public class MkFieldMask extends JFormattedTextField {
 		} else {
 			
 			Locale locale = new Locale("pt", "BR");
-			if (EnumMask.DECIMAL.equals(mask)) {
+			if (EnumMkMask.DECIMAL.equals(mask)) {
 				locale = Locale.ENGLISH;
 			}
 			format = NumberFormat.getInstance(locale);
@@ -101,7 +101,7 @@ public class MkFieldMask extends JFormattedTextField {
 		}
 	}
 	
-	public enum EnumMask {
+	public enum EnumMkMask {
 		CURRENCY(2, 2, true),
 	    DATE("##/##/####"),
 	    CPF("###.###.###-##"),
@@ -119,12 +119,12 @@ public class MkFieldMask extends JFormattedTextField {
 	    private int maxFrac;
 	    private boolean isGroup;
 	    
-	    private EnumMask(String mask) {
+	    private EnumMkMask(String mask) {
 	    	this.install = true;
 	        this.mask = mask;
 	    }
 
-	    private EnumMask(int minFrac, int maxFrac, boolean isGroup) {
+	    private EnumMkMask(int minFrac, int maxFrac, boolean isGroup) {
 	    	this.install = false;
 			this.minFrac = minFrac;
 			this.maxFrac = maxFrac;

@@ -2,37 +2,31 @@ package br.com.maikosoft.cadmia.view;
 
 import java.awt.GridBagConstraints;
 import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
 
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.ListModel;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListDataListener;
 
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.ClienteModalidade;
 import br.com.maikosoft.cadmia.EnumUF;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonAdicionar;
-import br.com.maikosoft.layout.swing.MkComboBox;
-import br.com.maikosoft.layout.swing.MkDialog;
-import br.com.maikosoft.layout.swing.MkFieldDate;
-import br.com.maikosoft.layout.swing.MkFieldMask;
-import br.com.maikosoft.layout.swing.MkFieldText;
-import br.com.maikosoft.layout.swing.MkPanelTable;
-import br.com.maikosoft.layout.swing.MkTextArea;
-import br.com.maikosoft.layout.swing.MkUtil;
-import br.com.maikosoft.layout.swing.MkWindow;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonExcluir;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonNovo;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonRemover;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonSalvar;
-import br.com.maikosoft.layout.swing.MkFieldMask.EnumMask;
+import br.com.maikosoft.layout.swing.MkComboBox;
+import br.com.maikosoft.layout.swing.MkDialog;
+import br.com.maikosoft.layout.swing.MkFieldDate;
+import br.com.maikosoft.layout.swing.MkFieldMask;
+import br.com.maikosoft.layout.swing.MkFieldMask.EnumMkMask;
+import br.com.maikosoft.layout.swing.MkFieldText;
+import br.com.maikosoft.layout.swing.MkPanelTable;
+import br.com.maikosoft.layout.swing.MkTextArea;
+import br.com.maikosoft.layout.swing.MkUtil;
+import br.com.maikosoft.layout.swing.MkWindow;
 
 @SuppressWarnings("serial")
 public class JanelaClienteCadastro extends MkWindow {
@@ -59,6 +53,8 @@ public class JanelaClienteCadastro extends MkWindow {
 	private MkButtonRemover buttonRemover;
 	
 	private JList listMensalidade;
+	private MkFieldMask fieldValorMensalidade;
+	private MkComboBox<String> comboDiaPagamentoMensalidade;
 	
 	private MkButtonNovo buttonNovo;
 	private MkButtonSalvar buttonSalvar;
@@ -90,7 +86,8 @@ public class JanelaClienteCadastro extends MkWindow {
 		panelTableModalidade.addRow(new JScrollPane(listModalidade));
 		
 		MkPanelTable panelTableMensalidade = new MkPanelTable();
-		panelTableMensalidade.setTitle("Ultimas Mensalidades");
+		panelTableMensalidade.setTitle("Mensalidade");
+		panelTableMensalidade.addRow("Dia Pagamento:", comboDiaPagamentoMensalidade, "Valor:", fieldValorMensalidade);
 		panelTableMensalidade.addRow(new JScrollPane(listMensalidade));
 		
 		panelTable.addRow(panelTableModalidade, MkPanelTable.getDefaultCell(3) , panelTableMensalidade, MkPanelTable.getDefaultCell(3));
@@ -98,9 +95,12 @@ public class JanelaClienteCadastro extends MkWindow {
 		addPanelCenter(panelTable, 800, 550);
 		
 		comboUf.setList(Arrays.asList(EnumUF.values()));
-		fieldCpf.setMask(EnumMask.CPF);
-		fieldCep.setMask(EnumMask.CEP);
+		fieldCpf.setMask(EnumMkMask.CPF);
+		fieldCep.setMask(EnumMkMask.CEP);
 		fieldId.setEnabled(false);
+		fieldValorMensalidade.setMask(EnumMkMask.CURRENCY);
+		
+		comboDiaPagamentoMensalidade.setList(Arrays.asList("1","5", "10", "15", "20", "25"));
 	
 		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir);
 		
@@ -138,6 +138,8 @@ public class JanelaClienteCadastro extends MkWindow {
 			bean.setTelefone3(fieldTelefone3.getText());
 			bean.setEmail(fieldEmail.getText());
 			bean.setObservacao(textObservacao.getText());
+			bean.setValorMensalidade(MkUtil.toBigDecimal(fieldValorMensalidade.getText()));
+			bean.setDiaPagamento(MkUtil.toLong(comboDiaPagamentoMensalidade.getSelected()));
 
 			if (bean.getId() == null) {
 				clienteService.insert(bean);
@@ -201,12 +203,18 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldBairro.setEditable(isEditMode);
 		fieldCep.setEditable(isEditMode);
 		fieldCidade.setEditable(isEditMode);
-		comboUf.setEditable(isEditMode);
+		comboUf.setEnabled(isEditMode);
 		fieldTelefone1.setEditable(isEditMode);
 		fieldTelefone2.setEditable(isEditMode);
 		fieldTelefone3.setEditable(isEditMode);
 		fieldEmail.setEditable(isEditMode);
 		textObservacao.setEditable(isEditMode);
+		
+		fieldValorMensalidade.setValue(bean.getValorMensalidade());
+		fieldValorMensalidade.setEditable(isEditMode);
+		comboDiaPagamentoMensalidade.setSelected(bean.getDiaPagamento()+"");
+		comboDiaPagamentoMensalidade.setEnabled(isEditMode);
+		
 		
 		DefaultListModel listModelModalidade = new DefaultListModel();		
 		for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
