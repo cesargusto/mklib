@@ -10,7 +10,12 @@ import javax.swing.JScrollPane;
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.ClienteModalidade;
 import br.com.maikosoft.cadmia.EnumUF;
+import br.com.maikosoft.cadmia.Modalidade;
+import br.com.maikosoft.cadmia.service.ClienteModalidadeService;
 import br.com.maikosoft.cadmia.service.ClienteService;
+import br.com.maikosoft.cadmia.service.ModalidadeService;
+import br.com.maikosoft.core.MkServiceException;
+import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonAdicionar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonExcluir;
@@ -63,6 +68,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		
 	private Cliente bean;
 	private ClienteService clienteService;
+	private ClienteModalidadeService clienteModalidadeService;
 	
 	public JanelaClienteCadastro(Cliente bean) {
 		this.bean = bean;
@@ -108,6 +114,11 @@ public class JanelaClienteCadastro extends MkWindow {
 		if (bean.getId() == null) {
 			novo();
 		} else {
+			try {
+				clienteModalidadeService.carregarModalidades(bean);
+			} catch (MkServiceException exception) {
+				MkDialog.error("Erro carregando Lista de Modalidade", exception);
+			}
 			beanToForm(false);
 		}
 	}
@@ -216,18 +227,44 @@ public class JanelaClienteCadastro extends MkWindow {
 		comboDiaPagamentoMensalidade.setSelected(bean.getDiaPagamento()+"");
 		comboDiaPagamentoMensalidade.setEnabled(isEditMode);
 		
-		DefaultListModel listModelModalidade = new DefaultListModel();		
-		for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
-			listModelModalidade.addElement(clienteModalidade.getModalidade());
-		}
-		listModalidade.setModel(listModelModalidade);
-
+		atualizaListaModalidade();
 		
 		buttonNovo.setEnabled(!isEditMode);
 		buttonSalvar.setEnabled(isEditMode);
 		buttonEditar.setEnabled(!isEditMode);
 		buttonExcluir.setEnabled(!isEditMode);
+		buttonAdicionar.setEnabled(isEditMode);
+		buttonRemover.setEnabled(isEditMode);
 		
+	}
+	
+	private void atualizaListaModalidade() {
+		DefaultListModel listModelModalidade = new DefaultListModel();		
+		for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
+			if (!clienteModalidade.isDelete()) {
+				listModelModalidade.addElement(clienteModalidade.getModalidade());
+			}
+		}
+		listModalidade.setModel(listModelModalidade);
+	}
+
+	protected void adicionar() {
+		MkTransferObject<Modalidade> transferObject = new MkTransferObject<Modalidade>() {
+			@Override
+			public void postTranfer(Modalidade object) {
+				ClienteModalidade clienteModalidade = new ClienteModalidade();
+				clienteModalidade.setModalidade(object);
+				bean.getListModalidade().add(clienteModalidade);
+				atualizaListaModalidade();
+			}
+		};
+		JanelaModalidadeConsulta janelaModalidadeConsulta = new JanelaModalidadeConsulta();
+		janelaModalidadeConsulta.setTranferir(transferObject);
+		janelaModalidadeConsulta.showView("Transferir Modalidade", false);
+	}
+	
+	protected void remover() {
+		System.out.println(listModalidade.getModel().getElementAt(listModalidade.getSelectedIndex()));
 	}
 
 }
