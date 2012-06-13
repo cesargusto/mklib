@@ -77,7 +77,10 @@ public class MkUtil {
 				sb.append('.');
 			}
 		}
-
+		
+		if (sb.length() == 0 ) {
+			return null;
+		}
 		return new BigDecimal(sb.toString());
 	}
 

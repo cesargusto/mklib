@@ -84,7 +84,10 @@ public class MkDialog extends MkWindow {
 		
 		addPanelCenter(panel, (textAreaMessage.getText().length()<150 ? 500: 800), (textAreaMessage.getText().length()<150 ? 100: 300));
 		
-		addPanelButton(false, EnumMkButton.FECHAR.getButton(this), buttonCopy);
+		MkButton buttonFechar = EnumMkButton.FECHAR.getButton(this);
+		addPanelButton(false, buttonFechar, buttonCopy);
+		
+		setDefaultMacButton(buttonFechar);
 	}
 	
 	protected MkRun fechar() {

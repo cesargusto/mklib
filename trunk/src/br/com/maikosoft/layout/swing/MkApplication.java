@@ -188,7 +188,7 @@ public class MkApplication extends JFrame {
        
     }
 	
-	public void showView(MkWindow macWindow, String title, boolean isModal) {
+	public Object showView(MkWindow macWindow, String title, boolean isModal) {
         if (isModal) {
             JDialog modalFrame = new JDialog(this, title, true);
             //macWindow.setJanela(modalFrame);
@@ -212,11 +212,12 @@ public class MkApplication extends JFrame {
             int y = (desktopSize.height - modalFrame.getHeight()) / 2;
             modalFrame.setLocation((x < 0 ? 0 : x), (y < 0 ? 0 : y));           
             modalFrame.setVisible(true);
+            return modalFrame;
         } else {
             JInternalFrame internalFrame = new JInternalFrame(title, true, true, true, true);
             internalFrame.setContentPane(macWindow);
             internalFrame.pack();
-            internalFrame.setBounds(internalFrame.getBounds());
+            internalFrame.setBounds(internalFrame.getBounds()); //pq?
             desktopPane.add(internalFrame);
            
             internalFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);           
@@ -236,7 +237,7 @@ public class MkApplication extends JFrame {
             int y = (desktopSize.height - internalFrame.getHeight()) / 2;
             internalFrame.setLocation((x < 0 ? 0 : x), (y < 0 ? 0 : y));
             internalFrame.setVisible(true);
-           
+            return internalFrame;
         }
     }
 
