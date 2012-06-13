@@ -8,7 +8,9 @@ import org.apache.log4j.Logger;
 import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.cadmia.service.ModalidadeService;
+import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.layout.swing.EnumMkButton;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonTransferir;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
@@ -25,8 +27,11 @@ public class JanelaModalidadeConsulta extends MkWindow {
 	private MkFieldText fieldBusca;
 	private MkPanelTable panelCenter;
 	private MkTable<Modalidade> table;
+	private MkButtonTransferir buttonTransferir;
 	
 	private ModalidadeService modalidadeService;
+	
+	private MkTransferObject<Modalidade> transferObject;
 	
 	@Override
 	protected void initWindow() {
@@ -36,10 +41,12 @@ public class JanelaModalidadeConsulta extends MkWindow {
 		
 		addPanelCenter(panelCenter, 500, 450);
 		
-		addPanelButton(true, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
+		addPanelButton(true, buttonTransferir, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
 		
 		fieldBusca.onEnter(pesquisar());		
 		table.onDoubleClickOrEnter(abrir());
+		
+		buttonTransferir.setVisible((transferObject!=null));
 		
 	}
 	
@@ -80,6 +87,18 @@ public class JanelaModalidadeConsulta extends MkWindow {
 	
 	protected MkRun novo() {
 		return EnumMenu.CADASTRO_MODALIDADE_NOVO.getMenu().getAcao();
+	}
+
+	public void setTranferir(MkTransferObject<Modalidade> transferObject) {
+		this.transferObject = transferObject;
+	}
+	
+	protected void transferir() {
+		Modalidade seleted = table.getSeleted(true);
+		if (seleted != null) {
+			transferObject.postTranfer(seleted);
+			fecharJanela();
+		}
 	}
 
 }
