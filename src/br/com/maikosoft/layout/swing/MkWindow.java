@@ -38,11 +38,11 @@ public abstract class MkWindow extends JPanel {
         this.onCloseView = onCloseView;
     }
    
-    public void showView(String title, boolean isModal) {
+    public Object showView(String title, boolean isModal) {
     	logger.debug("executando showview");
     	initWindowDefault();
         initWindow();
-        application.showView(this, title, isModal);
+        return application.showView(this, title, isModal);
     }
    
     protected abstract void initWindow();
@@ -159,8 +159,14 @@ public abstract class MkWindow extends JPanel {
         }
     }
    
-    public void setDefaultMacButton(MkButton macButtonDefault) {       
-        SwingUtilities.getRootPane(this).setDefaultButton(macButtonDefault);
+    public void setDefaultMacButton(final MkButton macButtonDefault) {
+    	final Component comp = this;
+    	SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				SwingUtilities.getRootPane(comp).setDefaultButton(macButtonDefault);
+			}
+		});
     }   
     
     public void waitCursor(boolean isOn) {

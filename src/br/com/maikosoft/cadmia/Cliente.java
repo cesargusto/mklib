@@ -122,11 +122,6 @@ public class Cliente extends MkBean {
 	public List<ClienteModalidade> getListModalidade() {
 		if (listModalidade == null) {
 			listModalidade = new LinkedList<ClienteModalidade>();
-			ClienteModalidade clienteModalidade = new ClienteModalidade();
-			Modalidade modalidade = new Modalidade();
-			modalidade.setNome("Dança");
-			clienteModalidade.setModalidade(modalidade);
-			listModalidade.add(clienteModalidade);
 		}
 		return listModalidade;
 	}

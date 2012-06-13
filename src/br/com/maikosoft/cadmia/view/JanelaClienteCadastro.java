@@ -78,7 +78,6 @@ public class JanelaClienteCadastro extends MkWindow {
 		panelTable.addRow("Bairro:", fieldBairro, "CEP:", fieldCep, "Cidade:", new MkPanelTable().addRow(fieldCidade, comboUf));
 		panelTable.addRow("Telefone 1:", fieldTelefone1, "Telefone 2:", fieldTelefone2, "Telefone 3:", fieldTelefone3);
 		panelTable.addRow("e-mail", fieldEmail);
-		panelTable.addRow(textObservacao.getJScrollPane("Observação"), GridBagConstraints.BOTH);
 		
 		MkPanelTable panelTableModalidade = new MkPanelTable();
 		panelTableModalidade.setTitle("Modalidades");
@@ -91,6 +90,8 @@ public class JanelaClienteCadastro extends MkWindow {
 		panelTableMensalidade.addRow(new JScrollPane(listMensalidade));
 		
 		panelTable.addRow(panelTableModalidade, MkPanelTable.getDefaultCell(3) , panelTableMensalidade, MkPanelTable.getDefaultCell(3));
+		
+		panelTable.addRow(textObservacao.getJScrollPane("Observação"), GridBagConstraints.BOTH);
 		
 		addPanelCenter(panelTable, 800, 550);
 		
@@ -214,7 +215,6 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldValorMensalidade.setEditable(isEditMode);
 		comboDiaPagamentoMensalidade.setSelected(bean.getDiaPagamento()+"");
 		comboDiaPagamentoMensalidade.setEnabled(isEditMode);
-		
 		
 		DefaultListModel listModelModalidade = new DefaultListModel();		
 		for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
