@@ -20,7 +20,7 @@
 				cliente_id = #clienteId# 
 			</isNotNull>
 			<isNotNull prepend="and" property="id">			
-				id::varchar = #id#
+				id = #id#
 			</isNotNull>	
 		</dynamic>
 	</sql>
