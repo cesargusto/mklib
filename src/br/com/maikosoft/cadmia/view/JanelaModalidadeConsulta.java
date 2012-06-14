@@ -44,7 +44,12 @@ public class JanelaModalidadeConsulta extends MkWindow {
 		addPanelButton(true, buttonTransferir, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
 		
 		fieldBusca.onEnter(pesquisar());		
-		table.onDoubleClickOrEnter(abrir());
+		table.onDoubleClickOrEnter((transferObject==null ? abrir() : new MkRun() {
+			@Override
+			public void execute() {
+				transferir();
+			}
+		}));
 		
 		buttonTransferir.setVisible((transferObject!=null));
 		

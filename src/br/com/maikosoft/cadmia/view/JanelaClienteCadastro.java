@@ -13,7 +13,6 @@ import br.com.maikosoft.cadmia.EnumUF;
 import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.cadmia.service.ClienteModalidadeService;
 import br.com.maikosoft.cadmia.service.ClienteService;
-import br.com.maikosoft.cadmia.service.ModalidadeService;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonAdicionar;
@@ -159,8 +158,11 @@ public class JanelaClienteCadastro extends MkWindow {
 				clienteService.update(bean);
 			}
 			MkDialog.info("Cliente salvo com sucesso");
+			
+			clienteModalidadeService.update(bean.getListModalidade());
 
 			bean = clienteService.findById(bean.getId());
+			clienteModalidadeService.carregarModalidades(bean);
 			
 			beanToForm(false);
 
@@ -254,6 +256,7 @@ public class JanelaClienteCadastro extends MkWindow {
 			public void postTranfer(Modalidade object) {
 				ClienteModalidade clienteModalidade = new ClienteModalidade();
 				clienteModalidade.setModalidade(object);
+				clienteModalidade.setCliente(bean);
 				bean.getListModalidade().add(clienteModalidade);
 				atualizaListaModalidade();
 			}
@@ -264,7 +267,19 @@ public class JanelaClienteCadastro extends MkWindow {
 	}
 	
 	protected void remover() {
-		System.out.println(listModalidade.getModel().getElementAt(listModalidade.getSelectedIndex()));
+		
+		if (listModalidade.getSelectedIndex() == -1) {
+			MkDialog.warm("Selecione uma modalidade");
+		} else {
+			Modalidade modalidade = (Modalidade) listModalidade.getModel().getElementAt(listModalidade.getSelectedIndex());
+			for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
+				if (clienteModalidade.getModalidade().equals(modalidade)) {
+					clienteModalidade.setDelete(true);
+				}
+			}
+			atualizaListaModalidade();
+		}
+		
 	}
 
 }

@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.ClienteModalidade;
@@ -18,6 +21,8 @@ import br.com.maikosoft.core.MkServiceException;
 @Service
 public class ClienteModalidadeService extends MkService<ClienteModalidade, ClienteModalidadeDAO> {
 	
+	private static final Logger logger = Logger.getLogger(ClienteModalidadeService.class);
+	
 	@Autowired
 	private ModalidadeDAO modalidadeDAO;
 	
@@ -27,13 +32,35 @@ public class ClienteModalidadeService extends MkService<ClienteModalidade, Clien
 			where.put("clienteId", cliente.getId());
 			List<ClienteModalidade> list = this.genericDao.findAll(where);
 			for (ClienteModalidade clienteModalidade : list) {
-				clienteModalidade.setModalidade(modalidadeDAO.findById(clienteModalidade.getId()));
+				clienteModalidade.setModalidade(modalidadeDAO.findById(clienteModalidade.getModalidade().getId()));
 			}
 			cliente.setListModalidade(list);
 		} catch (MkDAOException e) {
 			throw new MkServiceException(e);
 		}
 		
+		
+	}
+
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public void update(List<ClienteModalidade> listModalidade) throws MkServiceException {
+		try {
+			logger.debug("Atualizando lista de modalidades cliente total: "+listModalidade.size());
+			for (ClienteModalidade clienteModalidade : listModalidade) {
+				if (clienteModalidade.getId() == null) {
+					if (!clienteModalidade.isDelete()) {
+						logger.debug("Adiconando modalidade ao cliente# "+clienteModalidade.getModalidade());
+						clienteModalidade.setId(this.genericDao.nextId());
+						this.genericDao.insert(clienteModalidade);
+					}
+				} else if (clienteModalidade.isDelete()) {
+					logger.debug("Removendo modalidade ao cliente ID# "+clienteModalidade.getId());
+					this.genericDao.delete(clienteModalidade.getId());
+				}
+			}
+		} catch (MkDAOException e) {
+			throw new MkServiceException(e);
+		}
 		
 	}
 	
