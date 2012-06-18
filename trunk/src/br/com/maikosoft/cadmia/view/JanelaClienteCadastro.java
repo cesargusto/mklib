@@ -1,11 +1,17 @@
 package br.com.maikosoft.cadmia.view;
 
 import java.awt.GridBagConstraints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.ClienteModalidade;
@@ -50,13 +56,13 @@ public class JanelaClienteCadastro extends MkWindow {
 	private MkFieldText fieldTelefone2;
 	private MkFieldText fieldTelefone3;
 	private MkFieldText fieldEmail;
+	private MkFieldText fieldCodigoBarra;
 	private MkTextArea textObservacao;
 	
 	private JList listModalidade;
 	private MkButtonAdicionar buttonAdicionar;
 	private MkButtonRemover buttonRemover;
 	
-	private JList listMensalidade;
 	private MkFieldMask fieldValorMensalidade;
 	private MkComboBox<String> comboDiaPagamentoMensalidade;
 	
@@ -78,23 +84,39 @@ public class JanelaClienteCadastro extends MkWindow {
 		
 		MkPanelTable panelTable = new MkPanelTable();
 		panelTable.addRow("Nome:",fieldNome, MkPanelTable.getDefaultCell(3), "Código:", fieldId);		
-		panelTable.addRow("Data Nacimento:", fieldDate, GridBagConstraints.NONE, "CPF:", fieldCpf, "RG:", fieldRg);
+		panelTable.addRow("CPF:", fieldCpf, "RG:", fieldRg, "Data Nacimento:", fieldDate, GridBagConstraints.NONE);
 		panelTable.addRow("Endereço:", fieldEndereco, MkPanelTable.getDefaultCell(3), "Numero:", fieldNumero);
 		panelTable.addRow("Bairro:", fieldBairro, "CEP:", fieldCep, "Cidade:", new MkPanelTable().addRow(fieldCidade, comboUf));
 		panelTable.addRow("Telefone 1:", fieldTelefone1, "Telefone 2:", fieldTelefone2, "Telefone 3:", fieldTelefone3);
-		panelTable.addRow("e-mail", fieldEmail);
+		panelTable.addRow("e-mail", fieldEmail, MkPanelTable.getDefaultCell(3), "Codigo de Barra", fieldCodigoBarra);
+		
+		MkPanelTable panelTableModalidadeMensalidade = new MkPanelTable();
+		
+		MkPanelTable panelTableMensalidade = new MkPanelTable();
+		panelTableMensalidade.setTitle("Mensalidade");
+		panelTableMensalidade.addRow("Valor:", fieldValorMensalidade , "Dia Pagamento:", comboDiaPagamentoMensalidade);
+		panelTableMensalidade.addRow("Status", new JLabel("<html><b><font color=blue>OK</font></b></html>"));
+		panelTable.addRow(panelTableMensalidade);
+		
+		panelTableModalidadeMensalidade.addRow(panelTableMensalidade);
 		
 		MkPanelTable panelTableModalidade = new MkPanelTable();
 		panelTableModalidade.setTitle("Modalidades");
 		panelTableModalidade.addRow(buttonAdicionar, buttonRemover);
-		panelTableModalidade.addRow(new JScrollPane(listModalidade));
+		panelTableModalidade.addRow(listModalidade);
 		
-		MkPanelTable panelTableMensalidade = new MkPanelTable();
-		panelTableMensalidade.setTitle("Mensalidade");
-		panelTableMensalidade.addRow("Dia Pagamento:", comboDiaPagamentoMensalidade, "Valor:", fieldValorMensalidade);
-		panelTableMensalidade.addRow(new JScrollPane(listMensalidade));
+		panelTableModalidadeMensalidade.addRow(panelTableModalidade, GridBagConstraints.BOTH);
 		
-		panelTable.addRow(panelTableModalidade, MkPanelTable.getDefaultCell(3) , panelTableMensalidade, MkPanelTable.getDefaultCell(3));
+		MkPanelTable panelTableFoto = new MkPanelTable();
+		panelTableFoto.setTitle("Foto");
+		panelTableFoto.addRow(new JButton("Tirar Foto"), new JButton("Selecionar Arquivo"));		
+		try {
+			BufferedImage foto = ImageIO.read(new File("logo.jpg"));
+			panelTableFoto.addRow(new JLabel(new ImageIcon(foto)));
+		} catch (IOException e) {			
+		}
+		
+		panelTable.addRow(panelTableFoto, MkPanelTable.getDefaultCell(3) , panelTableModalidadeMensalidade, MkPanelTable.getDefaultCell(3));
 		
 		panelTable.addRow(textObservacao.getJScrollPane("Observação"), GridBagConstraints.BOTH);
 		
@@ -151,6 +173,7 @@ public class JanelaClienteCadastro extends MkWindow {
 			bean.setObservacao(textObservacao.getText());
 			bean.setValorMensalidade(MkUtil.toBigDecimal(fieldValorMensalidade.getText()));
 			bean.setDiaPagamento(MkUtil.toLong(comboDiaPagamentoMensalidade.getSelected()));
+			bean.setCodigoBarra(fieldCodigoBarra.getText());
 
 			if (bean.getId() == null) {
 				clienteService.insert(bean);
@@ -207,6 +230,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldTelefone3.setText(bean.getTelefone3());
 		fieldEmail.setText(bean.getEmail());
 		textObservacao.setText(bean.getObservacao());
+		fieldCodigoBarra.setText(bean.getCodigoBarra());
 		
 		fieldNome.setEditable(isEditMode);
 		fieldDate.setEditable(isEditMode);
@@ -223,6 +247,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldTelefone3.setEditable(isEditMode);
 		fieldEmail.setEditable(isEditMode);
 		textObservacao.setEditable(isEditMode);
+		fieldCodigoBarra.setEditable(isEditMode);
 		
 		fieldValorMensalidade.setValue(bean.getValorMensalidade());
 		fieldValorMensalidade.setEditable(isEditMode);
@@ -237,7 +262,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		buttonExcluir.setEnabled(!isEditMode);
 		buttonAdicionar.setEnabled(isEditMode);
 		buttonRemover.setEnabled(isEditMode);
-		
+						
 	}
 	
 	private void atualizaListaModalidade() {
@@ -259,6 +284,9 @@ public class JanelaClienteCadastro extends MkWindow {
 				clienteModalidade.setCliente(bean);
 				bean.getListModalidade().add(clienteModalidade);
 				atualizaListaModalidade();
+				if ("0,00".equals(fieldValorMensalidade.getText())) {
+					fieldValorMensalidade.setText(MkUtil.toString(object.getValor()));
+				}
 			}
 		};
 		JanelaModalidadeConsulta janelaModalidadeConsulta = new JanelaModalidadeConsulta();
