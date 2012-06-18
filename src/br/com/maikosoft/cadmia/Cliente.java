@@ -26,6 +26,7 @@ public class Cliente extends MkBean {
 	private String observacao;	
 	private Long diaPagamento;
 	private BigDecimal valorMensalidade;
+	private String codigoBarra;
 	
 	private List<ClienteModalidade> listModalidade;
 	
@@ -140,5 +141,10 @@ public class Cliente extends MkBean {
 	public void setValorMensalidade(BigDecimal valorMensalidade) {
 		this.valorMensalidade = valorMensalidade;
 	}
-	
+	public String getCodigoBarra() {
+		return codigoBarra;
+	}
+	public void setCodigoBarra(String codigoBarra) {
+		this.codigoBarra = codigoBarra;
+	}
 }

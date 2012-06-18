@@ -110,7 +110,8 @@ public class MkUtil {
 	}
 
 	public static Long toLong(String value) {
-		return toBigDecimal(value).longValue();
+		BigDecimal bigDecimal = toBigDecimal(value);
+		return (bigDecimal == null ? null : bigDecimal.longValue());
 	}
 
 }

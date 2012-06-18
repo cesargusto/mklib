@@ -27,12 +27,13 @@
 		<result property="dataNascimento" column="data_nascimento" />
 		<result property="diaPagamento" column="dia_pagamento" />
 		<result property="valorMensalidade" column="valor_mensalidade" />
+		<result property="codigoBarra" column="codigo_barra" />
 	</resultMap>
 		
 	<sql id="fragmentWhereCliente">
 		<dynamic prepend="where">
 			<isNotNull prepend="and" property="nomeOrId">			
-				id::varchar = #nomeOrId# OR lower(to_ascii(nome, 'LATIN1')) like lower(to_ascii( '%' || #nomeOrId# ||'%', 'LATIN1'))
+				codigo_barra = #nomeOrId# OR lower(to_ascii(nome, 'LATIN1')) like lower(to_ascii( '%' || #nomeOrId# ||'%', 'LATIN1')) OR id::varchar = #nomeOrId#
 			</isNotNull>
 			<isNotNull prepend="and" property="id">			
 				id::varchar = #id#
@@ -62,7 +63,7 @@
 		UPDATE cliente SET nome= #nome#, cpf= #cpf#, rg= #rg#, telefone1= #telefone1#, telefone2= #telefone2#,
 		   endereco= #endereco#, numero= #numero#, bairro= #bairro#, 
 			cep= #cep#, cidade= #cidade#, uf= #uf#, dia_pagamento=#diaPagamento#, valor_mensalidade= #valorMensalidade#,
-			telefone3= #telefone3#, email= #email#, observacao= #observacao#,
+			telefone3= #telefone3#, email= #email#, observacao= #observacao#, codigo_barra= #codigoBarra#, 
 			data_nascimento=#dataNascimento#
 		WHERE id=#id#
 	</update>	
@@ -73,10 +74,11 @@
 	
 	<insert id="insertCliente" parameterClass="Cliente">
 		INSERT INTO cliente (id, nome, cpf, rg, telefone1, telefone2, telefone3, 
-			email, observacao, endereco, numero, bairro, cep, cidade, uf , data_nascimento, dia_pagamento, valor_mensalidade) VALUES
+			email, observacao, endereco, numero, bairro, cep, cidade, uf , data_nascimento, 
+			dia_pagamento, valor_mensalidade, codigo_barra) VALUES
 		(#id#, #nome#, #cpf#, #rg#, #telefone1#, #telefone2#, #telefone3#, 
 		#email#, #observacao#, #endereco#, #numero#, #bairro#,
-		 #cep#, #cidade#, #uf#,  #dataNascimento#, #diaPagamento#, #valorMensalidade#)
+		 #cep#, #cidade#, #uf#,  #dataNascimento#, #diaPagamento#, #valorMensalidade#, #codigoBarra#)
 	</insert>
 	
 	<delete id="deleteCliente" parameterClass="long" >

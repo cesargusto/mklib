@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.util.StringUtils;
+
 import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.layout.swing.MkDialog;
@@ -29,17 +32,21 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 		fieldBusca.onEnter(new MkRun() {
 			@Override
 			public void execute() {
-				try {
-					
-					Map<String, Object> where = new HashMap<String, Object>();
-					where.put("nomeOrId", fieldBusca.getText());
-					List<Cliente> list = clienteService.findAll(where);
-					if (list.size() == 0) {
-						MkDialog.warm("Cliente não encontrado");
+				try {					
+					if (StringUtils.hasText(fieldBusca.getText())) {
+						Map<String, Object> where = new HashMap<String, Object>();
+						where.put("nomeOrId", fieldBusca.getText());
+						List<Cliente> list = clienteService.findAll(where);
+						if (list.size() == 0) {
+							MkDialog.warm("Cliente não encontrado");
+						} else {
+							new JanelaClienteCadastro(list.get(0)).showView("Cadastro Cliente", false);
+						}
+						fieldBusca.setText("");
 					} else {
-						new JanelaClienteCadastro(list.get(0)).showView("Cadastro Cliente", false);
+						EnumMenu.CADASTRO_CLIENTE_NOVO.getMenu().getAcao().execute();
 					}
-					fieldBusca.setText("");
+					
 				} catch (MkServiceException exception) {
 					MkDialog.error("Erro consulta rapida", exception);
 				}
