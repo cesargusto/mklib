@@ -24,7 +24,7 @@ public class Cliente extends MkBean {
 	private String telefone3;
 	private String email;
 	private String observacao;	
-	private Long diaPagamento;
+	private String diaPagamento;
 	private BigDecimal valorMensalidade;
 	private String codigoBarra;
 	
@@ -129,10 +129,10 @@ public class Cliente extends MkBean {
 	public void setListModalidade(List<ClienteModalidade> listModalidade) {
 		this.listModalidade = listModalidade;
 	}
-	public Long getDiaPagamento() {
+	public String getDiaPagamento() {
 		return diaPagamento;
 	}
-	public void setDiaPagamento(Long diaPagamento) {
+	public void setDiaPagamento(String diaPagamento) {
 		this.diaPagamento = diaPagamento;
 	}
 	public BigDecimal getValorMensalidade() {

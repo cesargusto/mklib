@@ -17,6 +17,7 @@ import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkRun;
 import br.com.maikosoft.layout.swing.MkTable;
 import br.com.maikosoft.layout.swing.MkTableModel;
+import br.com.maikosoft.layout.swing.MkUtil;
 import br.com.maikosoft.layout.swing.MkWindow;
 
 @SuppressWarnings("serial")
@@ -77,10 +78,15 @@ public class JanelaModalidadeConsulta extends MkWindow {
 				where.put("nomeOrId", fieldBusca.getText());
 				try {
 					List<Modalidade> list = modalidadeService.findAll(where);
-					table.setModel(new MkTableModel<Modalidade>(list, "Nome") {
+					table.setModel(new MkTableModel<Modalidade>(list, "Nome", "Valor") {
 						@Override
 						protected Object getRow(Modalidade bean, int rowIndex, int columnIndex) {
-							return bean.getNome();
+							switch (columnIndex) {
+							case 1:
+								return MkUtil.toString(bean.getValor());
+							default:
+								return bean.getNome();
+							}
 						}
 					});
 				} catch (Exception ex) {

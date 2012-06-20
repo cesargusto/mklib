@@ -8,6 +8,7 @@ import br.com.maikosoft.cadmia.menu.MenuCadastroClienteConsulta;
 import br.com.maikosoft.cadmia.menu.MenuCadastroModalidade;
 import br.com.maikosoft.cadmia.menu.MenuCadastroModalidadeConsulta;
 import br.com.maikosoft.cadmia.menu.MenuDebug;
+import br.com.maikosoft.cadmia.menu.MenuMovimentacaoLancarMensalidades;
 import br.com.maikosoft.cadmia.menu.MenuSair;
 import br.com.maikosoft.layout.swing.MkMenu;
 import br.com.maikosoft.layout.swing.MkRun;
@@ -23,6 +24,8 @@ public enum EnumMenu {
     	CADASTRO_MODALIDADE("Modalidade", CADASTRO.getMenu()),
 			CADASTRO_MODALIDADE_CONSULTA(new MenuCadastroModalidadeConsulta()),
     		CADASTRO_MODALIDADE_NOVO(new MenuCadastroModalidade()),	
+    MOVIMENTACAO("Movimentação", null),
+    	MOVIMENTACAO_LANCAR_MENSALIDADES(new MenuMovimentacaoLancarMensalidades()),
     SISTEMA("Sistema", null),
     	SISTEMA_DEBUG(new MenuDebug()),
     	SISTEMA_SAIR(new MenuSair());
