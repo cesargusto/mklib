@@ -3,6 +3,7 @@ package br.com.maikosoft.cadmia;
 import java.math.BigDecimal;
 
 import br.com.maikosoft.core.MkBean;
+import br.com.maikosoft.layout.swing.MkUtil;
 
 @SuppressWarnings("serial")
 public class Modalidade extends MkBean {
@@ -33,7 +34,7 @@ public class Modalidade extends MkBean {
 	}
 	@Override
 	public String toString() {
-		return nome + " #" + this.id;
+		return this.nome + " - Valor: " + MkUtil.toString(this.valor)+ " #" + this.id;
 	}
 	
 }

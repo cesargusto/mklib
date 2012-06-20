@@ -46,7 +46,7 @@ public class JanelaModalidadeCadastro extends MkWindow {
 		panelTable.addRow(textObservacao.getJScrollPane("Observação"), GridBagConstraints.BOTH);
 		
 		addPanelCenter(panelTable, 500, 250);
-		
+		fieldValor.setColumns(10);
 		fieldValor.setMask(EnumMkMask.CURRENCY);
 		fieldId.setEnabled(false);
 	

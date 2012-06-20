@@ -217,7 +217,7 @@ public class MkApplication extends JFrame {
             JInternalFrame internalFrame = new JInternalFrame(title, true, true, true, true);
             internalFrame.setContentPane(macWindow);
             internalFrame.pack();
-            internalFrame.setBounds(internalFrame.getBounds()); //pq?
+//            internalFrame.setBounds(internalFrame.getBounds()); //pq?
             desktopPane.add(internalFrame);
            
             internalFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);           

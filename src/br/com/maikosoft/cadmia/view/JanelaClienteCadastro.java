@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
@@ -94,8 +95,8 @@ public class JanelaClienteCadastro extends MkWindow {
 		
 		MkPanelTable panelTableMensalidade = new MkPanelTable();
 		panelTableMensalidade.setTitle("Mensalidade");
-		panelTableMensalidade.addRow("Valor:", fieldValorMensalidade , "Dia Pagamento:", comboDiaPagamentoMensalidade);
-		panelTableMensalidade.addRow("Status", new JLabel("<html><b><font color=blue>OK</font></b></html>"));
+		panelTableMensalidade.addRow("Dia Pagamento:", comboDiaPagamentoMensalidade, "Valor:", fieldValorMensalidade);
+		panelTableMensalidade.addRow("Status:", new JLabel("<html><b><font color=green>EM DIA</font></b></html>"));
 		panelTable.addRow(panelTableMensalidade);
 		
 		panelTableModalidadeMensalidade.addRow(panelTableMensalidade);
@@ -127,8 +128,9 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldCep.setMask(EnumMkMask.CEP);
 		fieldId.setEnabled(false);
 		fieldValorMensalidade.setMask(EnumMkMask.CURRENCY);
+		fieldValorMensalidade.setEditable(false);
 		
-		comboDiaPagamentoMensalidade.setList(Arrays.asList("1","5", "10", "15", "20", "25"));
+		comboDiaPagamentoMensalidade.setList(Arrays.asList("01","05", "10", "15", "20", "25"));
 	
 		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir);
 		
@@ -172,7 +174,7 @@ public class JanelaClienteCadastro extends MkWindow {
 			bean.setEmail(fieldEmail.getText());
 			bean.setObservacao(textObservacao.getText());
 			bean.setValorMensalidade(MkUtil.toBigDecimal(fieldValorMensalidade.getText()));
-			bean.setDiaPagamento(MkUtil.toLong(comboDiaPagamentoMensalidade.getSelected()));
+			bean.setDiaPagamento(comboDiaPagamentoMensalidade.getSelected());
 			bean.setCodigoBarra(fieldCodigoBarra.getText());
 
 			if (bean.getId() == null) {
@@ -250,8 +252,8 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldCodigoBarra.setEditable(isEditMode);
 		
 		fieldValorMensalidade.setValue(bean.getValorMensalidade());
-		fieldValorMensalidade.setEditable(isEditMode);
-		comboDiaPagamentoMensalidade.setSelected(bean.getDiaPagamento()+"");
+//		fieldValorMensalidade.setEditable(isEditMode);
+		comboDiaPagamentoMensalidade.setSelected(bean.getDiaPagamento());
 		comboDiaPagamentoMensalidade.setEnabled(isEditMode);
 		
 		atualizaListaModalidade();
@@ -266,13 +268,16 @@ public class JanelaClienteCadastro extends MkWindow {
 	}
 	
 	private void atualizaListaModalidade() {
-		DefaultListModel listModelModalidade = new DefaultListModel();		
+		DefaultListModel listModelModalidade = new DefaultListModel();
+		BigDecimal totalMensalidade = BigDecimal.ZERO;
 		for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
 			if (!clienteModalidade.isDelete()) {
 				listModelModalidade.addElement(clienteModalidade.getModalidade());
+				totalMensalidade = totalMensalidade.add(clienteModalidade.getModalidade().getValor());
 			}
 		}
 		listModalidade.setModel(listModelModalidade);
+		fieldValorMensalidade.setText(MkUtil.toString(totalMensalidade));
 	}
 
 	protected void adicionar() {
@@ -284,9 +289,9 @@ public class JanelaClienteCadastro extends MkWindow {
 				clienteModalidade.setCliente(bean);
 				bean.getListModalidade().add(clienteModalidade);
 				atualizaListaModalidade();
-				if ("0,00".equals(fieldValorMensalidade.getText())) {
-					fieldValorMensalidade.setText(MkUtil.toString(object.getValor()));
-				}
+//				if ("0,00".equals(fieldValorMensalidade.getText())) {
+//					fieldValorMensalidade.setText(MkUtil.toString(object.getValor()));
+//				}
 			}
 		};
 		JanelaModalidadeConsulta janelaModalidadeConsulta = new JanelaModalidadeConsulta();
