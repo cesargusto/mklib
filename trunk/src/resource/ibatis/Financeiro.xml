@@ -15,15 +15,24 @@
 		<result property="dataCadastro" column="data_cadastro" />
 		<result property="observacao" column="observacao" />
 		<result property="referencia" column="referencia" />
+		<result property="dataPagamento" column="data_pagamento" />
 	</resultMap>
+	
 	
 	<sql id="fragmentWhereFinanceiro">
 		<dynamic prepend="where">
 			<isNotNull prepend="and" property="cliente_id">			
 				cliente_id = #cliente_id#
-			</isNotNull>	
+			</isNotNull>
+			<isNotNull prepend="and" property="before_data_cadastro">			
+				data_cadastro &lt; #before_data_cadastro#
+			</isNotNull>
 		</dynamic>
 	</sql>
+	
+<!-- 	<select id="getSaldo" resultClass="java.math.BigDecimal" parameterClass="long"> -->
+<!-- 		SELECT SUM(valor) FROM Financeiro WHERE data_cadastro &lt; now() AND cliente_id = #value# -->
+<!-- 	</select> -->
 
 	<select id="countFinanceiro" resultClass="long">
 		SELECT count(*) FROM Financeiro
@@ -34,7 +43,7 @@
 	<select id="allFinanceiro" resultMap="resultMapFinanceiro">
 		SELECT * FROM Financeiro
 		<include refid="fragmentWhereFinanceiro"/>
-		ORDER BY nome
+		ORDER BY data_pagamento DESC, data_cadastro DESC
 		LIMIT 15 OFFSET #limit#
 	</select>
 	
@@ -44,7 +53,8 @@
 	</select>
 	
 	<update id="updateFinanceiro" parameterClass="Financeiro">
-		UPDATE Financeiro SET cliente_id= #cliente.id#, valor= #valor#, observacao= #observacao#, referencia=#referencia#
+		UPDATE Financeiro SET cliente_id= #cliente.id#, valor= #valor#, observacao= #observacao#, 
+		referencia=#referencia#, data_pagamento=#dataPagamento# 
 		WHERE id=#id#
 	</update>	
 	
@@ -53,8 +63,8 @@
 	</select>
 	
 	<insert id="insertFinanceiro" parameterClass="Financeiro">
-		INSERT INTO Financeiro (id, cliente_id, valor, observacao, referencia, data_cadastro) VALUES
-		(#id#, #cliente.id#, #valor#, #observacao#, #referencia#, #dataCadastro#)
+		INSERT INTO Financeiro (id, cliente_id, valor, observacao, referencia, data_cadastro, data_pagamento) VALUES
+		(#id#, #cliente.id#, #valor#, #observacao#, #referencia#, #dataCadastro#, #dataPagamento#)
 	</insert>
 	
 	<delete id="deleteFinanceiro" parameterClass="long" >

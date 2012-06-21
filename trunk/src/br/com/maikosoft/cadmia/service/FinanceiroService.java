@@ -5,8 +5,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +24,15 @@ import br.com.maikosoft.core.MkServiceException;
 @Service
 public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 	
-	private static final String MENSALIDADE = "MENSALIDADE ";
+	private static final Logger logger = Logger.getLogger(FinanceiroService.class);
+	private static final String MENSALIDADE = "Mensalidade ";
 	
 	@Autowired
 	private ClienteDAO clienteDAO;
 
 	public void lancarMensalidades(String mes, String ano) throws MkServiceException {
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("ddyyyyMMMMM");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("hhmmssddyyyyMMMMM");
 			List<Cliente> listCliente = clienteDAO.findAll(Collections.<String, Object>emptyMap());
 			for (Cliente cliente : listCliente) {
 				
@@ -38,7 +42,7 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 				
 				Financeiro financeiro = new Financeiro();
 				try {
-					Date dataCadastro = dateFormat.parse(cliente.getDiaPagamento()+ano+mes);
+					Date dataCadastro = dateFormat.parse("235959"+cliente.getDiaPagamento()+ano+mes);
 					financeiro.setDataCadastro(dataCadastro);
 				} catch (ParseException ex) {
 					throw new MkServiceException("Erro ao gerar data de cadastro para cliente #"+cliente.getId(), ex);
@@ -46,6 +50,7 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 				financeiro.setId(this.genericDao.nextId());
 				financeiro.setCliente(cliente);
 				financeiro.setReferencia(MENSALIDADE+mes+"/"+ano);
+//				financeiro.setValor(cliente.getValorMensalidade().multiply(new BigDecimal(-1)));
 				financeiro.setValor(cliente.getValorMensalidade());
 				this.genericDao.insert(financeiro);
 			}
@@ -53,6 +58,32 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 			throw new MkServiceException(exception);
 		}
 		
+	}
+
+	public BigDecimal getSaldo(Cliente cliente) throws MkServiceException {
+		try {
+			BigDecimal saldo = BigDecimal.ZERO;
+			
+			if (cliente.getId()!=null) {
+				Map<String, Object> where = new HashMap<String, Object>();
+				where.put("cliente_id", cliente.getId());
+				where.put("before_data_cadastro", new Date());
+				
+				List<Financeiro> list = this.genericDao.findAll(where );			
+				if (list!=null) {
+					for (Financeiro financeiro : list) {
+						if (financeiro.getDataPagamento() == null) {
+							saldo = saldo.subtract(financeiro.getValor());
+						}
+					}
+				}
+			}
+			
+			logger.debug("Retornando saldo:"+saldo);
+			return saldo;			
+		} catch (MkDAOException exception) {
+			throw new MkServiceException("Erro obtendo saldo cliente #"+cliente.getId(), exception);
+		}
 	}
 	
 }

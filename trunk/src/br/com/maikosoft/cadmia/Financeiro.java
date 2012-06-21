@@ -13,7 +13,7 @@ public class Financeiro extends MkBean {
 	private BigDecimal valor;
 	private String observacao;
 	private String referencia;
-	
+	private Date dataPagamento;
 	
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -44,6 +44,12 @@ public class Financeiro extends MkBean {
 	}
 	public void setReferencia(String referencia) {
 		this.referencia = referencia;
+	}
+	public Date getDataPagamento() {
+		return dataPagamento;
+	}
+	public void setDataPagamento(Date dataPagamento) {
+		this.dataPagamento = dataPagamento;
 	}
 
 }

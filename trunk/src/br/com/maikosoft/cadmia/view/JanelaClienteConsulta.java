@@ -71,6 +71,7 @@ public class JanelaClienteConsulta extends MkWindow {
 							return bean.getNome();
 						}
 					});
+					
 				} catch (Exception ex) {
 					MkDialog.error("Erro ao pesquisar", ex);
 				}
