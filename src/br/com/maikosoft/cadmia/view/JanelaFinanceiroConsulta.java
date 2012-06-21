@@ -6,12 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JLabel;
+
 import org.apache.log4j.Logger;
 
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.Financeiro;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.layout.swing.EnumMkButton;
+import br.com.maikosoft.layout.swing.MkButton;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
@@ -29,6 +32,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 	private MkFieldText fieldCliente;
 	private MkPanelTable panelCenter;
 	private MkTable<Financeiro> table;
+	private JLabel labelSaldo;
 	
 	private FinanceiroService financeiroService;
 	private Cliente cliente;
@@ -40,12 +44,18 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 	@Override
 	protected void initWindow() {
 		
-		panelCenter.addRow("Cliente", fieldCliente, EnumMkButton.PESQUISAR.getButton(this), GridBagConstraints.NONE);
+		MkButton buttonAtualizar = EnumMkButton.PESQUISAR.getButton(this);
+		buttonAtualizar.setText("Atualizar");
+		panelCenter.addRow("Cliente", fieldCliente);
 		panelCenter.addRow(table.getJScrollPane(), GridBagConstraints.BOTH);
 		
 		addPanelCenter(panelCenter, 600, 450);
 		
-		addPanelButton(true, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
+		addPanelButton(true, buttonAtualizar, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
+		
+		fieldCliente.setEditable(false);
+		labelSaldo = new JLabel();
+		this.panelButton.add(labelSaldo, 0);
 		
 		table.onDoubleClickOrEnter(abrir());
 		
@@ -87,6 +97,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 							return bean;
 						}
 					});
+					labelSaldo.setText("Saldo: "+MkUtil.toString(financeiroService.getSaldo(cliente)));
 				} catch (Exception ex) {
 					MkDialog.error("Erro ao pesquisar", ex);
 				}
