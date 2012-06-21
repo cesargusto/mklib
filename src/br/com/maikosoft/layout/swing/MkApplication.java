@@ -15,6 +15,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+
+import javax.swing.InputMap;
 import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -23,10 +25,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -103,6 +107,14 @@ public class MkApplication extends JFrame {
 	        AluminiumLookAndFeel.setTheme(largeFontProps);
 
 			UIManager.setLookAndFeel(com.jtattoo.plaf.aluminium.AluminiumLookAndFeel.class.getName());
+			
+			InputMap im = (InputMap) UIManager.getDefaults().get("Button.focusInputMap"); // Enter button
+	        Object pressedAction = im.get(KeyStroke.getKeyStroke("pressed SPACE"));
+	        Object releasedAction = im.get(KeyStroke.getKeyStroke("released SPACE"));
+	        im.put(KeyStroke.getKeyStroke("pressed ENTER"), pressedAction);
+	        im.put(KeyStroke.getKeyStroke("released ENTER"), releasedAction);
+
+			
 			SwingUtilities.updateComponentTreeUI(instance);
 		} catch (Exception ex) { }
 		
