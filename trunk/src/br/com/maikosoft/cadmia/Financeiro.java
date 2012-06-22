@@ -14,6 +14,7 @@ public class Financeiro extends MkBean {
 	private String observacao;
 	private String referencia;
 	private Date dataPagamento;
+	private boolean pagar;
 	
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -50,6 +51,12 @@ public class Financeiro extends MkBean {
 	}
 	public void setDataPagamento(Date dataPagamento) {
 		this.dataPagamento = dataPagamento;
+	}
+	public boolean getPagar() {
+		return pagar;
+	}
+	public void setPagar(boolean pagar) {
+		this.pagar = pagar;
 	}
 
 }
