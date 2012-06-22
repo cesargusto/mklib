@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JLabel;
-import javax.swing.JTable;
 
 import org.apache.log4j.Logger;
 
@@ -19,7 +18,7 @@ import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.layout.swing.EnumMkButton;
 import br.com.maikosoft.layout.swing.MkButton;
-import br.com.maikosoft.layout.swing.MkButton.MkButtonPesquisar;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonAtualizar;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
@@ -39,7 +38,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 	private MkTable<Financeiro> table;
 	private JLabel labelSaldo;
 	
-	private MkButtonPesquisar buttonAtualizar;
+	private MkButtonAtualizar buttonAtualizar;
 	private MkButton buttonPagar;
 	
 	private FinanceiroService financeiroService;
@@ -65,11 +64,12 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 		this.panelButton.add(labelSaldo, 1);
 		
 		buttonPagar.setText("Pagar Itens Selecionados");
+		buttonPagar.setIcon(EnumMkButton.getIcon("dinheiro"));
 		buttonPagar.onClick(pagarSelecionados());
 		
 		table.onDoubleClickOrEnter(abrir());
 		
-		pesquisar();
+		atualizar();
 		
 	}
 	
@@ -81,61 +81,61 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 		return abrirFinanceiro(true);
 	}
 	
-	protected void pesquisar() {
-				logger.debug("Executando perquisar");
-				
-				fieldCliente.setText(cliente.getNome());
-				
-				Map<String, Object> where = new HashMap<String, Object>();
-				where.put("cliente_id", cliente.getId());
-				where.put("before_data_cadastro", new Date());
-				
-				try {
-					List<Financeiro> list = financeiroService.findAll(where);
-					table.setModel(new MkTableModel<Financeiro>(list, " ","Data", "Referência", "Valor", "Data Pagamento") {
-						@Override
-						protected Object getRow(Financeiro bean, int rowIndex, int columnIndex) {
-							switch (columnIndex) {
-							case 0:
-								return bean.getPagar();
-							case 1:
-								return MkUtil.toString(bean.getDataCadastro());
-							case 2:
-								return bean.getReferencia();	
-							case 3:
-								return MkUtil.toString(bean.getValor());
-							case 4:
-								return MkUtil.toString(bean.getDataPagamento());	
-							}
-							return bean;
-						}
-						
-						@Override
-						public boolean isCellEditable(int row, int columnIndex) {
-					        return (columnIndex == 0);
-					    }
-
-						@Override
-						public void setValueAt(Object value, int rowIndex, int columnIndex) {
-							if (value instanceof Boolean) {
-								boolean checked = (Boolean) value;
-								if (this.rows.get(rowIndex).getDataPagamento() == null) {
-									this.rows.get(rowIndex).setPagar(checked);
-								}
-							}
-						}
-					});
-					labelSaldo.setText("Saldo: "+MkUtil.toString(financeiroService.getSaldo(cliente)));
-				} catch (Exception ex) {
-					MkDialog.error("Erro ao pesquisar", ex);
+	protected void atualizar() {
+		logger.debug("Executando atualizar");
+		
+		fieldCliente.setText(cliente.getNome());
+		
+		Map<String, Object> where = new HashMap<String, Object>();
+		where.put("cliente_id", cliente.getId());
+		where.put("before_data_cadastro", new Date());
+		
+		try {
+			List<Financeiro> list = financeiroService.findAll(where);
+			table.setModel(new MkTableModel<Financeiro>(list, " ","Data", "Referência", "Valor", "Data Pagamento") {
+				@Override
+				protected Object getRow(Financeiro bean, int rowIndex, int columnIndex) {
+					switch (columnIndex) {
+					case 0:
+						return bean.getPagar();
+					case 1:
+						return MkUtil.toString(bean.getDataCadastro());
+					case 2:
+						return bean.getReferencia();	
+					case 3:
+						return MkUtil.toString(bean.getValor());
+					case 4:
+						return MkUtil.toString(bean.getDataPagamento());	
+					}
+					return bean;
 				}
-				table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+				@Override
+				public boolean isCellEditable(int row, int columnIndex) {
+			        return (columnIndex == 0);
+			    }
+
+				@Override
+				public void setValueAt(Object value, int rowIndex, int columnIndex) {
+					if (value instanceof Boolean) {
+						boolean checked = (Boolean) value;
+						if (this.rows.get(rowIndex).getDataPagamento() == null) {
+							this.rows.get(rowIndex).setPagar(checked);
+						}
+					}
+				}
+			});
+			labelSaldo.setText("Saldo: "+MkUtil.toString(financeiroService.getSaldo(cliente)));
+			if (list.size()>0) {
 				table.getColumnModel().getColumn(0).setPreferredWidth(40);
 				table.getColumnModel().getColumn(1).setPreferredWidth(100);
 				table.getColumnModel().getColumn(2).setPreferredWidth(300);
 				table.getColumnModel().getColumn(3).setPreferredWidth(90);
 				table.getColumnModel().getColumn(4).setPreferredWidth(120);
-
+			}
+		} catch (Exception ex) {
+			MkDialog.error("Erro ao pesquisar", ex);
+		}
 	}
 	
 	private MkRun abrirFinanceiro(final boolean isNew) {
@@ -180,7 +180,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 							logger.error("Erro Executando pagarSelecionados", ex);
 							MkDialog.error(ex.getMessage(), ex);
 						} finally {
-							pesquisar();
+							atualizar();
 						}
 					}
 				}

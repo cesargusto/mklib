@@ -24,6 +24,7 @@ import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonAdicionar;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonAtualizar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonExcluir;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonNovo;
@@ -35,6 +36,7 @@ import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldDate;
 import br.com.maikosoft.layout.swing.MkFieldMask;
 import br.com.maikosoft.layout.swing.MkFieldMask.EnumMkMask;
+import br.com.maikosoft.layout.swing.EnumMkButton;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkTextArea;
@@ -70,6 +72,7 @@ public class JanelaClienteCadastro extends MkWindow {
 	private MkComboBox<String> comboDiaPagamentoMensalidade;
 	private JLabel labelSaldoFinanceiro;
 	private MkButtonPesquisar buttonConsultaFinanceiro;
+	private MkButtonAtualizar buttonAtualizarFinanceiro;
 	
 	private MkButtonNovo buttonNovo;
 	private MkButtonSalvar buttonSalvar;
@@ -101,8 +104,12 @@ public class JanelaClienteCadastro extends MkWindow {
 		MkPanelTable panelTableMensalidade = new MkPanelTable();
 		panelTableMensalidade.setTitle("Mensalidade");
 		panelTableMensalidade.addRow("Dia Pagamento:", comboDiaPagamentoMensalidade, "Valor:", fieldValorMensalidade);
-		panelTableMensalidade.addRow("Saldo Financeiro:", labelSaldoFinanceiro, buttonConsultaFinanceiro);
+		panelTableMensalidade.addRow(buttonConsultaFinanceiro, MkPanelTable.getDefaultCell(2), "Saldo: ", labelSaldoFinanceiro, buttonAtualizarFinanceiro);
 		panelTable.addRow(panelTableMensalidade);
+		buttonConsultaFinanceiro.setIcon(EnumMkButton.getIcon("dinheiro"));
+		buttonConsultaFinanceiro.setText("Consultar Financeiro");
+		buttonAtualizarFinanceiro.setText("");
+		
 		
 		panelTableModalidadeMensalidade.addRow(panelTableMensalidade);
 		
@@ -134,7 +141,6 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldId.setEnabled(false);
 		fieldValorMensalidade.setMask(EnumMkMask.CURRENCY);
 		fieldValorMensalidade.setEditable(false);
-		buttonConsultaFinanceiro.setText("Consulta Financeiro");
 		
 		comboDiaPagamentoMensalidade.setList(Arrays.asList("01","05", "10", "15", "20", "25"));
 	
@@ -263,18 +269,9 @@ public class JanelaClienteCadastro extends MkWindow {
 		comboDiaPagamentoMensalidade.setEnabled(isEditMode);
 		
 		atualizaListaModalidade();
+		atualizar();
 		
-		try {
-			BigDecimal saldo = financeiroService.getSaldo(bean);
-			if (saldo.compareTo(BigDecimal.ZERO) < 0) {
-				labelSaldoFinanceiro.setText("<html><b><font color=red>"+MkUtil.toString(saldo)+"</font></b></html>");
-			} else {
-				labelSaldoFinanceiro.setText("<html><b><font color=blue>EM DIA</font></b></html>");
-			}
-		} catch (MkServiceException ex) {
-			MkDialog.error(ex.getMessage(), ex);
-		}
-		
+		buttonAtualizarFinanceiro.setEnabled(!isEditMode);
 		buttonConsultaFinanceiro.setEnabled(!isEditMode);
 		
 		buttonNovo.setEnabled(!isEditMode);
@@ -337,6 +334,19 @@ public class JanelaClienteCadastro extends MkWindow {
 	protected void pesquisar() {
 		JanelaFinanceiroConsulta janelaFinanceiroConsulta = new JanelaFinanceiroConsulta(bean);
 		janelaFinanceiroConsulta.showView("Financeiro", false);
+	}
+	
+	protected void atualizar() {
+		try {
+			BigDecimal saldo = financeiroService.getSaldo(bean);
+			if (saldo.compareTo(BigDecimal.ZERO) < 0) {
+				labelSaldoFinanceiro.setText("<html><b><font color=red>"+MkUtil.toString(saldo)+"</font></b></html>");
+			} else {
+				labelSaldoFinanceiro.setText("<html><b><font color=blue>EM DIA</font></b></html>");
+			}
+		} catch (MkServiceException ex) {
+			MkDialog.error(ex.getMessage(), ex);
+		}
 	}
 
 }

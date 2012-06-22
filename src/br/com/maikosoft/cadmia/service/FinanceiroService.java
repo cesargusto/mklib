@@ -13,6 +13,8 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.Financeiro;
@@ -87,6 +89,7 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 		}
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public void pagar(LinkedList<Financeiro> list) throws MkServiceException {
 		try {
 			for (Financeiro financeiro : list) {
