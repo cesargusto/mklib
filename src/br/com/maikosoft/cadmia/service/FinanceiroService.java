@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -83,6 +84,18 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 			return saldo;			
 		} catch (MkDAOException exception) {
 			throw new MkServiceException("Erro obtendo saldo cliente #"+cliente.getId(), exception);
+		}
+	}
+
+	public void pagar(LinkedList<Financeiro> list) throws MkServiceException {
+		try {
+			for (Financeiro financeiro : list) {
+				financeiro.setDataPagamento(new Date());
+				this.genericDao.update(financeiro);
+			}
+		} catch (MkDAOException exception) {
+			throw new MkServiceException("Erro efetuando pagamento financeiro",
+					exception);
 		}
 	}
 	
