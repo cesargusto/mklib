@@ -29,7 +29,7 @@ public abstract class MkTableModel<T> extends AbstractTableModel {
 	    // a table invoca este método para obter o nome de cada coluna
 	    @Override
 	    public String getColumnName(int index) {
-	    	if (rows.size() ==0 ) {
+	    	if (getRowCount() ==0 ) {
 	    		return "Nenhum Registro";
 	    	} else {
 	    		return columnName[index];

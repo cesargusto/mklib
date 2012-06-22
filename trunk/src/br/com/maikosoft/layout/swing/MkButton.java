@@ -72,6 +72,12 @@ public class MkButton extends JButton {
     	}
 	}
     
+    public class MkButtonAtualizar extends MkButton {
+    	public MkButtonAtualizar() {
+    		super(EnumMkButton.ATUALIZAR);
+    	}
+	}
+    
     public class MkButtonCancelar extends MkButton {    	
     	public MkButtonCancelar() {
     		super(EnumMkButton.CANCELAR);

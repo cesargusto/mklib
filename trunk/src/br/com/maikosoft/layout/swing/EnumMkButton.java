@@ -11,6 +11,7 @@ public enum EnumMkButton {
 	ABRIR("A&brir"),
 	ADICIONAR("A&dicionar"),
 	ARQUIVO("&Arquivo"),
+	ATUALIZAR("&Atualizar"),
 	CANCELAR("&Cancelar"),
 	CONFIRMAR("C&onfirmar"),    	
 	EDITAR("&Editar"),
@@ -31,9 +32,13 @@ public enum EnumMkButton {
 	}
 	
 	public Icon getIcon() {
-		return new ImageIcon(getClass().getClassLoader().getResource("resource/icon/"+this.toString()+".png"));
+		return EnumMkButton.getIcon(this.toString());
 	}
-
+	
+	public static Icon getIcon(String nome) {
+		return new ImageIcon(EnumMkButton.class.getClassLoader().getResource("resource/icon/"+nome+".png"));
+	}
+	
 	@Override
 	public String toString() {
 		return name().toLowerCase();
