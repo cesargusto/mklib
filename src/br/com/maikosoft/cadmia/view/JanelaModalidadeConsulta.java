@@ -8,16 +8,16 @@ import org.apache.log4j.Logger;
 import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.cadmia.service.ModalidadeService;
+import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkTransferObject;
+import br.com.maikosoft.core.MkUtil;
 import br.com.maikosoft.layout.swing.EnumMkButton;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonTransferir;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
-import br.com.maikosoft.layout.swing.MkRun;
 import br.com.maikosoft.layout.swing.MkTable;
 import br.com.maikosoft.layout.swing.MkTableModel;
-import br.com.maikosoft.layout.swing.MkUtil;
 import br.com.maikosoft.layout.swing.MkWindow;
 
 @SuppressWarnings("serial")

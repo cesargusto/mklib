@@ -2,8 +2,8 @@ package br.com.maikosoft.cadmia.menu;
 
 import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.cadmia.view.JanelaLancaMensalidades;
+import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.layout.swing.MkMenu;
-import br.com.maikosoft.layout.swing.MkRun;
 
 public class MenuMovimentacaoLancarMensalidades extends MkMenu {
 

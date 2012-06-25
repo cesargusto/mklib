@@ -15,6 +15,8 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 
+import br.com.maikosoft.core.MkRun;
+
 /**
  *
  * @author michael

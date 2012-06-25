@@ -35,6 +35,8 @@ import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import br.com.maikosoft.core.MkRun;
+
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
 
 

@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
+import br.com.maikosoft.core.MkRun;
+
 /**
  *
  * @author michael

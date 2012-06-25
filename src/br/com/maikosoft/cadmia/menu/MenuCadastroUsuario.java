@@ -1,12 +1,12 @@
 package br.com.maikosoft.cadmia.menu;
 
-import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.EnumMenu;
-import br.com.maikosoft.cadmia.view.JanelaClienteCadastro;
+import br.com.maikosoft.cadmia.Usuario;
+import br.com.maikosoft.cadmia.view.JanelaUsuarioCadastro;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.layout.swing.MkMenu;
 
-public class MenuCadastroCliente extends MkMenu {
+public class MenuCadastroUsuario extends MkMenu {
 
 	@Override
 	public MkRun getAcao() {
@@ -14,20 +14,22 @@ public class MenuCadastroCliente extends MkMenu {
 			
 			@Override
 			public void execute() {
-				JanelaClienteCadastro janela = new JanelaClienteCadastro(new Cliente());
-				janela.showView("Cadastro Cliente", false);
+				JanelaUsuarioCadastro janela = new JanelaUsuarioCadastro(new Usuario());
+				janela.showView("Cadastro Usuário", false);
+				janela.novo();
+				
 			}
 		};
 	}
 
 	@Override
 	public String getTitulo() {
-		return "Novo Cliente";
+		return "Novo Usuário";
 	}
 
 	@Override
 	public MkMenu getPai() {
-		return EnumMenu.CADASTRO_CLIENTE.getMenu();
+		return EnumMenu.CADASTRO_USUARIO.getMenu();
 	}
 
 }

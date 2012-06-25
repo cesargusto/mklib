@@ -10,6 +10,8 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 
+import br.com.maikosoft.core.MkRun;
+
 @SuppressWarnings("serial")
 public class MkTable<T> extends JTable {
 	

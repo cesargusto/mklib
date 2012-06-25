@@ -1,4 +1,4 @@
-package br.com.maikosoft.layout.swing;
+package br.com.maikosoft.core;
 
 public abstract class MkRun {
 
