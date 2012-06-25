@@ -1,39 +1,37 @@
 package br.com.maikosoft.cadmia.view;
 
-import java.awt.GridBagConstraints;
+import javax.swing.JCheckBox;
+import javax.swing.JPasswordField;
 
-import br.com.maikosoft.cadmia.Modalidade;
-import br.com.maikosoft.cadmia.service.ModalidadeService;
+import br.com.maikosoft.cadmia.Usuario;
+import br.com.maikosoft.cadmia.service.UsuarioService;
 import br.com.maikosoft.core.MkUtil;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonExcluir;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonNovo;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonSalvar;
 import br.com.maikosoft.layout.swing.MkDialog;
-import br.com.maikosoft.layout.swing.MkFieldMask;
-import br.com.maikosoft.layout.swing.MkFieldMask.EnumMkMask;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
-import br.com.maikosoft.layout.swing.MkTextArea;
 import br.com.maikosoft.layout.swing.MkWindow;
 
 @SuppressWarnings("serial")
-public class JanelaModalidadeCadastro extends MkWindow {
+public class JanelaUsuarioCadastro extends MkWindow {
 	
 	private MkFieldText fieldId;
 	private MkFieldText fieldNome;
-	private MkFieldMask fieldValor;
-	private MkTextArea textObservacao;
+	private JPasswordField fieldSenha;
+	private JCheckBox checkBoxAtivo;
 	
 	private MkButtonNovo buttonNovo;
 	private MkButtonSalvar buttonSalvar;
 	private MkButtonEditar buttonEditar;
 	private MkButtonExcluir buttonExcluir;
 		
-	private Modalidade bean;
-	private ModalidadeService modalidadeService;
+	private Usuario bean;
+	private UsuarioService usuarioService;
 	
-	public JanelaModalidadeCadastro(Modalidade bean) {
+	public JanelaUsuarioCadastro(Usuario bean) {
 		this.bean = bean;
 	}
 
@@ -42,13 +40,12 @@ public class JanelaModalidadeCadastro extends MkWindow {
 		
 		MkPanelTable panelTable = new MkPanelTable();
 		panelTable.addRow("Nome:",fieldNome);
-		panelTable.addRow("Valor:", fieldValor, GridBagConstraints.NONE);
-		panelTable.addRow(textObservacao.getJScrollPane("Observação"), GridBagConstraints.BOTH);
+		panelTable.addRow("Senha:", fieldSenha);
+		panelTable.addRow("", checkBoxAtivo);
 		
-		addPanelCenter(panelTable, 500, 250);
-		fieldValor.setColumns(10);
-		fieldValor.setMask(EnumMkMask.CURRENCY);
+		addPanelCenter(panelTable, 350, 150);
 		fieldId.setEnabled(false);
+		checkBoxAtivo.setText("Ativo");
 	
 		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir);
 		
@@ -56,7 +53,7 @@ public class JanelaModalidadeCadastro extends MkWindow {
 	}
 	
 	public void novo() {
-		bean = new Modalidade();
+		bean = new Usuario();
 		beanToForm(true);
 	}
 
@@ -67,17 +64,19 @@ public class JanelaModalidadeCadastro extends MkWindow {
 	protected void salvar() {
 		try {
 			bean.setNome(fieldNome.getText());
-			bean.setValor(MkUtil.toBigDecimal(fieldValor.getText()));
-			bean.setObservacao(textObservacao.getText());
+			if (fieldSenha.getPassword().length != 0 ) {
+				bean.setSenha(MkUtil.getHash(new String(fieldSenha.getPassword()), "SHA-256"));
+			}
+			bean.setAtivo(checkBoxAtivo.isSelected());
 
 			if (bean.getId() == null) {
-				modalidadeService.insert(bean);
+				usuarioService.insert(bean);
 			} else {
-				modalidadeService.update(bean);
+				usuarioService.update(bean);
 			}
-			MkDialog.info("Modalidade salvo com sucesso");
+			MkDialog.info("Usuário salvo com sucesso");
 
-			bean = modalidadeService.findById(bean.getId());
+			bean = usuarioService.findById(bean.getId());
 			beanToForm(false);
 
 		} catch (Exception ex) {
@@ -88,8 +87,8 @@ public class JanelaModalidadeCadastro extends MkWindow {
 	protected void excluir() {
 		if (MkDialog.confirm("Deseja excluir esse registro?")) {
 			try {
-				modalidadeService.delete(bean.getId());
-				MkDialog.info("Modalidade excluido com sucesso");
+				usuarioService.delete(bean.getId());
+				MkDialog.info("Usuário excluido com sucesso");
 				fecharJanela();
 			} catch (Exception ex) {
 				MkDialog.error(ex.getMessage(), ex);
@@ -105,12 +104,12 @@ public class JanelaModalidadeCadastro extends MkWindow {
 			fieldId.setText(bean.getId()+"");
 		}
 		fieldNome.setText(bean.getNome());
-		fieldValor.setValue(bean.getValor());
-		textObservacao.setText(bean.getObservacao());
-		
 		fieldNome.setEditable(isEditMode);
-		fieldValor.setEditable(isEditMode);
-		textObservacao.setEditable(isEditMode);
+		
+		checkBoxAtivo.setSelected(bean.getAtivo());
+		checkBoxAtivo.setEnabled(isEditMode);
+		
+		fieldSenha.setEditable(isEditMode);
 		
 		buttonNovo.setEnabled(!isEditMode);
 		buttonSalvar.setEnabled(isEditMode);

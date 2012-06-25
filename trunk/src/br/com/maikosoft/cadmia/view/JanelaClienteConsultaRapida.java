@@ -9,10 +9,10 @@ import org.springframework.util.StringUtils;
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.cadmia.service.ClienteService;
+import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldText;
-import br.com.maikosoft.layout.swing.MkRun;
 import br.com.maikosoft.layout.swing.MkWindow;
 
 @SuppressWarnings("serial")

@@ -23,6 +23,7 @@ import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.core.MkTransferObject;
+import br.com.maikosoft.core.MkUtil;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonAdicionar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonAtualizar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
@@ -40,7 +41,6 @@ import br.com.maikosoft.layout.swing.EnumMkButton;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkTextArea;
-import br.com.maikosoft.layout.swing.MkUtil;
 import br.com.maikosoft.layout.swing.MkWindow;
 
 @SuppressWarnings("serial")

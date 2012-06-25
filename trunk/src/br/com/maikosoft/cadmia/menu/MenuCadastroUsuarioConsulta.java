@@ -1,30 +1,30 @@
 package br.com.maikosoft.cadmia.menu;
 
 import br.com.maikosoft.cadmia.EnumMenu;
-import br.com.maikosoft.cadmia.view.JanelaClienteConsulta;
+import br.com.maikosoft.cadmia.view.JanelaUsuarioConsulta;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.layout.swing.MkMenu;
 
-public class MenuCadastroClienteConsulta extends MkMenu {
+public class MenuCadastroUsuarioConsulta extends MkMenu {
 
 	@Override
 	public MkRun getAcao() {
 		return new MkRun() {			
 			@Override
 			public void execute() {
-				new JanelaClienteConsulta().showView("Consultar Cliente", false);
+				new JanelaUsuarioConsulta().showView("Consultar Usuário", false);
 			}
 		};
 	}
 
 	@Override
 	public String getTitulo() {
-		return "Consultar Cliente";
+		return "Consultar Usuário";
 	}
 
 	@Override
 	public MkMenu getPai() {
-		return EnumMenu.CADASTRO_CLIENTE.getMenu();
+		return EnumMenu.CADASTRO_USUARIO.getMenu();
 	}
 
 }

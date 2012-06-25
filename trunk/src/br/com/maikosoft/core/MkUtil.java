@@ -1,8 +1,9 @@
-package br.com.maikosoft.layout.swing;
+package br.com.maikosoft.core;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -11,6 +12,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.springframework.util.StringUtils;
+
 
 public class MkUtil {
 
@@ -26,22 +30,22 @@ public class MkUtil {
 		return dateFormat.format(data);
 	}
 
-	public static Date toDate(String data) throws MkException {
-		if ((data == null) || (data.trim().length() == 0)) {
+	public static Date toDate(String value) throws MkException {
+		if (!StringUtils.hasText(value)) {
 			return null;
 		}
 
 		Pattern p = Pattern
 				.compile("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
-		Matcher m = p.matcher(data);
+		Matcher m = p.matcher(value);
 		if (!m.find()) {
-			throw new MkException("Data inválida: " + data);
+			throw new MkException("Data inválida: " + value);
 		}
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		try {
-			return dateFormat.parse(data);
+			return dateFormat.parse(value);
 		} catch (ParseException e) {
-			throw new MkException("Data inválida: " + data);
+			throw new MkException("Data inválida: " + value);
 		}
 	}
 
@@ -62,7 +66,7 @@ public class MkUtil {
 	}
 
 	public static BigDecimal toBigDecimal(String value) {
-		if ((value == null) || (value.length() == 0)) {
+		if (!StringUtils.hasText(value)) {
 			return null;
 		}
 
@@ -113,5 +117,32 @@ public class MkUtil {
 		BigDecimal bigDecimal = toBigDecimal(value);
 		return (bigDecimal == null ? null : bigDecimal.longValue());
 	}
+	
+	public static String getHash(String value, String algoritimo) throws MkException {
+        try {
+        	if (!StringUtils.hasText(value)) {
+    			return null;
+    		}
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance(algoritimo);
+            md.reset();
+            md.update(value.getBytes());
+            byte[] digest1 = md.digest();
+
+            StringBuilder encryptedPassword = new StringBuilder();
+            for (int i = 0; i < digest1.length; i++) {
+                String hex = Integer.toHexString(0xFF & digest1[i]);
+                if (hex.length() == 1) {
+                    encryptedPassword.append("0").append(hex);
+                } else {
+                    encryptedPassword.append(hex);
+                }
+            }
+            
+            return encryptedPassword.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new MkException("Algoritimo não é suportado #"+algoritimo);
+        }
+    }
 
 }

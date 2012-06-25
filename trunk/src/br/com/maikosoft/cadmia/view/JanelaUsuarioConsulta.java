@@ -4,10 +4,12 @@ import java.awt.GridBagConstraints;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
-import br.com.maikosoft.cadmia.Cliente;
+
 import br.com.maikosoft.cadmia.EnumMenu;
-import br.com.maikosoft.cadmia.service.ClienteService;
+import br.com.maikosoft.cadmia.Usuario;
+import br.com.maikosoft.cadmia.service.UsuarioService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.layout.swing.EnumMkButton;
 import br.com.maikosoft.layout.swing.MkDialog;
@@ -18,15 +20,16 @@ import br.com.maikosoft.layout.swing.MkTableModel;
 import br.com.maikosoft.layout.swing.MkWindow;
 
 @SuppressWarnings("serial")
-public class JanelaClienteConsulta extends MkWindow {
+public class JanelaUsuarioConsulta extends MkWindow {
 	
-	private static final Logger logger = Logger.getLogger(JanelaClienteConsulta.class);
+	private static final Logger logger = Logger.getLogger(JanelaUsuarioConsulta.class);
 	
 	private MkFieldText fieldBusca;
 	private MkPanelTable panelCenter;
-	private MkTable<Cliente> table;
+	private MkTable<Usuario> table;
 	
-	private ClienteService clienteService;
+	private UsuarioService usuarioService;
+	
 	
 	@Override
 	protected void initWindow() {
@@ -38,7 +41,8 @@ public class JanelaClienteConsulta extends MkWindow {
 		
 		addPanelButton(true, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
 		
-		fieldBusca.onEnter(pesquisar());		
+		fieldBusca.onEnter(pesquisar());
+		
 		table.onDoubleClickOrEnter(abrir());
 		
 	}
@@ -47,10 +51,10 @@ public class JanelaClienteConsulta extends MkWindow {
 		return new MkRun() {
 			@Override
 			public void execute() {
-				Cliente bean = table.getSeleted(true);
+				Usuario bean = table.getSeleted(true);
 				if (bean !=null) {
-					JanelaClienteCadastro view = new JanelaClienteCadastro(bean);
-					view.showView("Cadastro Cliente", false);					
+					JanelaUsuarioCadastro view = new JanelaUsuarioCadastro(bean);
+					view.showView("Cadastro Usuario", false);					
 				}
 			}
 		}; 
@@ -64,14 +68,18 @@ public class JanelaClienteConsulta extends MkWindow {
 				Map<String, Object> where = new HashMap<String, Object>();
 				where.put("nomeOrId", fieldBusca.getText());
 				try {
-					List<Cliente> list = clienteService.findAll(where);
-					table.setModel(new MkTableModel<Cliente>(list, "Nome") {
+					List<Usuario> list = usuarioService.findAll(where);
+					table.setModel(new MkTableModel<Usuario>(list, "Nome", "Ativo") {
 						@Override
-						protected Object getRow(Cliente bean, int rowIndex, int columnIndex) {
-							return bean.getNome();
+						protected Object getRow(Usuario bean, int rowIndex, int columnIndex) {
+							switch (columnIndex) {
+							case 1:
+								return bean.getAtivo();
+							default:
+								return bean.getNome();
+							}
 						}
 					});
-					
 				} catch (Exception ex) {
 					MkDialog.error("Erro ao pesquisar", ex);
 				}
@@ -80,7 +88,7 @@ public class JanelaClienteConsulta extends MkWindow {
 	}
 	
 	protected MkRun novo() {
-		return EnumMenu.CADASTRO_CLIENTE_NOVO.getMenu().getAcao();
+		return EnumMenu.CADASTRO_USUARIO_NOVO.getMenu().getAcao();
 	}
 
 }

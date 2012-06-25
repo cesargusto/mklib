@@ -26,6 +26,8 @@ import javax.swing.Timer;
 
 import org.apache.log4j.Logger;
 
+import br.com.maikosoft.core.MkRun;
+
 
 @SuppressWarnings("serial")
 public class MkDialog extends MkWindow {

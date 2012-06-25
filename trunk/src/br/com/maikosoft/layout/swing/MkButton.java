@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import br.com.maikosoft.core.MkRun;
+
 /**
  *
  * @author michael

@@ -7,6 +7,8 @@ import javax.swing.ImageIcon;
 
 import org.springframework.util.ReflectionUtils;
 
+import br.com.maikosoft.core.MkRun;
+
 public enum EnumMkButton {
 	ABRIR("A&brir"),
 	ADICIONAR("A&dicionar"),

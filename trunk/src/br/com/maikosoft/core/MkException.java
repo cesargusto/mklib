@@ -1,4 +1,4 @@
-package br.com.maikosoft.layout.swing;
+package br.com.maikosoft.core;
 
 @SuppressWarnings("serial")
 public class MkException extends Exception {

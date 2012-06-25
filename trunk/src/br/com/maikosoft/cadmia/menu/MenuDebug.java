@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 import br.com.maikosoft.cadmia.EnumMenu;
+import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkMenu;
-import br.com.maikosoft.layout.swing.MkRun;
 
 public class MenuDebug extends MkMenu {
 	

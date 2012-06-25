@@ -16,6 +16,8 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
+import br.com.maikosoft.core.MkRun;
+
 @SuppressWarnings("serial")
 public class MkFieldMask extends JFormattedTextField {
 	

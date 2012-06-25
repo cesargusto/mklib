@@ -20,6 +20,7 @@ import org.apache.commons.lang.reflect.FieldUtils;
 import org.apache.log4j.Logger;
 import org.springframework.util.ReflectionUtils;
 
+import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkService;
 
 
