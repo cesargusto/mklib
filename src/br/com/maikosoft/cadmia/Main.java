@@ -3,6 +3,7 @@ package br.com.maikosoft.cadmia;
 import javax.swing.JInternalFrame;
 
 import br.com.maikosoft.cadmia.view.JanelaClienteConsultaRapida;
+import br.com.maikosoft.cadmia.view.JanelaLogin;
 import br.com.maikosoft.layout.swing.MkApplication;
 
 public class Main {
@@ -11,8 +12,8 @@ public class Main {
 		
 		MkApplication application = MkApplication.getInstance();
 		application.init("CadMia");
-		
-		application.setLocation(400, 300);
+			
+		JanelaLogin.getInstance().login();
 		
 		application.updateMkMenu(EnumMenu.getListMenus());
 		

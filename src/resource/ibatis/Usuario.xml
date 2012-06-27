@@ -22,7 +22,7 @@
 				id::varchar = #id#
 			</isNotNull>
 			<isNotNull prepend="and" property="ativo">			
-				id = #ativo#
+				ativo = #ativo#
 			</isNotNull>	
 			<isNotNull prepend="and" property="senha">			
 				senha = #senha#
