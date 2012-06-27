@@ -37,13 +37,10 @@ public class JanelaLogin extends MkWindow {
 	private UsuarioService usuarioService;	
 	private static JanelaLogin instance;
 	private Usuario usuarioLogado;
-	private int tentativa = 0;
 	
+	private int tentativa = 0;
 	private long tempo = 0;
-    private long tempoLimite = 5000;
-    private Timer timer;
-    private TimerTask task;
-    private Thread sessao;
+    private long tempoLimite = 300000;
 	
 	public static JanelaLogin getInstance() {
 		if (instance == null) {
@@ -51,7 +48,7 @@ public class JanelaLogin extends MkWindow {
 			instance = new JanelaLogin();
 			instance.iniciaVerificacao();
 			instance.iniciaListeners();
-			instance.login();
+			instance.showWindow("Login", true);
 		}
 		return instance;
 	}
@@ -106,14 +103,9 @@ public class JanelaLogin extends MkWindow {
 	}
 	
 	private void login() {
-		if (usuarioLogado == null) {
-			this.showWindow("Login", true);
-			sessao.start();
-		} else {
-			fieldNome.setEnabled(false);
-			JDialog window = (JDialog) this.getRootPane().getParent();
-			window.setVisible(true);
-		}
+		fieldNome.setEnabled(false);
+		JDialog window = (JDialog) this.getRootPane().getParent();
+		window.setVisible(true);
 	}
 
 	public Usuario getUsuarioLogado() {
@@ -145,17 +137,17 @@ public class JanelaLogin extends MkWindow {
     }
 	
 	private void iniciaVerificacao() {
-        task = new TimerTask() {
+		TimerTask task = new TimerTask() {
 
             @Override
             public void run() {
                 tempo += 1000;
             }
         };
-        timer = new Timer();
+        Timer timer = new Timer();
         timer.scheduleAtFixedRate(task, 0, 1000);
         
-        sessao = new Thread() {
+        Thread sessao = new Thread() {
         	@Override
           public void run() {
               while (true) {
@@ -172,5 +164,6 @@ public class JanelaLogin extends MkWindow {
               }
           }
         };
+        sessao.start();
     }
 }
