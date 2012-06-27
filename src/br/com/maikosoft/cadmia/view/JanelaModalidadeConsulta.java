@@ -63,7 +63,7 @@ public class JanelaModalidadeConsulta extends MkWindow {
 				Modalidade bean = table.getSeleted(true);
 				if (bean !=null) {
 					JanelaModalidadeCadastro view = new JanelaModalidadeCadastro(bean);
-					view.showView("Cadastro Modalidade", false);					
+					view.showWindow("Cadastro Modalidade", false);					
 				}
 			}
 		}; 

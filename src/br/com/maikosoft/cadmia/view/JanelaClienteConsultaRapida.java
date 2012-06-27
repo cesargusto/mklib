@@ -40,7 +40,7 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 						if (list.size() == 0) {
 							MkDialog.warm("Cliente não encontrado");
 						} else {
-							new JanelaClienteCadastro(list.get(0)).showView("Cadastro Cliente", false);
+							new JanelaClienteCadastro(list.get(0)).showWindow("Cadastro Cliente", false);
 						}
 						fieldBusca.setText("");
 					} else {

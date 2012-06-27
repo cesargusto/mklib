@@ -180,9 +180,9 @@ public class MkApplication extends JFrame {
         	        		
 	}
 	
-	public void disposeView(Component macWindow) {
+	public void disposeWindow(Component mkWindow) {
 	       
-        JPanel panel = (JPanel) macWindow;
+        JPanel panel = (JPanel) mkWindow;
        
         Container window = panel.getRootPane().getParent();
        
@@ -207,7 +207,7 @@ public class MkApplication extends JFrame {
        
     }
 	
-	public Object showView(MkWindow macWindow, String title, boolean isModal) {
+	public Object showWindow(MkWindow macWindow, String title, boolean isModal) {
         if (isModal) {
             JDialog modalFrame = new JDialog(this, title, true);
             //macWindow.setJanela(modalFrame);

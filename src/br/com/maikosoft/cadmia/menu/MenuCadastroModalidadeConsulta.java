@@ -12,7 +12,7 @@ public class MenuCadastroModalidadeConsulta extends MkMenu {
 		return new MkRun() {			
 			@Override
 			public void execute() {
-				new JanelaModalidadeConsulta().showView("Consultar Modalidade", false);
+				new JanelaModalidadeConsulta().showWindow("Consultar Modalidade", false);
 			}
 		};
 	}

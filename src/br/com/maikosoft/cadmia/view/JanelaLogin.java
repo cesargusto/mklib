@@ -1,7 +1,18 @@
 package br.com.maikosoft.cadmia.view;
 
+import java.awt.AWTEvent;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.Toolkit;
+import java.awt.event.AWTEventListener;
+import java.awt.event.KeyEvent;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.JDialog;
 import javax.swing.JPasswordField;
 
+import org.apache.log4j.Logger;
 import org.springframework.util.StringUtils;
 
 import br.com.maikosoft.cadmia.Usuario;
@@ -16,6 +27,8 @@ import br.com.maikosoft.layout.swing.MkWindow;
 @SuppressWarnings("serial")
 public class JanelaLogin extends MkWindow {
 	
+	private static final Logger logger = Logger.getLogger(JanelaLogin.class);
+	
 	private MkFieldText fieldNome;
 	private JPasswordField fieldSenha;
 	
@@ -26,9 +39,19 @@ public class JanelaLogin extends MkWindow {
 	private Usuario usuarioLogado;
 	private int tentativa = 0;
 	
+	private long tempo = 0;
+    private long tempoLimite = 5000;
+    private Timer timer;
+    private TimerTask task;
+    private Thread sessao;
+	
 	public static JanelaLogin getInstance() {
 		if (instance == null) {
+			logger.debug("iniciou instancia janela login");
 			instance = new JanelaLogin();
+			instance.iniciaVerificacao();
+			instance.iniciaListeners();
+			instance.login();
 		}
 		return instance;
 	}
@@ -45,6 +68,15 @@ public class JanelaLogin extends MkWindow {
 		buttonLogin.setText("Entrar");
 		
 		addPanelButton(true, buttonLogin);
+		
+		this.onCloseView = new MkRun() {
+			@Override
+			public void execute() {
+				if (MkDialog.confirm("O sistema será fechado. Deseja continuar?")) {
+					System.exit(0);
+				}
+			}
+		};
 	}
 	
 	protected void confirmar() {
@@ -63,8 +95,9 @@ public class JanelaLogin extends MkWindow {
 			} else {
 				usuarioLogado = usuario;
 				fieldSenha.setText("");
-				this.onCloseView = null;
-				this.fecharJanela();
+				JDialog window = (JDialog) this.getRootPane().getParent();
+				window.setVisible(false);
+				tempo = 0L;
 			}
 		} else {
 			MkDialog.warm("Digite o nome e a senha");
@@ -72,19 +105,72 @@ public class JanelaLogin extends MkWindow {
 
 	}
 	
-	public void login() {
-		this.onCloseView = new MkRun() {
-			@Override
-			public void execute() {
-				if (MkDialog.confirm("O sistema será fechado. Deseja continuar?")) {
-					System.exit(0);
-				}
-			}
-		};
-		this.showView("Login", true);
+	private void login() {
+		if (usuarioLogado == null) {
+			this.showWindow("Login", true);
+			sessao.start();
+		} else {
+			fieldNome.setEnabled(false);
+			JDialog window = (JDialog) this.getRootPane().getParent();
+			window.setVisible(true);
+		}
 	}
 
 	public Usuario getUsuarioLogado() {
 		return usuarioLogado;
 	}
+	
+	private void iniciaListeners() {
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+
+            public boolean dispatchKeyEvent(KeyEvent e) {
+                tempo = 0;
+                return false;
+            }
+        });
+
+        Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
+
+            public void eventDispatched(AWTEvent event) {
+                tempo = 0;
+            }
+        }, AWTEvent.MOUSE_EVENT_MASK);
+
+        Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
+
+            public void eventDispatched(AWTEvent event) {
+                tempo = 0;
+            }
+        }, AWTEvent.MOUSE_MOTION_EVENT_MASK);
+    }
+	
+	private void iniciaVerificacao() {
+        task = new TimerTask() {
+
+            @Override
+            public void run() {
+                tempo += 1000;
+            }
+        };
+        timer = new Timer();
+        timer.scheduleAtFixedRate(task, 0, 1000);
+        
+        sessao = new Thread() {
+        	@Override
+          public void run() {
+              while (true) {
+                  if (usuarioLogado !=null) {
+                      if (tempo >= tempoLimite) {
+                    	  login();
+                      }
+                  }
+                  try {
+                      Thread.sleep(1000);
+                  } catch (Exception ex) {
+                	  logger.error("Erro sleep thread");
+                  }
+              }
+          }
+        };
+    }
 }

@@ -14,7 +14,7 @@ public class MenuMovimentacaoLancarMensalidades extends MkMenu {
 			@Override
 			public void execute() {
 				JanelaLancaMensalidades janela = new JanelaLancaMensalidades();
-				janela.showView("Lançar Mensalidades", true);
+				janela.showWindow("Lançar Mensalidades", true);
 			}
 		};
 	}

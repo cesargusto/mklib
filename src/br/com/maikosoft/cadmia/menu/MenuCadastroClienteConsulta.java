@@ -12,7 +12,7 @@ public class MenuCadastroClienteConsulta extends MkMenu {
 		return new MkRun() {			
 			@Override
 			public void execute() {
-				new JanelaClienteConsulta().showView("Consultar Cliente", false);
+				new JanelaClienteConsulta().showWindow("Consultar Cliente", false);
 			}
 		};
 	}

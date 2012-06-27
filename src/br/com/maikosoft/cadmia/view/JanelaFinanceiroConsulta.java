@@ -146,7 +146,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 				if (bean !=null) {
 					bean.setCliente(cliente);
 					JanelaFinanceiroCadastro view = new JanelaFinanceiroCadastro(bean);
-					view.showView("Cadastro Financeiro", false);
+					view.showWindow("Cadastro Financeiro", false);
 					if (isNew) {
 						view.novo();
 					}

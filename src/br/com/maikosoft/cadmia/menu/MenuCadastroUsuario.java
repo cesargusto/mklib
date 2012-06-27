@@ -15,7 +15,7 @@ public class MenuCadastroUsuario extends MkMenu {
 			@Override
 			public void execute() {
 				JanelaUsuarioCadastro janela = new JanelaUsuarioCadastro(new Usuario());
-				janela.showView("Cadastro Usuário", false);
+				janela.showWindow("Cadastro Usuário", false);
 				janela.novo();
 				
 			}

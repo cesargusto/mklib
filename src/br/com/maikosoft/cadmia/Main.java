@@ -13,12 +13,12 @@ public class Main {
 		MkApplication application = MkApplication.getInstance();
 		application.init("CadMia");
 			
-		JanelaLogin.getInstance().login();
+		JanelaLogin.getInstance();
 		
 		application.updateMkMenu(EnumMenu.getListMenus());
 		
 		JanelaClienteConsultaRapida consultaRapida = new JanelaClienteConsultaRapida();
-		JInternalFrame view = (JInternalFrame) consultaRapida.showView("Consulta Rápida", false);
+		JInternalFrame view = (JInternalFrame) consultaRapida.showWindow("Consulta Rápida", false);
 		view.setLocation(0, 0);
 		view.setMaximizable(false);
 		view.setClosable(false);

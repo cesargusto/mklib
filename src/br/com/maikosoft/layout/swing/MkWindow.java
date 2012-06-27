@@ -39,11 +39,11 @@ public abstract class MkWindow extends JPanel {
         this.onCloseView = onCloseView;
     }
    
-    public Object showView(String title, boolean isModal) {
+    public Object showWindow(String title, boolean isModal) {
     	logger.debug("executando showview");
     	initWindowDefault();
         initWindow();
-        return application.showView(this, title, isModal);
+        return application.showWindow(this, title, isModal);
     }
    
     protected abstract void initWindow();
@@ -52,7 +52,7 @@ public abstract class MkWindow extends JPanel {
 		logger.debug("fechando janela");
 		if (onCloseView == null) {
 			logger.debug("dispose");
-			application.disposeView(MkWindow.this);
+			application.disposeWindow(MkWindow.this);
 		} else {
 			logger.debug("oncloseview");
 			onCloseView.execute();
