@@ -159,17 +159,7 @@ public abstract class MkWindow extends JPanel {
             }
         }
     }
-   
-    public void setDefaultMacButton(final MkButton macButtonDefault) {
-    	final Component comp = this;
-    	SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				SwingUtilities.getRootPane(comp).setDefaultButton(macButtonDefault);
-			}
-		});
-    }   
-    
+       
     public void waitCursor(boolean isOn) {
     	if (isOn) {
     		SwingUtilities.getRootPane(this).getGlassPane().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));

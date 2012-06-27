@@ -52,7 +52,10 @@ public class MkDialog extends MkWindow {
 		textAreaMessage.setWrapStyleWord(true);
 		textAreaMessage.setText(this.message);
 		textAreaMessage.setCaretPosition(0);
-		textAreaMessage.setOpaque(true);
+		textAreaMessage.setEditable(false);
+		textAreaMessage.setFocusable(false);
+		textAreaMessage.setTransparent(true);
+		textAreaMessage.setOpaque(false);
 		
 		JLabel icon = new JLabel(new ImageIcon(this.getClass().getResource(enumDialog.icon)));
 		
@@ -66,10 +69,6 @@ public class MkDialog extends MkWindow {
 			}
 		});
 		
-		textAreaMessage.setEditable(false);
-		textAreaMessage.setFocusable(false);
-		textAreaMessage.setTransparent(true);
-		
 		JPanel panel = new JPanel(new GridBagLayout());
 		GridBagConstraints cell = new GridBagConstraints();
 		cell.insets = new Insets(15, 15, 15, 15);
@@ -82,14 +81,15 @@ public class MkDialog extends MkWindow {
 		cell.insets = new Insets(2, 2, 2, 2);
 		cell.gridx = 1;
 		cell.gridy = 0;
+		cell.weightx = 0.5d;
+		cell.weighty = 0.5d;
+		cell.fill = GridBagConstraints.BOTH;
 		panel.add(textAreaMessage, cell);				
 		
 		addPanelCenter(panel, (textAreaMessage.getText().length()<150 ? 500: 800), (textAreaMessage.getText().length()<150 ? 100: 300));
 		
 		MkButton buttonFechar = EnumMkButton.FECHAR.getButton(this);
 		addPanelButton(false, buttonFechar, buttonCopy);
-		
-		setDefaultMacButton(buttonFechar);
 	}
 	
 	protected MkRun fechar() {
@@ -119,61 +119,15 @@ public class MkDialog extends MkWindow {
             }
         });       
         t.start();
-        
-//        final JInternalFrame popFrame = new JInternalFrame();
-//        popFrame.add(labelMessage);
-//        popFrame.setFocusable(false);
-//        popFrame.setFrameIcon(new ImageIcon(MkDialog.class.getClassLoader().getResource("resource/icon/informacao.png")));
-//        popFrame.setTitle("Aviso");
-//        popFrame.pack();
-//       
-//        int x = (desktopSize.width - popFrame.getWidth())-20;
-//        int y = (desktopSize.height - popFrame.getHeight())-20;
-//       
-//        popFrame.setLocation((x < 0 ? 0 : x), (y < 0 ? 0 : y));
-//        desktopPane.add(popFrame);
-//        popFrame.setVisible(true);
-//       
-//        Timer t = new Timer(2000, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                popFrame.dispose();
-//            }
-//        });       
-//        t.start();
-//        
-//        JInternalFrame[] allFrames = desktopPane.getAllFrames();
-//        if (allFrames != null) {
-//            for (int i = allFrames.length; i > 0; i--) {
-//                if (allFrames[i - 1].isVisible() && allFrames[i - 1].isMaximizable()) {
-//                    desktopPane.getDesktopManager().activateFrame(allFrames[i - 1]);
-//                    allFrames[i - 1].requestFocusInWindow();
-//                }
-//            }
-//        }
 	}
-	
-//	public static void info(String message, String detail) {
-//		new MkDialog(EnumDialog.INFO, message, detail, true);
-//	}
-//	
 	public static void warm(String message) {
 		new MkDialog(EnumDialog.WARM, message);
 	}
-//	
-//	public static void warm(String message, boolean isVisibleCopyButton) {
-//		new MkDialog(EnumDialog.WARM, message, null, isVisibleCopyButton);
-//	}
-//	
-//	public static void warm(String message, String detail) {
-//		new MkDialog(EnumDialog.WARM, message, detail, true);
-//	}
-//	
+	
 	public static boolean confirm(String message) {
 		Object[] options = {"Sim", "Não"};		
 		Object result = question(message, options);
 		return ((result!=null) && (result.equals(options[0])));
-		
     }
 	
 	public static Object question(String message, Object[] options) {
@@ -192,17 +146,14 @@ public class MkDialog extends MkWindow {
 		return optionPane.getValue();
 		
     }
-
-//	
-//	public static void error(String message) {
-//		new MkDialog(EnumDialog.ERROR, message, null, false);
-//	}
 	
 	public static void error(String message, Throwable exception) {
 		logger.error(message, exception);
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
-		exception.printStackTrace(pw);
+		if (exception!=null) {
+			exception.printStackTrace(pw);
+		}
 		
 		new MkDialog(EnumDialog.ERROR, message+"\n"+sw.toString());
 		

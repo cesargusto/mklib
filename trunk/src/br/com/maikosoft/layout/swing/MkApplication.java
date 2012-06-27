@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -93,7 +94,11 @@ public class MkApplication extends JFrame {
         });
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setSize(1000,800);
-//		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		if (logger.isDebugEnabled()) {
+			this.setLocation(400, 300);
+		} else {
+			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		}
 		this.setLayout(new BorderLayout());
 		this.getContentPane().add(desktopPane, BorderLayout.CENTER);
 		desktopPane.setBackground(Color.WHITE);
@@ -225,6 +230,7 @@ public class MkApplication extends JFrame {
             int x = (desktopSize.width - modalFrame.getWidth()) / 2;
             int y = (desktopSize.height - modalFrame.getHeight()) / 2;
             modalFrame.setLocation((x < 0 ? 0 : x), (y < 0 ? 0 : y));           
+            modalFrame.getRootPane().setDefaultButton((JButton)macWindow.panelButton.getComponent(0));
             modalFrame.setVisible(true);
             return modalFrame;
         } else {
