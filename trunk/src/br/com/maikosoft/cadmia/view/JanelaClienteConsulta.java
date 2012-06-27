@@ -50,7 +50,7 @@ public class JanelaClienteConsulta extends MkWindow {
 				Cliente bean = table.getSeleted(true);
 				if (bean !=null) {
 					JanelaClienteCadastro view = new JanelaClienteCadastro(bean);
-					view.showView("Cadastro Cliente", false);					
+					view.showWindow("Cadastro Cliente", false);					
 				}
 			}
 		}; 

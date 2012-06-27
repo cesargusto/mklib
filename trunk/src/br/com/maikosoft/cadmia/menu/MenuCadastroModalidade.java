@@ -15,7 +15,7 @@ public class MenuCadastroModalidade extends MkMenu {
 			@Override
 			public void execute() {
 				JanelaModalidadeCadastro janela = new JanelaModalidadeCadastro(new Modalidade());
-				janela.showView("Cadastro Modalidade", false);
+				janela.showWindow("Cadastro Modalidade", false);
 				janela.novo();
 				
 			}

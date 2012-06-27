@@ -41,7 +41,7 @@ public class MkDialog extends MkWindow {
 		logger.debug("Chamando dialog tipo: "+enumDialog.name());
 		this.enumDialog = enumDialog;
 		this.message = message;
-		showView(enumDialog.title, true);
+		showWindow(enumDialog.title, true);
 	}
 		
 	@Override

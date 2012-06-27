@@ -312,7 +312,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		};
 		JanelaModalidadeConsulta janelaModalidadeConsulta = new JanelaModalidadeConsulta();
 		janelaModalidadeConsulta.setTranferir(transferObject);
-		janelaModalidadeConsulta.showView("Transferir Modalidade", false);
+		janelaModalidadeConsulta.showWindow("Transferir Modalidade", false);
 	}
 	
 	protected void remover() {
@@ -333,7 +333,7 @@ public class JanelaClienteCadastro extends MkWindow {
 	
 	protected void pesquisar() {
 		JanelaFinanceiroConsulta janelaFinanceiroConsulta = new JanelaFinanceiroConsulta(bean);
-		janelaFinanceiroConsulta.showView("Financeiro", false);
+		janelaFinanceiroConsulta.showWindow("Financeiro", false);
 	}
 	
 	protected void atualizar() {
