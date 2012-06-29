@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -144,5 +145,14 @@ public class MkUtil {
             throw new MkException("Algoritimo não é suportado #"+algoritimo);
         }
     }
+
+	public static Date setUltimaHora(Date date) {
+		Calendar instance = Calendar.getInstance();
+		instance.setTime(date);
+		instance.set(Calendar.HOUR_OF_DAY, 23);
+		instance.set(Calendar.MINUTE, 59);
+		instance.set(Calendar.SECOND, 59);
+		return instance.getTime();
+	}
 
 }

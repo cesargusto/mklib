@@ -47,7 +47,7 @@ import br.com.maikosoft.layout.swing.MkWindow;
 public class JanelaClienteCadastro extends MkWindow {
 	
 	private MkFieldText fieldId;
-	private MkFieldDate fieldDate;
+	private MkFieldDate fieldDataNascimento;
 	private MkFieldText fieldNome;
 	private MkFieldMask fieldCpf;
 	private MkFieldText fieldRg;
@@ -93,7 +93,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		
 		MkPanelTable panelTable = new MkPanelTable();
 		panelTable.addRow("Nome:",fieldNome, MkPanelTable.getDefaultCell(3), "Código:", fieldId);		
-		panelTable.addRow("CPF:", fieldCpf, "RG:", fieldRg, "Data Nacimento:", fieldDate, GridBagConstraints.NONE);
+		panelTable.addRow("CPF:", fieldCpf, "RG:", fieldRg, "Data Nacimento:", fieldDataNascimento, GridBagConstraints.NONE);
 		panelTable.addRow("Endereço:", fieldEndereco, MkPanelTable.getDefaultCell(3), "Numero:", fieldNumero);
 		panelTable.addRow("Bairro:", fieldBairro, "CEP:", fieldCep, "Cidade:", new MkPanelTable().addRow(fieldCidade, comboUf));
 		panelTable.addRow("Telefone 1:", fieldTelefone1, "Telefone 2:", fieldTelefone2, "Telefone 3:", fieldTelefone3);
@@ -162,6 +162,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		bean = new Cliente();
 		beanToForm(true);
 		fieldCidade.setText("Londrina");
+		comboUf.setSelected(EnumUF.PR);
 	}
 
 	protected void editar() {
@@ -171,7 +172,7 @@ public class JanelaClienteCadastro extends MkWindow {
 	protected void salvar() {
 		try {
 			bean.setNome(fieldNome.getText());
-			bean.setDataNascimento(fieldDate.getDate());
+			bean.setDataNascimento(fieldDataNascimento.getDate());
 			bean.setCpf(fieldCpf.getText());
 			bean.setRg(fieldRg.getText());
 			bean.setEndereco(fieldEndereco.getText());
@@ -190,6 +191,7 @@ public class JanelaClienteCadastro extends MkWindow {
 			bean.setCodigoBarra(fieldCodigoBarra.getText());
 
 			if (bean.getId() == null) {
+				bean.setOwner(JanelaLogin.getInstance().getUsuarioLogado().getId());
 				clienteService.insert(bean);
 			} else {
 				clienteService.update(bean);
@@ -228,7 +230,7 @@ public class JanelaClienteCadastro extends MkWindow {
 			fieldId.setText(bean.getId()+"");
 		}
 		fieldNome.setText(bean.getNome());
-		fieldDate.setText(MkUtil.toString(bean.getDataNascimento()));
+		fieldDataNascimento.setText(MkUtil.toString(bean.getDataNascimento()));
 		fieldCpf.setText(bean.getCpf());
 		fieldRg.setText(bean.getRg());
 		fieldEndereco.setText(bean.getEndereco());
@@ -247,7 +249,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldCodigoBarra.setText(bean.getCodigoBarra());
 		
 		fieldNome.setEditable(isEditMode);
-		fieldDate.setEditable(isEditMode);
+		fieldDataNascimento.setEditable(isEditMode);
 		fieldCpf.setEditable(isEditMode);
 		fieldRg.setEditable(isEditMode);
 		fieldEndereco.setEditable(isEditMode);
@@ -263,7 +265,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		textObservacao.setEditable(isEditMode);
 		fieldCodigoBarra.setEditable(isEditMode);
 		
-		fieldValorMensalidade.setValue(bean.getValorMensalidade());
+//		fieldValorMensalidade.setValue(bean.getValorMensalidade());
 //		fieldValorMensalidade.setEditable(isEditMode);
 		comboDiaPagamentoMensalidade.setSelected(bean.getDiaPagamento());
 		comboDiaPagamentoMensalidade.setEnabled(isEditMode);

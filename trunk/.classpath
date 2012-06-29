@@ -19,8 +19,6 @@
 	<classpathentry kind="lib" path="lib/ezmorph-1.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-validator-4.0.2.GA.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.3.4.726.jar"/>
-	<classpathentry kind="lib" path="lib/itext-1.3.1.jar"/>
-	<classpathentry kind="lib" path="lib/jasperreports-2.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="lib" path="lib/org.springframework.aop-3.0.5.RELEASE.jar"/>
@@ -43,5 +41,6 @@
 	<classpathentry kind="lib" path="lib/aspectjweaver-1.6.12.jar"/>
 	<classpathentry kind="lib" path="lib/cglib-nodep-2.1_3.jar"/>
 	<classpathentry kind="lib" path="lib/JTattoo.jar"/>
+	<classpathentry kind="lib" path="lib/jasperreports-4.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

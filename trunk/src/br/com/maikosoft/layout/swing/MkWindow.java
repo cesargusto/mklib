@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -115,6 +116,9 @@ public abstract class MkWindow extends JPanel {
         for (Field field : fields) {
             try {
                 if (ClassUtils.isAssignable(field.getType(), Component.class, true)) {
+                	if (Modifier.isStatic(field.getModifiers())) {
+                		continue;
+                	}
                 	logger.debug("instanciando field "+field.getType());
                     Object newInstance = null;
                     if (ClassUtils.isInnerClass(field.getType())) {
