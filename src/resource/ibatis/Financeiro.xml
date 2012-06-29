@@ -16,6 +16,7 @@
 		<result property="observacao" column="observacao" />
 		<result property="referencia" column="referencia" />
 		<result property="dataPagamento" column="data_pagamento" />
+		<result property="owner" column="owner" />
 	</resultMap>
 	
 	
@@ -26,6 +27,9 @@
 			</isNotNull>
 			<isNotNull prepend="and" property="before_data_cadastro">			
 				data_cadastro &lt; #before_data_cadastro#
+			</isNotNull>
+			<isNotNull prepend="and" property="after_data_cadastro">			
+				data_cadastro &gt; #after_data_cadastro#
 			</isNotNull>
 		</dynamic>
 	</sql>
@@ -63,8 +67,8 @@
 	</select>
 	
 	<insert id="insertFinanceiro" parameterClass="Financeiro">
-		INSERT INTO Financeiro (id, cliente_id, valor, observacao, referencia, data_cadastro, data_pagamento) VALUES
-		(#id#, #cliente.id#, #valor#, #observacao#, #referencia#, #dataCadastro#, #dataPagamento#)
+		INSERT INTO Financeiro (id, cliente_id, valor, observacao, referencia, data_cadastro, data_pagamento, owner) VALUES
+		(#id#, #cliente.id#, #valor#, #observacao#, #referencia#, #dataCadastro#, #dataPagamento#, #owner#)
 	</insert>
 	
 	<delete id="deleteFinanceiro" parameterClass="long" >

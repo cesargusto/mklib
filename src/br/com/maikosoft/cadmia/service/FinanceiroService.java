@@ -20,9 +20,11 @@ import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.Financeiro;
 import br.com.maikosoft.cadmia.dao.ClienteDAO;
 import br.com.maikosoft.cadmia.dao.FinanceiroDAO;
+import br.com.maikosoft.cadmia.view.JanelaLogin;
 import br.com.maikosoft.core.MkDAOException;
 import br.com.maikosoft.core.MkService;
 import br.com.maikosoft.core.MkServiceException;
+import br.com.maikosoft.core.MkUtil;
 
 @Service
 public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
@@ -35,7 +37,7 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 
 	public void lancarMensalidades(String mes, String ano) throws MkServiceException {
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("hhmmssddyyyyMMMMM");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("ddyyyyMMMMM");
 			List<Cliente> listCliente = clienteDAO.findAll(Collections.<String, Object>emptyMap());
 			for (Cliente cliente : listCliente) {
 				
@@ -45,8 +47,8 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 				
 				Financeiro financeiro = new Financeiro();
 				try {
-					Date dataCadastro = dateFormat.parse("235959"+cliente.getDiaPagamento()+ano+mes);
-					financeiro.setDataCadastro(dataCadastro);
+					Date dataCadastro = dateFormat.parse(cliente.getDiaPagamento()+ano+mes);
+					financeiro.setDataCadastro(MkUtil.setUltimaHora(dataCadastro));
 				} catch (ParseException ex) {
 					throw new MkServiceException("Erro ao gerar data de cadastro para cliente #"+cliente.getId(), ex);
 				}
@@ -55,6 +57,7 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 				financeiro.setReferencia(MENSALIDADE+mes+"/"+ano);
 //				financeiro.setValor(cliente.getValorMensalidade().multiply(new BigDecimal(-1)));
 				financeiro.setValor(cliente.getValorMensalidade());
+				financeiro.setOwner(JanelaLogin.getInstance().getUsuarioLogado().getId());
 				this.genericDao.insert(financeiro);
 			}
 		} catch (MkDAOException exception) {

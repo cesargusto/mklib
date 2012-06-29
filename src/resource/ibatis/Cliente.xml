@@ -28,6 +28,7 @@
 		<result property="diaPagamento" column="dia_pagamento" />
 		<result property="valorMensalidade" column="valor_mensalidade" />
 		<result property="codigoBarra" column="codigo_barra" />
+		<result property="owner" column="owner" />
 	</resultMap>
 		
 	<sql id="fragmentWhereCliente">
@@ -75,10 +76,10 @@
 	<insert id="insertCliente" parameterClass="Cliente">
 		INSERT INTO cliente (id, nome, cpf, rg, telefone1, telefone2, telefone3, 
 			email, observacao, endereco, numero, bairro, cep, cidade, uf , data_nascimento, 
-			dia_pagamento, valor_mensalidade, codigo_barra) VALUES
+			dia_pagamento, valor_mensalidade, codigo_barra, owner) VALUES
 		(#id#, #nome#, #cpf#, #rg#, #telefone1#, #telefone2#, #telefone3#, 
 		#email#, #observacao#, #endereco#, #numero#, #bairro#,
-		 #cep#, #cidade#, #uf#,  #dataNascimento#, #diaPagamento#, #valorMensalidade#, #codigoBarra#)
+		 #cep#, #cidade#, #uf#,  #dataNascimento#, #diaPagamento#, #valorMensalidade#, #codigoBarra#, #owner#)
 	</insert>
 	
 	<delete id="deleteCliente" parameterClass="long" >

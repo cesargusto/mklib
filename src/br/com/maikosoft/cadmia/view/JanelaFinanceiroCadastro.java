@@ -87,6 +87,7 @@ public class JanelaFinanceiroCadastro extends MkWindow {
 			bean.setObservacao(textObservacao.getText());
 			
 			if (bean.getId() == null) {
+				bean.setOwner(JanelaLogin.getInstance().getUsuarioLogado().getId());
 				financeiroService.insert(bean);
 			} else {
 				financeiroService.update(bean);

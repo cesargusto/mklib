@@ -1,6 +1,5 @@
 package br.com.maikosoft.layout.swing;
 
-import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -25,6 +24,8 @@ public class MkFieldDate extends JFormattedTextField {
         } catch (ParseException e) {
         }
         
+        this.setText(null); // para começar a formatacao certa;
+        
         this.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 if ("__/__/____".equals(getText())) {
@@ -33,19 +34,6 @@ public class MkFieldDate extends JFormattedTextField {
                     setCaretPosition(1);
                 }
             }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-//            	Calendar instance = Calendar.getInstance();
-//    			instance.setTime(data);
-//    			if ((instance.get(Calendar.YEAR) < 1900) || (instance.get(Calendar.YEAR) > 2099)) {
-//    				MacDialog.warm("Ano Data inválida: " + instance.get(Calendar.YEAR));
-//    				Calendar now = Calendar.getInstance();
-//    				instance.set(Calendar.YEAR, now.get(Calendar.YEAR));
-//    				data = instance.getTime();				
-//    			}
-            }
-           
         });
     }
     

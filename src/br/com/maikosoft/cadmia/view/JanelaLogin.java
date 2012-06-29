@@ -34,21 +34,21 @@ public class JanelaLogin extends MkWindow {
 	
 	private MkButtonConfirmar buttonLogin;
 		
-	private UsuarioService usuarioService;	
+	private UsuarioService usuarioService;
 	private static JanelaLogin instance;
 	private Usuario usuarioLogado;
 	
 	private int tentativa = 0;
 	private long tempo = 0;
     private long tempoLimite = 300000;
-	
-	public static JanelaLogin getInstance() {
+    
+    public static JanelaLogin getInstance() {
 		if (instance == null) {
 			logger.debug("iniciou instancia janela login");
 			instance = new JanelaLogin();
+			instance.showWindow("Login", true);
 			instance.iniciaVerificacao();
 			instance.iniciaListeners();
-			instance.showWindow("Login", true);
 		}
 		return instance;
 	}
@@ -94,7 +94,6 @@ public class JanelaLogin extends MkWindow {
 				fieldSenha.setText("");
 				JDialog window = (JDialog) this.getRootPane().getParent();
 				window.setVisible(false);
-				tempo = 0L;
 			}
 		} else {
 			MkDialog.warm("Digite o nome e a senha");
@@ -102,8 +101,9 @@ public class JanelaLogin extends MkWindow {
 
 	}
 	
-	private void login() {
-		fieldNome.setEnabled(false);
+	private void relogin() {
+		logger.debug("relogin");
+		this.fieldNome.setEnabled(false);
 		JDialog window = (JDialog) this.getRootPane().getParent();
 		window.setVisible(true);
 	}
@@ -151,11 +151,9 @@ public class JanelaLogin extends MkWindow {
         	@Override
           public void run() {
               while (true) {
-                  if (usuarioLogado !=null) {
-                      if (tempo >= tempoLimite) {
-                    	  login();
-                      }
-                  }
+            	  if (tempo >= tempoLimite) {
+            		  getInstance().relogin();
+            	  }
                   try {
                       Thread.sleep(1000);
                   } catch (Exception ex) {
