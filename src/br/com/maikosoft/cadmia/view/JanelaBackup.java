@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
 import org.springframework.util.StringUtils;
 
@@ -29,9 +30,13 @@ public class JanelaBackup extends MkWindow {
 	private MkFieldText fieldPathBackup;
 	private MkTextArea textAreaMensagem;
 	private MkButtonSalvar buttonSalvar;
+	
+	private BasicDataSource dataSource;
 		
 	@Override
 	protected void initWindow() {
+		
+		dataSource = application.getApplicationContext().getBean(BasicDataSource.class);
 		
 		MkPanelTable panelTable = new MkPanelTable();
 		panelTable.addRow("Caminho Banco de Dados", fieldPathDB);
@@ -56,7 +61,8 @@ public class JanelaBackup extends MkWindow {
 				
 	}
 	
-	protected void salvar() {			
+	protected void salvar() {
+		
 		try {
 			if (!StringUtils.hasText(fieldPathDB.getText())) {
 				MkDialog.warm("Informe o caminho para o programa de backup");
@@ -73,7 +79,7 @@ public class JanelaBackup extends MkWindow {
 				baseCmds.add("-p");
 				baseCmds.add("5432");
 				baseCmds.add("-U");
-				baseCmds.add("postgres");
+				baseCmds.add(dataSource.getUsername());
 				baseCmds.add("-b");
 				baseCmds.add("-v");
 				baseCmds.add("--inserts");
@@ -87,7 +93,7 @@ public class JanelaBackup extends MkWindow {
 
 				// Set the password
 				final Map<String, String> env = pb.environment();
-				env.put("PGPASSWORD", "postgres");
+				env.put("PGPASSWORD", dataSource.getPassword());
 
 				final Process process = pb.start();
 
