@@ -12,7 +12,12 @@ public abstract class MkMenu {
 
 	public abstract MkMenu getPai();
 	
-	// setVisible
-		
+	public boolean isVisivel() {
+		return true;
+	}
+	
+	public boolean hasSeparador() {
+		return false;
+	}	
 	
 }

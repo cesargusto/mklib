@@ -34,7 +34,7 @@ public enum EnumMenu {
     MOVIMENTACAO("Movimentação", null),
     	MOVIMENTACAO_LANCAR_MENSALIDADES(new MenuMovimentacaoLancarMensalidades()),
     RELATORIO("Relatório", null),
-    	RELATORIO_FINANCEIRO(new MenuRelatorioFinanceiro()),	
+    	RELATORIO_FINANCEIRO(new MenuRelatorioFinanceiro()),
     SISTEMA("Sistema", null),
     	SISTEMA_BACKUP(new MenuSistemaBackup()),
     	SISTEMA_DEBUG(new MenuDebug()),
