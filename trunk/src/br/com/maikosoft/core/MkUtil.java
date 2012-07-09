@@ -24,10 +24,14 @@ public class MkUtil {
 	}
 
 	public static String toString(Date data) {
+		return toString(data, "dd/MM/yyyy");
+	}
+	
+	public static String toString(Date data, String pattern) {
 		if (data == null) {
 			return "";
 		}
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
 		return dateFormat.format(data);
 	}
 
