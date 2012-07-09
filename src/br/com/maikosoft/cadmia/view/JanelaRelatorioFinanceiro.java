@@ -1,5 +1,6 @@
 package br.com.maikosoft.cadmia.view;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -90,8 +91,8 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 					HashMap<String, Object> parametro = new HashMap<String, Object>();
 					parametro.put("dataInicial", MkUtil.toString(fieldDataInicial.getDate()));
 					parametro.put("dataFinal", MkUtil.toString(fieldDataFinal.getDate()));
-					String pathJasper = JanelaRelatorioFinanceiro.class.getClassLoader().getResource("resource/report/RelatorioFinanceiro.jasper").getPath();
-					JasperPrint print = JasperFillManager.fillReport(pathJasper, parametro, new JRBeanCollectionDataSource(list));
+					InputStream streamResource = JanelaRelatorioFinanceiro.class.getClassLoader().getResourceAsStream("resource/report/RelatorioFinanceiro.jasper");
+					JasperPrint print = JasperFillManager.fillReport(streamResource, parametro, new JRBeanCollectionDataSource(list));
 					JasperViewer.viewReport(print, false);
 					
 			}
