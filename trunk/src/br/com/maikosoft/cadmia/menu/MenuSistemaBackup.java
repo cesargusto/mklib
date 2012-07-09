@@ -26,9 +26,10 @@ public class MenuSistemaBackup extends MkMenu {
 	public MkMenu getPai() {
 		return EnumMenu.SISTEMA.getMenu();
 	}
-	
-	
 
-	
+	@Override
+	public boolean hasSeparador() {
+		return true;
+	}	
 
 }

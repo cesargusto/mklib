@@ -157,12 +157,11 @@ public class MkApplication extends JFrame {
 				}
 					
 				JMenu menuPai = (JMenu)listMenuItem.get(mkMenu.getPai());
-				
-//				if (macMenu.isSeparatorBefore()) {
-//					menuPai.addSeparator();
-//				}
-				
-				menuPai.add(menu);
+				menuPai.add(menu);				
+				menu.setVisible(mkMenu.isVisivel());
+				if (mkMenu.hasSeparador()) {
+					menuPai.addSeparator();
+				}
 			}
 			
 			menu.setText(mkMenu.getTitulo());

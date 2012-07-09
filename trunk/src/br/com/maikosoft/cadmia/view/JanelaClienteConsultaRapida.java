@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JInternalFrame;
+
 import org.springframework.util.StringUtils;
 
 import br.com.maikosoft.cadmia.Cliente;
@@ -53,6 +55,15 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 			}
 		});
 		
+	}
+
+	public void showWindow() {
+		JInternalFrame view = (JInternalFrame) showWindow("Consulta Rápida", false);
+		view.setLocation(0, 0);
+		view.setMaximizable(false);
+		view.setClosable(false);
+		view.setIconifiable(false);
+		view.updateUI();
 	}
 
 }
