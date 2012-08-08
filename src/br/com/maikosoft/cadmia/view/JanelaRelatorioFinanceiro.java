@@ -23,6 +23,7 @@ import br.com.maikosoft.layout.swing.MkButton.MkButtonImprimir;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldDate;
 import br.com.maikosoft.layout.swing.MkPanelTable;
+import br.com.maikosoft.layout.swing.MkRadioGroup;
 import br.com.maikosoft.layout.swing.MkWindow;
 
 @SuppressWarnings("serial")
@@ -33,18 +34,25 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 	private MkFieldDate fieldDataInicial;
 	private MkFieldDate fieldDataFinal;
 	private MkButtonImprimir buttonImprimir;
+	private MkRadioGroup filtroPago;
 	
 	private FinanceiroService financeiroService;
 	private ClienteService clienteService;
+	
+	private String[] radioItens = {"Todos", "Não Pago", "Pago"};
 	
 	@Override
 	protected void initWindow() {
 		
 		MkPanelTable panelTable = new MkPanelTable();
-		panelTable.addRow("Data Inicial", fieldDataInicial);
-		panelTable.addRow("Data Final", fieldDataFinal);
+		panelTable.addRow("Data Inicial:", fieldDataInicial);
+		panelTable.addRow("Data Final:", fieldDataFinal);
+				
+		filtroPago.setItens(radioItens, true);
+		filtroPago.setSelected(radioItens[0]);
+		panelTable.addRow("Filtro:", filtroPago);
 		
-		addPanelCenter(panelTable, 300, 100);
+		addPanelCenter(panelTable, 280, 180);
 		
 		addPanelButton(true, buttonImprimir);
 				
@@ -85,7 +93,17 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 								}
 							}
 						}
-						list.add(new ClienteAndSaldoVO(cliente, totalPago, saldoDevedor));
+						if (filtroPago.getSelected().equals(radioItens[1])) { // nao pago
+							if (saldoDevedor.compareTo(BigDecimal.ZERO)>0) {
+								list.add(new ClienteAndSaldoVO(cliente, totalPago, saldoDevedor));
+							}
+						} else if (filtroPago.getSelected().equals(radioItens[2])) { // pago
+							if (totalPago.compareTo(BigDecimal.ZERO) > 0) {
+								list.add(new ClienteAndSaldoVO(cliente, totalPago, saldoDevedor));
+							}
+						} else {
+							list.add(new ClienteAndSaldoVO(cliente, totalPago, saldoDevedor));
+						}
 					}
 					
 					HashMap<String, Object> parametro = new HashMap<String, Object>();

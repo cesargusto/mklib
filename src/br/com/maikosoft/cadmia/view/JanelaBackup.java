@@ -44,7 +44,7 @@ public class JanelaBackup extends MkWindow {
 		panelTable.addRow(textAreaMensagem.getJScrollPane("Saída"), GridBagConstraints.BOTH);
 		
 		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
-			fieldPathDB.setText("C:\\Program Files\\PostgreSQL\\9.1\\bin\\pg_dump.exe");
+			fieldPathDB.setText("C:\\Arquivos de Programas\\PostgreSQL\\9.1\\bin\\pg_dump.exe");
 		} else {
 			fieldPathDB.setText("/usr/bin/pg_dump");
 		}
