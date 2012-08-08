@@ -43,7 +43,7 @@
 		SELECT * FROM Usuario
 		<include refid="fragmentWhereUsuario"/>
 		ORDER BY nome
-		LIMIT 15 OFFSET #limit#
+<!-- 		LIMIT 15 OFFSET #limit# -->
 	</select>
 	
 	<select id="getUsuario" parameterClass="long" resultMap="resultMapUsuario">

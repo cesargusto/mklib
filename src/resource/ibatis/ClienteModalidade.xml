@@ -35,7 +35,7 @@
 		SELECT * FROM Cliente_Modalidade
 		<include refid="fragmentWhereClienteModalidade"/>
 		ORDER BY id
-		LIMIT 15 OFFSET #limit#
+<!-- 		LIMIT 15 OFFSET #limit# -->
 	</select>
 	
 	<select id="getClienteModalidade" parameterClass="long" resultMap="resultMapClienteModalidade">
