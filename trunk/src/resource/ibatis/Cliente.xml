@@ -52,7 +52,7 @@
 		SELECT * FROM cliente
 		<include refid="fragmentWhereCliente"/>
 		ORDER BY nome
-		LIMIT 15 OFFSET #limit#
+<!-- 		LIMIT 15 OFFSET #limit# -->
 	</select>
 	
 	<select id="getCliente" parameterClass="long" resultMap="resultMapCliente">

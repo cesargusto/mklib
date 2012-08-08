@@ -48,7 +48,7 @@
 		SELECT * FROM Financeiro
 		<include refid="fragmentWhereFinanceiro"/>
 		ORDER BY data_pagamento DESC, data_cadastro DESC
-		LIMIT 15 OFFSET #limit#
+<!-- 		LIMIT 15 OFFSET #limit# -->
 	</select>
 	
 	<select id="getFinanceiro" parameterClass="long" resultMap="resultMapFinanceiro">
