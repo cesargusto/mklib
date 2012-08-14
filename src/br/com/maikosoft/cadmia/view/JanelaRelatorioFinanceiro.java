@@ -115,7 +115,7 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 					
 			}
 		} catch (MkServiceException exception) {
-			MkDialog.error("Erro ao lançar mensalidades", exception);
+			MkDialog.error("Erro ao buscar clientes e saldo", exception);
 		} catch (MkException ex) {
 			MkDialog.error("Data informada é invalida", ex);
 		} catch (JRException ex) {

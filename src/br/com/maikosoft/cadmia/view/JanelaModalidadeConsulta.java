@@ -54,6 +54,8 @@ public class JanelaModalidadeConsulta extends MkWindow {
 		
 		buttonTransferir.setVisible((transferObject!=null));
 		
+		pesquisar().execute();
+		
 	}
 	
 	protected MkRun abrir() {

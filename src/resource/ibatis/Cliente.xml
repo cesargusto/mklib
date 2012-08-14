@@ -38,6 +38,9 @@
 			</isNotNull>
 			<isNotNull prepend="and" property="id">			
 				id::varchar = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="modalidadeId">			
+				id in (select cliente_id from Cliente_Modalidade where modalidade_id= #modalidadeId#)
 			</isNotNull>	
 		</dynamic>
 	</sql>
