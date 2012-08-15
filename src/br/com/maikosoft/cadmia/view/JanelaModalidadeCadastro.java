@@ -62,6 +62,9 @@ public class JanelaModalidadeCadastro extends MkWindow {
 
 	protected void editar() {
 		beanToForm(true);
+		if (!JanelaLogin.getInstance().getUsuarioLogado().isAdministrador()) {
+			fieldValor.setEditable(false);
+		}
 	}
 
 	protected void salvar() {

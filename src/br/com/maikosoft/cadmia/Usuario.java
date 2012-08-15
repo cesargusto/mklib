@@ -8,6 +8,7 @@ public class Usuario extends MkBean {
 	private String nome;
 	private String senha;
 	private boolean ativo;
+	private boolean administrador;
 
 	public String getNome() {
 		return nome;
@@ -31,6 +32,14 @@ public class Usuario extends MkBean {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public boolean isAdministrador() {
+		return administrador;
+	}
+
+	public void setAdministrador(boolean administrador) {
+		this.administrador = administrador;
 	}
 
 	@Override

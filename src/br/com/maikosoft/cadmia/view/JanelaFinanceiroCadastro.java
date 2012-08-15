@@ -75,6 +75,11 @@ public class JanelaFinanceiroCadastro extends MkWindow {
 
 	protected void editar() {
 		beanToForm(true);
+		if (!JanelaLogin.getInstance().getUsuarioLogado().isAdministrador()) {
+			fieldDataCadastro.setEditable(false);
+			fieldReferencia.setEditable(false);
+			fieldValor.setEditable(false);
+		}
 	}
 
 	protected void salvar() {
@@ -104,14 +109,18 @@ public class JanelaFinanceiroCadastro extends MkWindow {
 	}
 
 	protected void excluir() {
-		if (MkDialog.confirm("Deseja excluir esse registro?")) {
-			try {
-				financeiroService.delete(bean.getId());
-				MkDialog.info("Financeiro excluido com sucesso");
-				fecharJanela();
-			} catch (Exception ex) {
-				MkDialog.error(ex.getMessage(), ex);
+		if (JanelaLogin.getInstance().getUsuarioLogado().isAdministrador()) {
+			if (MkDialog.confirm("Deseja excluir esse registro?")) {
+				try {
+					financeiroService.delete(bean.getId());
+					MkDialog.info("Financeiro excluido com sucesso");
+					fecharJanela();
+				} catch (Exception ex) {
+					MkDialog.error(ex.getMessage(), ex);
+				}
 			}
+		} else {
+			MkDialog.warm("Acesso Negado");
 		}
 	}
 	
