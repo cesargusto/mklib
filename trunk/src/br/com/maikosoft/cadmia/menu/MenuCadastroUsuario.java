@@ -2,8 +2,10 @@ package br.com.maikosoft.cadmia.menu;
 
 import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.cadmia.Usuario;
+import br.com.maikosoft.cadmia.view.JanelaLogin;
 import br.com.maikosoft.cadmia.view.JanelaUsuarioCadastro;
 import br.com.maikosoft.core.MkRun;
+import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkMenu;
 
 public class MenuCadastroUsuario extends MkMenu {
@@ -14,10 +16,13 @@ public class MenuCadastroUsuario extends MkMenu {
 			
 			@Override
 			public void execute() {
-				JanelaUsuarioCadastro janela = new JanelaUsuarioCadastro(new Usuario());
-				janela.showWindow("Cadastro Usuário", false);
-				janela.novo();
-				
+				if (JanelaLogin.getInstance().getUsuarioLogado().isAdministrador()) {
+					JanelaUsuarioCadastro janela = new JanelaUsuarioCadastro(new Usuario());
+					janela.showWindow("Cadastro Usuário", false);
+					janela.novo();
+				} else {
+					MkDialog.warm("Acesso Negado");
+				}
 			}
 		};
 	}

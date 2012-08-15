@@ -45,6 +45,8 @@ public class JanelaUsuarioConsulta extends MkWindow {
 		
 		table.onDoubleClickOrEnter(abrir());
 		
+		pesquisar().execute();
+		
 	}
 	
 	protected MkRun abrir() {
@@ -69,12 +71,14 @@ public class JanelaUsuarioConsulta extends MkWindow {
 				where.put("nomeOrId", fieldBusca.getText());
 				try {
 					List<Usuario> list = usuarioService.findAll(where);
-					table.setModel(new MkTableModel<Usuario>(list, "Nome", "Ativo") {
+					table.setModel(new MkTableModel<Usuario>(list, "Nome", "Ativo", "Administrador") {
 						@Override
 						protected Object getRow(Usuario bean, int rowIndex, int columnIndex) {
 							switch (columnIndex) {
 							case 1:
 								return bean.getAtivo();
+							case 2:
+								return bean.isAdministrador();	
 							default:
 								return bean.getNome();
 							}

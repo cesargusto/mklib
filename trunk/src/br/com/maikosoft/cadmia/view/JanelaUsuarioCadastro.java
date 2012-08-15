@@ -22,6 +22,7 @@ public class JanelaUsuarioCadastro extends MkWindow {
 	private MkFieldText fieldNome;
 	private JPasswordField fieldSenha;
 	private JCheckBox checkBoxAtivo;
+	private JCheckBox checkBoxAdministrador;
 	
 	private MkButtonNovo buttonNovo;
 	private MkButtonSalvar buttonSalvar;
@@ -42,6 +43,8 @@ public class JanelaUsuarioCadastro extends MkWindow {
 		panelTable.addRow("Nome:",fieldNome);
 		panelTable.addRow("Senha:", fieldSenha);
 		panelTable.addRow("", checkBoxAtivo);
+		checkBoxAdministrador.setText("Administrador");
+		panelTable.addRow("", checkBoxAdministrador);
 		
 		addPanelCenter(panelTable, 350, 150);
 		fieldId.setEnabled(false);
@@ -68,6 +71,7 @@ public class JanelaUsuarioCadastro extends MkWindow {
 				bean.setSenha(MkUtil.getHash(new String(fieldSenha.getPassword()), "SHA-256"));
 			}
 			bean.setAtivo(checkBoxAtivo.isSelected());
+			bean.setAdministrador(checkBoxAdministrador.isSelected());
 
 			if (bean.getId() == null) {
 				usuarioService.insert(bean);
@@ -108,6 +112,9 @@ public class JanelaUsuarioCadastro extends MkWindow {
 		
 		checkBoxAtivo.setSelected(bean.getAtivo());
 		checkBoxAtivo.setEnabled(isEditMode);
+		
+		checkBoxAdministrador.setSelected(bean.isAdministrador());
+		checkBoxAdministrador.setEnabled(isEditMode);
 		
 		fieldSenha.setEditable(isEditMode);
 		

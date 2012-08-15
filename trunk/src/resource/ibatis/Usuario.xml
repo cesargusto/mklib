@@ -11,6 +11,7 @@
 		<result property="nome" column="nome" />
 		<result property="senha" column="senha" />
 		<result property="ativo" column="ativo" />
+		<result property="administrador" column="administrador" />
 	</resultMap>
 		
 	<sql id="fragmentWhereUsuario">
@@ -52,7 +53,7 @@
 	</select>
 	
 	<update id="updateUsuario" parameterClass="Usuario">
-		UPDATE Usuario SET nome= #nome#, senha= #senha#, ativo= #ativo#
+		UPDATE Usuario SET nome= #nome#, senha= #senha#, ativo= #ativo#, administrador= #administrador#
 		WHERE id=#id#
 	</update>	
 	
@@ -61,8 +62,8 @@
 	</select>
 	
 	<insert id="insertUsuario" parameterClass="Usuario">
-		INSERT INTO Usuario (id, nome, senha, ativo) VALUES
-		(#id#, #nome#, #senha#, #ativo#)
+		INSERT INTO Usuario (id, nome, senha, administrador) VALUES
+		(#id#, #nome#, #senha#, #ativo#, #administrador#)
 	</insert>
 	
 	<delete id="deleteUsuario" parameterClass="long" >

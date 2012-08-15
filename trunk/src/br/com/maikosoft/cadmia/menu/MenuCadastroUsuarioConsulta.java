@@ -1,8 +1,10 @@
 package br.com.maikosoft.cadmia.menu;
 
 import br.com.maikosoft.cadmia.EnumMenu;
+import br.com.maikosoft.cadmia.view.JanelaLogin;
 import br.com.maikosoft.cadmia.view.JanelaUsuarioConsulta;
 import br.com.maikosoft.core.MkRun;
+import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkMenu;
 
 public class MenuCadastroUsuarioConsulta extends MkMenu {
@@ -12,7 +14,11 @@ public class MenuCadastroUsuarioConsulta extends MkMenu {
 		return new MkRun() {			
 			@Override
 			public void execute() {
-				new JanelaUsuarioConsulta().showWindow("Consultar Usuário", false);
+				if (JanelaLogin.getInstance().getUsuarioLogado().isAdministrador()) {
+					new JanelaUsuarioConsulta().showWindow("Consultar Usuário", false);
+				} else {
+					MkDialog.warm("Acesso Negado");
+				}
 			}
 		};
 	}
