@@ -62,7 +62,7 @@
 	</select>
 	
 	<insert id="insertUsuario" parameterClass="Usuario">
-		INSERT INTO Usuario (id, nome, senha, administrador) VALUES
+		INSERT INTO Usuario (id, nome, senha, ativo, administrador) VALUES
 		(#id#, #nome#, #senha#, #ativo#, #administrador#)
 	</insert>
 	
