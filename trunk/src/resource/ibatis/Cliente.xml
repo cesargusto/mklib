@@ -41,7 +41,10 @@
 			</isNotNull>
 			<isNotNull prepend="and" property="modalidadeId">			
 				id in (select cliente_id from Cliente_Modalidade where modalidade_id= #modalidadeId#)
-			</isNotNull>	
+			</isNotNull>
+			<isNotNull prepend="and" property="diaPagamento">			
+				dia_pagamento = #diaPagamento#
+			</isNotNull>
 		</dynamic>
 	</sql>
 

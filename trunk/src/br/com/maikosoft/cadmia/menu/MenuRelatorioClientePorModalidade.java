@@ -1,8 +1,10 @@
 package br.com.maikosoft.cadmia.menu;
 
 import br.com.maikosoft.cadmia.EnumMenu;
+import br.com.maikosoft.cadmia.view.JanelaLogin;
 import br.com.maikosoft.cadmia.view.JanelaRelatorioClientePorModalidade;
 import br.com.maikosoft.core.MkRun;
+import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkMenu;
 
 public class MenuRelatorioClientePorModalidade extends MkMenu {
@@ -13,8 +15,13 @@ public class MenuRelatorioClientePorModalidade extends MkMenu {
 			
 			@Override
 			public void execute() {
-				JanelaRelatorioClientePorModalidade janela = new JanelaRelatorioClientePorModalidade();
-				janela.showWindow(getTitulo(), false);
+				if (JanelaLogin.getInstance().getUsuarioLogado().isAdministrador()) {
+					JanelaRelatorioClientePorModalidade janela = new JanelaRelatorioClientePorModalidade();
+					janela.showWindow(getTitulo(), false);
+				} else {
+					MkDialog.warm("Acesso Negado");
+				}
+				
 			}
 		};
 	}
