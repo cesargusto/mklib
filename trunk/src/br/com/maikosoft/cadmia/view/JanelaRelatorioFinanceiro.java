@@ -13,6 +13,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteAndSaldoVO;
 import br.com.maikosoft.cadmia.Financeiro;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
@@ -124,36 +125,5 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 			this.waitCursor(false);
 		}
 			
-	}
-	
-
-	public class ClienteAndSaldoVO extends Cliente {
-		
-		private BigDecimal totalPago;
-		private BigDecimal saldoDevedor;
-		
-		public ClienteAndSaldoVO(Cliente cliente, BigDecimal totalPago, BigDecimal saldoDevedor) {
-			this.totalPago = totalPago;
-			this.saldoDevedor = saldoDevedor;
-			this.setNome(cliente.getNome());
-			this.setId(cliente.getId());
-		}
-
-		public BigDecimal getTotalPago() {
-			return totalPago;
-		}
-
-		public void setTotalPago(BigDecimal totalPago) {
-			this.totalPago = totalPago;
-		}
-
-		public BigDecimal getSaldoDevedor() {
-			return saldoDevedor;
-		}
-
-		public void setSaldoDevedor(BigDecimal saldoDevedor) {
-			this.saldoDevedor = saldoDevedor;
-		}
-		
 	}
 }
