@@ -3,6 +3,7 @@
 	<parameter name="diaPagamento" class="java.lang.String"/>
 	<field name="nome" class="java.lang.String"/>
 	<field name="id" class="java.lang.Long"/>
+	<field name="saldoDevedor" class="java.math.BigDecimal"/>
 	<background>
 		<band/>
 	</background>
@@ -60,6 +61,13 @@
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="464" y="9" width="91" height="29" forecolor="#006699"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -68,7 +76,7 @@
 				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1"/>
 			</line>
 			<textField>
-				<reportElement x="47" y="0" width="508" height="20" forecolor="#666666"/>
+				<reportElement x="47" y="0" width="417" height="20" forecolor="#666666"/>
 				<textElement markup="none">
 					<font size="12"/>
 				</textElement>
@@ -80,6 +88,13 @@
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression class="java.lang.Long"><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="464" y="1" width="90" height="20" forecolor="#666666"/>
+				<textElement textAlignment="Right" markup="none">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{saldoDevedor}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

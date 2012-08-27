@@ -1,8 +1,10 @@
 package br.com.maikosoft.cadmia.view;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +14,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteAndSaldoVO;
 import br.com.maikosoft.cadmia.service.ClienteService;
+import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonImprimir;
 import br.com.maikosoft.layout.swing.MkComboBox;
@@ -29,6 +33,7 @@ public class JanelaRelatorioClientePorDiaPagamento extends MkWindow {
 	private MkComboBox<String> comboDiaPagamentoMensalidade;
 	
 	private ClienteService clienteService;
+	private FinanceiroService financeiroService;
 		
 	@Override
 	protected void initWindow() {
@@ -54,7 +59,13 @@ public class JanelaRelatorioClientePorDiaPagamento extends MkWindow {
 					
 					Map<String, Object> where = new HashMap<String, Object>();
 					where.put("diaPagamento", comboDiaPagamentoMensalidade.getSelected());
-					List<Cliente> list = clienteService.findAll(where);
+					List<Cliente> listCliente = clienteService.findAll(where);
+					
+					LinkedList<ClienteAndSaldoVO> list = new LinkedList<ClienteAndSaldoVO>();
+					for (Cliente cliente : listCliente) {
+						BigDecimal saldo = financeiroService.getSaldo(cliente);
+						list.add(new ClienteAndSaldoVO(cliente, null, saldo));
+					}
 					
 					HashMap<String, Object> parametro = new HashMap<String, Object>();
 					parametro.put("diaPagamento", comboDiaPagamentoMensalidade.getSelected());
