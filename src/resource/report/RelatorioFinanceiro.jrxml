@@ -2,6 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFinanceiro" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<parameter name="dataInicial" class="java.lang.String"/>
 	<parameter name="dataFinal" class="java.lang.String"/>
+	<parameter name="modalidade" class="java.lang.String"/>
 	<field name="nome" class="java.lang.String"/>
 	<field name="id" class="java.lang.Long"/>
 	<field name="totalPago" class="java.math.BigDecimal"/>
@@ -35,32 +36,46 @@
 				<reportElement x="-20" y="49" width="595" height="1" forecolor="#666666"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="14" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6"/>
+				<reportElement mode="Opaque" x="0" y="14" width="57" height="32" forecolor="#666666" backcolor="#E6E6E6"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Data Inicial]]></text>
+				<text><![CDATA[Período:]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="343" y="14" width="212" height="32" forecolor="#006699" backcolor="#E6E6E6"/>
+				<reportElement mode="Opaque" x="180" y="14" width="105" height="32" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{dataFinal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="243" y="14" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6"/>
-				<textElement>
+				<reportElement mode="Opaque" x="162" y="14" width="18" height="32" forecolor="#666666" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Data Final]]></text>
+				<text><![CDATA[à]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="100" y="14" width="143" height="32" forecolor="#006699" backcolor="#E6E6E6"/>
+				<reportElement mode="Opaque" x="57" y="14" width="105" height="32" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{dataInicial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="285" y="14" width="88" height="32" forecolor="#666666" backcolor="#E6E6E6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Modalidade:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="373" y="14" width="182" height="32" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{modalidade}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
