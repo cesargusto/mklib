@@ -3,6 +3,7 @@ package br.com.maikosoft.cadmia;
 import java.math.BigDecimal;
 
 
+@SuppressWarnings("serial")
 public class ClienteAndSaldoVO extends Cliente {
 	
 	private BigDecimal totalPago;

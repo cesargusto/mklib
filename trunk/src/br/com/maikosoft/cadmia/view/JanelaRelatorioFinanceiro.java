@@ -1,5 +1,6 @@
 package br.com.maikosoft.cadmia.view;
 
+import java.awt.GridBagConstraints;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -15,14 +16,18 @@ import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.ClienteAndSaldoVO;
 import br.com.maikosoft.cadmia.Financeiro;
+import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.core.MkException;
 import br.com.maikosoft.core.MkServiceException;
+import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.core.MkUtil;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonImprimir;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonPesquisar;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldDate;
+import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkRadioGroup;
 import br.com.maikosoft.layout.swing.MkWindow;
@@ -36,9 +41,12 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 	private MkFieldDate fieldDataFinal;
 	private MkButtonImprimir buttonImprimir;
 	private MkRadioGroup filtroPago;
+	private MkFieldText fieldModalidade;
+	private MkButtonPesquisar buttonPesquisar;
 	
 	private FinanceiroService financeiroService;
 	private ClienteService clienteService;
+	private Modalidade modalidade;
 	
 	private String[] radioItens = {"Todos", "Não Pago", "Pago"};
 	
@@ -46,17 +54,35 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 	protected void initWindow() {
 		
 		MkPanelTable panelTable = new MkPanelTable();
+		
+		fieldModalidade.setEditable(false);
+		
+		panelTable.addRow("Modalidade:", fieldModalidade, buttonPesquisar, GridBagConstraints.NONE);
+		
 		panelTable.addRow("Data Inicial:", fieldDataInicial);
 		panelTable.addRow("Data Final:", fieldDataFinal);
 				
-		filtroPago.setItens(radioItens, true);
+		filtroPago.setItens(radioItens, false);
 		filtroPago.setSelected(radioItens[0]);
 		panelTable.addRow("Filtro:", filtroPago);
 		
-		addPanelCenter(panelTable, 280, 180);
+		addPanelCenter(panelTable, 420, 180);
 		
 		addPanelButton(true, buttonImprimir);
 				
+	}
+	
+	protected void pesquisar() {
+		MkTransferObject<Modalidade> transferObject = new MkTransferObject<Modalidade>() {
+			@Override
+			public void postTranfer(Modalidade value) {
+				modalidade = value;
+				fieldModalidade.setText(value.getNome());
+			}
+		};
+		JanelaModalidadeConsulta janelaModalidadeConsulta = new JanelaModalidadeConsulta();
+		janelaModalidadeConsulta.setTranferir(transferObject);
+		janelaModalidadeConsulta.showWindow("Transferir Modalidade", false);
 	}
 	
 	protected void imprimir() {
@@ -71,8 +97,13 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 			} else {
 					this.waitCursor(true);
 					
+					Map<String, Object> whereCliente = new HashMap<String, Object>();
+					if (modalidade != null) {
+						whereCliente.put("modalidadeId", modalidade.getId());
+					}
+					
 					LinkedList<ClienteAndSaldoVO> list = new LinkedList<ClienteAndSaldoVO>();
-					List<Cliente> listCliente = clienteService.findAll(null);
+					List<Cliente> listCliente = clienteService.findAll(whereCliente);
 					for (Cliente cliente : listCliente) {
 						
 						BigDecimal totalPago = BigDecimal.ZERO;
@@ -82,7 +113,7 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 							Map<String, Object> where = new HashMap<String, Object>();
 							where.put("cliente_id", cliente.getId());
 							where.put("before_data_cadastro", MkUtil.setUltimaHora(fieldDataFinal.getDate()));
-							where.put("after_data_cadastro", fieldDataInicial.getDate());							
+							where.put("after_data_cadastro", fieldDataInicial.getDate());
 							List<Financeiro> listFinanceiro = financeiroService.findAll(where );			
 							if (list!=null) {
 								for (Financeiro financeiro : listFinanceiro) {
@@ -110,6 +141,7 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 					HashMap<String, Object> parametro = new HashMap<String, Object>();
 					parametro.put("dataInicial", MkUtil.toString(fieldDataInicial.getDate()));
 					parametro.put("dataFinal", MkUtil.toString(fieldDataFinal.getDate()));
+					parametro.put("modalidade", (modalidade==null ? "TODAS" : modalidade.getNome()));
 					InputStream streamResource = JanelaRelatorioFinanceiro.class.getClassLoader().getResourceAsStream("resource/report/RelatorioFinanceiro.jasper");
 					JasperPrint print = JasperFillManager.fillReport(streamResource, parametro, new JRBeanCollectionDataSource(list));
 					JasperViewer.viewReport(print, false);
