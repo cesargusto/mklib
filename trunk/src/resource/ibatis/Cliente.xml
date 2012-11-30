@@ -29,6 +29,7 @@
 		<result property="valorMensalidade" column="valor_mensalidade" />
 		<result property="codigoBarra" column="codigo_barra" />
 		<result property="owner" column="owner" />
+		<result property="foto" column="foto" jdbcType="BLOB" javaType="[B" typeHandler="org.springframework.orm.ibatis.support.BlobByteArrayTypeHandler"/>
 	</resultMap>
 		
 	<sql id="fragmentWhereCliente">
@@ -71,7 +72,7 @@
 		   endereco= #endereco#, numero= #numero#, bairro= #bairro#, 
 			cep= #cep#, cidade= #cidade#, uf= #uf#, dia_pagamento=#diaPagamento#, valor_mensalidade= #valorMensalidade#,
 			telefone3= #telefone3#, email= #email#, observacao= #observacao#, codigo_barra= #codigoBarra#, 
-			data_nascimento=#dataNascimento#
+			data_nascimento=#dataNascimento#, foto=#foto#
 		WHERE id=#id#
 	</update>	
 	
@@ -82,10 +83,11 @@
 	<insert id="insertCliente" parameterClass="Cliente">
 		INSERT INTO cliente (id, nome, cpf, rg, telefone1, telefone2, telefone3, 
 			email, observacao, endereco, numero, bairro, cep, cidade, uf , data_nascimento, 
-			dia_pagamento, valor_mensalidade, codigo_barra, owner) VALUES
+			dia_pagamento, valor_mensalidade, codigo_barra, owner, foto) VALUES
 		(#id#, #nome#, #cpf#, #rg#, #telefone1#, #telefone2#, #telefone3#, 
 		#email#, #observacao#, #endereco#, #numero#, #bairro#,
-		 #cep#, #cidade#, #uf#,  #dataNascimento#, #diaPagamento#, #valorMensalidade#, #codigoBarra#, #owner#)
+		 #cep#, #cidade#, #uf#,  #dataNascimento#, #diaPagamento#, 
+		 #valorMensalidade#, #codigoBarra#, #owner#, #foto#)
 	</insert>
 	
 	<delete id="deleteCliente" parameterClass="long" >
