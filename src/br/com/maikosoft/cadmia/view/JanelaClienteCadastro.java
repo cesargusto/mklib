@@ -1,18 +1,17 @@
 package br.com.maikosoft.cadmia.view;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.SwingConstants;
 
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.ClienteModalidade;
@@ -24,6 +23,7 @@ import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.core.MkUtil;
+import br.com.maikosoft.layout.swing.EnumMkButton;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonAdicionar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonAtualizar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
@@ -37,7 +37,6 @@ import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldDate;
 import br.com.maikosoft.layout.swing.MkFieldMask;
 import br.com.maikosoft.layout.swing.MkFieldMask.EnumMkMask;
-import br.com.maikosoft.layout.swing.EnumMkButton;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkTextArea;
@@ -73,6 +72,8 @@ public class JanelaClienteCadastro extends MkWindow {
 	private JLabel labelSaldoFinanceiro;
 	private MkButtonPesquisar buttonConsultaFinanceiro;
 	private MkButtonAtualizar buttonAtualizarFinanceiro;
+	
+	private JLabel labelFoto;
 	
 	private MkButtonNovo buttonNovo;
 	private MkButtonSalvar buttonSalvar;
@@ -121,13 +122,23 @@ public class JanelaClienteCadastro extends MkWindow {
 		panelTableModalidadeMensalidade.addRow(panelTableModalidade, GridBagConstraints.BOTH);
 		
 		MkPanelTable panelTableFoto = new MkPanelTable();
-		panelTableFoto.setTitle("Foto");
-		panelTableFoto.addRow(new JButton("Tirar Foto"), new JButton("Selecionar Arquivo"));		
-		try {
-			BufferedImage foto = ImageIO.read(new File("logo.jpg"));
-			panelTableFoto.addRow(new JLabel(new ImageIcon(foto)));
-		} catch (IOException e) {			
-		}
+		panelTableFoto.setTitle("Foto");		
+		
+		labelFoto = new JLabel();
+		labelFoto.setHorizontalAlignment(SwingConstants.CENTER);
+		labelFoto.setPreferredSize(new Dimension(320,240));
+		labelFoto.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					if (buttonSalvar.isEnabled()) {
+						editarFoto();
+					}
+				}
+			}
+		});
+		
+		panelTableFoto.addRow(labelFoto, GridBagConstraints.BOTH);
 		
 		panelTable.addRow(panelTableFoto, MkPanelTable.getDefaultCell(3) , panelTableModalidadeMensalidade, MkPanelTable.getDefaultCell(3));
 		
@@ -247,6 +258,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldEmail.setText(bean.getEmail());
 		textObservacao.setText(bean.getObservacao());
 		fieldCodigoBarra.setText(bean.getCodigoBarra());
+		carregarFoto(bean.getFoto());
 		
 		fieldNome.setEditable(isEditMode);
 		fieldDataNascimento.setEditable(isEditMode);
@@ -348,6 +360,24 @@ public class JanelaClienteCadastro extends MkWindow {
 			}
 		} catch (MkServiceException ex) {
 			MkDialog.error(ex.getMessage(), ex);
+		}
+	}
+	
+	private void editarFoto() {
+		JanelaCamera janelaCamera = JanelaCamera.getIntance();
+		janelaCamera.showWindow("Foto", true);
+		byte[] foto = janelaCamera.getFoto();
+		bean.setFoto(foto);
+		carregarFoto(foto);
+	}
+
+	private void carregarFoto(byte[] foto) {
+		if ((foto == null) || (foto.length == 0)) {
+			labelFoto.setText("Dois cliques para editar foto");
+			labelFoto.setIcon(null);
+		} else {
+			labelFoto.setIcon(new ImageIcon(foto));
+			labelFoto.setText(null);
 		}
 	}
 

@@ -27,6 +27,7 @@ public class Cliente extends MkBean {
 	private String diaPagamento;
 	private BigDecimal valorMensalidade;
 	private String codigoBarra;
+	private byte[] foto;
 	
 	private List<ClienteModalidade> listModalidade;
 	
@@ -147,4 +148,11 @@ public class Cliente extends MkBean {
 	public void setCodigoBarra(String codigoBarra) {
 		this.codigoBarra = codigoBarra;
 	}
+	public byte[] getFoto() {
+		return foto;
+	}
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+	
 }

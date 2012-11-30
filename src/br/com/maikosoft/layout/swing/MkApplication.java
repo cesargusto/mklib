@@ -228,8 +228,10 @@ public class MkApplication extends JFrame {
             Dimension desktopSize = desktopPane.getSize();
             int x = (desktopSize.width - modalFrame.getWidth()) / 2;
             int y = (desktopSize.height - modalFrame.getHeight()) / 2;
-            modalFrame.setLocation((x < 0 ? 0 : x), (y < 0 ? 0 : y));           
-            modalFrame.getRootPane().setDefaultButton((JButton)macWindow.panelButton.getComponent(0));
+            modalFrame.setLocation((x < 0 ? 0 : x), (y < 0 ? 0 : y));
+            if (macWindow.panelButton != null) {
+            	modalFrame.getRootPane().setDefaultButton((JButton)macWindow.panelButton.getComponent(0));
+            }
             modalFrame.setVisible(true);
             return modalFrame;
         } else {
