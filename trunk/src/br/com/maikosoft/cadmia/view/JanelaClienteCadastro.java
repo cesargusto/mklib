@@ -364,7 +364,7 @@ public class JanelaClienteCadastro extends MkWindow {
 	}
 	
 	private void editarFoto() {
-		JanelaCamera janelaCamera = JanelaCamera.getIntance();
+		JanelaCamera janelaCamera = new JanelaCamera();
 		janelaCamera.showWindow("Foto", true);
 		byte[] foto = janelaCamera.getFoto();
 		bean.setFoto(foto);
