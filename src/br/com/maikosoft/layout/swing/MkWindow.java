@@ -21,6 +21,7 @@ import org.apache.commons.lang.reflect.FieldUtils;
 import org.apache.log4j.Logger;
 import org.springframework.util.ReflectionUtils;
 
+import br.com.maikosoft.core.MkNotInstance;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkService;
 
@@ -116,7 +117,7 @@ public abstract class MkWindow extends JPanel {
         for (Field field : fields) {
             try {
                 if (ClassUtils.isAssignable(field.getType(), Component.class, true)) {
-                	if (Modifier.isStatic(field.getModifiers())) {
+                	if ((Modifier.isStatic(field.getModifiers()) || (field.isAnnotationPresent(MkNotInstance.class))))  {
                 		continue;
                 	}
                 	logger.debug("instanciando field "+field.getType());

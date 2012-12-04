@@ -1,42 +1,122 @@
 package br.com.maikosoft.cadmia.view;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.awt.FlowLayout;
+import java.io.ByteArrayOutputStream;
 
-import javax.swing.JFileChooser;
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
+import br.com.maikosoft.core.MkNotInstance;
+import br.com.maikosoft.core.MkRun;
+import br.com.maikosoft.layout.swing.EnumMkButton;
+import br.com.maikosoft.layout.swing.MkButton;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonLimpar;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonTransferir;
+import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkWindow;
+import de.humatic.dsj.DSCapture;
+import de.humatic.dsj.DSFilterInfo;
+import de.humatic.dsj.DSFiltergraph;
 
 @SuppressWarnings("serial")
 public class JanelaCamera extends MkWindow {
 	
-	private static JanelaCamera instance;
+	private JPanel panelImagem;
+
+	private MkButton buttonCapturar;
+	private MkButtonLimpar buttonLimpar;
+	private MkButtonTransferir buttonTransferir;
+	
+	@MkNotInstance
+	private DSCapture graph;
 
 	@Override
 	protected void initWindow() {
 		
+		panelImagem = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		
+		addPanelCenter(panelImagem, 650, 480);
+		
+		buttonCapturar.setText("Capturar");
+		buttonCapturar.setIcon(EnumMkButton.ADICIONAR.getIcon());
+		buttonCapturar.onClick(capturar());
+		buttonLimpar.setText("Repetir");
+		
+		addPanelButton(true, buttonCapturar, buttonLimpar, buttonTransferir);
+		
+		limpar();
 	}
 
-	public static JanelaCamera getIntance() {
-		if (instance == null) {
-			instance = new JanelaCamera();
-		}
-		return instance;
+	protected MkRun capturar() {
+		return new MkRun() {
+			@Override
+			public void execute() {
+				graph.stop();
+				buttonCapturar.setEnabled(false);
+				buttonLimpar.setEnabled(true);
+				buttonTransferir.setEnabled(true);
+			}
+		};
 	}
+	
+	
+	protected void limpar() {
+		try {
+			if (graph != null) {
+				panelImagem.remove(graph);
+				graph.dispose();
+			} 
+			
+			DSFilterInfo[][] dsiVideo = DSCapture.queryDevices(DSCapture.SKIP_AUDIO);
+			if (dsiVideo[0].length == 0) {
+				MkDialog.warm("Nenhuma camera encontrada");
+				fecharJanela();
+			}
+			
+			graph = new DSCapture(DSFiltergraph.RENDER_NATIVE, dsiVideo[0][0],
+					false, DSFilterInfo.doNotRender(), null);
+			// Largura e Altura da imagem
+			graph.setSize(640, 480);
+			panelImagem.add(graph.asComponent());
+			graph.setPreview();
+			
+			repaint();
+			
+			buttonCapturar.setEnabled(true);
+			buttonLimpar.setEnabled(false);
+			buttonTransferir.setEnabled(false);
+			
+		} catch (Exception ex) {
+			MkDialog.error("Erro carregando camera", ex);
+		}
+		
+	}
+	
+	protected void transferir() {
+		buttonLimpar.setEnabled(false);
+		buttonTransferir.setEnabled(false);
+		fecharJanela();
+	}
+	
 
 	public byte[] getFoto() {
 		try {
-			JFileChooser dialog = new JFileChooser();
-			dialog.showOpenDialog(this);
-			RandomAccessFile f = new RandomAccessFile(dialog.getSelectedFile(), "r");
-			byte[] b = new byte[(int)f.length()];
-			f.read(b);
-			return b;
-		} catch (IOException e) {
-			return null;
+			if (graph.getImage() != null) {
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				ImageIO.write(graph.getImage(), "jpg", baos );
+				baos.flush();
+				byte[] retorno = baos.toByteArray();
+				baos.close();
+				graph.dispose();
+				return retorno;
+			}
+			
+		} catch (Exception ex) {
+			MkDialog.error("Erro ao transferir imagem", ex);
 		}
-	}
-	
+		return null;
+		
+	}	
 	
 
 }
