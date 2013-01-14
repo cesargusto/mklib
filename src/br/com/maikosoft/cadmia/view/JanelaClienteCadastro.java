@@ -152,6 +152,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldId.setEnabled(false);
 		fieldValorMensalidade.setMask(EnumMkMask.CURRENCY);
 		fieldValorMensalidade.setEditable(false);
+		fieldValorMensalidade.setFocusable(false);
 		
 		comboDiaPagamentoMensalidade.setList(Arrays.asList("01","05", "10", "15", "20", "25"));
 	
