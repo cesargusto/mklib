@@ -65,13 +65,7 @@ public class JanelaClienteConsulta extends MkWindow {
 				where.put("nomeOrId", fieldBusca.getText());
 				try {
 					List<Cliente> list = clienteService.findAll(where);
-					table.setModel(new MkTableModel<Cliente>(list, "Nome") {
-						@Override
-						protected Object getRow(Cliente bean, int rowIndex, int columnIndex) {
-							return bean.getNome();
-						}
-					});
-					
+					setPesquisa(list);
 				} catch (Exception ex) {
 					MkDialog.error("Erro ao pesquisar", ex);
 				}
@@ -81,6 +75,15 @@ public class JanelaClienteConsulta extends MkWindow {
 	
 	protected MkRun novo() {
 		return EnumMenu.CADASTRO_CLIENTE_NOVO.getMenu().getAcao();
+	}
+
+	public void setPesquisa(List<Cliente> list) {
+		table.setModel(new MkTableModel<Cliente>(list, "Nome") {
+			@Override
+			protected Object getRow(Cliente bean, int rowIndex, int columnIndex) {
+				return bean.getNome();
+			}
+		});
 	}
 
 }

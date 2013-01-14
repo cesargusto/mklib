@@ -41,7 +41,7 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 			List<Cliente> listCliente = clienteDAO.findAll(Collections.<String, Object>emptyMap());
 			for (Cliente cliente : listCliente) {
 				
-				if (BigDecimal.ZERO.compareTo(cliente.getValorMensalidade()) == 0) {
+				if (BigDecimal.ZERO.equals(cliente.getValorMensalidade())) {
 					continue;
 				}
 				
