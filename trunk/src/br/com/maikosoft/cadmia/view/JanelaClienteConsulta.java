@@ -110,7 +110,7 @@ public class JanelaClienteConsulta extends MkWindow {
 		Cliente seleted = table.getSeleted(true);
 		if (seleted != null) {
 			transferObject.postTranfer(seleted);
-			fecharJanela();
+			closeWindow();
 		}
 	}
 

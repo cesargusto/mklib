@@ -82,6 +82,8 @@ public class JanelaModalidadeCadastro extends MkWindow {
 
 			bean = modalidadeService.findById(bean.getId());
 			beanToForm(false);
+			
+			application.refreshWindows();
 
 		} catch (Exception ex) {
 			MkDialog.error(ex.getMessage(), ex);
@@ -93,7 +95,8 @@ public class JanelaModalidadeCadastro extends MkWindow {
 			try {
 				modalidadeService.delete(bean.getId());
 				MkDialog.info("Modalidade excluido com sucesso");
-				fecharJanela();
+				application.refreshWindows();
+				closeWindow();
 			} catch (Exception ex) {
 				MkDialog.error(ex.getMessage(), ex);
 			}

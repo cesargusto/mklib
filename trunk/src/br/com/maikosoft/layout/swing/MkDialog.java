@@ -96,7 +96,7 @@ public class MkDialog extends MkWindow {
     	return new MkRun() {
 			@Override
 			public void execute() {
-				fecharJanela();
+				closeWindow();
 			}
 		};
     }

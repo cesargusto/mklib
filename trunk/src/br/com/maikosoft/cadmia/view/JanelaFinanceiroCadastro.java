@@ -114,7 +114,7 @@ public class JanelaFinanceiroCadastro extends MkWindow {
 				try {
 					financeiroService.delete(bean.getId());
 					MkDialog.info("Financeiro excluido com sucesso");
-					fecharJanela();
+					closeWindow();
 				} catch (Exception ex) {
 					MkDialog.error(ex.getMessage(), ex);
 				}

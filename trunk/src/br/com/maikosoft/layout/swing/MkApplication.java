@@ -2,7 +2,6 @@ package br.com.maikosoft.layout.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,6 +12,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,7 +25,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -49,8 +48,10 @@ public class MkApplication extends JFrame {
 	private static MkApplication instance;
 	private JDesktopPane desktopPane;
 	private ApplicationContext applicationContext;
+	private List<MkWindow> listMkWindow;
 	
 	private MkApplication() {
+		listMkWindow = new LinkedList<MkWindow>();
 		desktopPane = new JDesktopPane() {
 			@Override
 			public void paintComponent(Graphics g) {
@@ -179,11 +180,9 @@ public class MkApplication extends JFrame {
         	        		
 	}
 	
-	public void disposeWindow(Component mkWindow) {
-	       
-        JPanel panel = (JPanel) mkWindow;
-       
-        Container window = panel.getRootPane().getParent();
+	public void disposeWindow(MkWindow mkWindow) {
+		
+        Container window = mkWindow.getRootPane().getParent();
        
         if (window instanceof JDialog) {
             JDialog modalFrame = (JDialog) window;
@@ -203,25 +202,25 @@ public class MkApplication extends JFrame {
                 }
             }
         }
-       
+        logger.debug("Removendo MkWindow "+mkWindow.getClass().getName());
+        listMkWindow.remove(mkWindow);
     }
 	
-	public Object showWindow(MkWindow macWindow, String title, boolean isModal) {
+	public Object showWindow(final MkWindow macWindow, String title, boolean isModal) {
+		listMkWindow.add(macWindow);
         if (isModal) {
             JDialog modalFrame = new JDialog(this, title, true);
             //macWindow.setJanela(modalFrame);
-            final MkRun onCloseView = macWindow.onCloseView;
-            modalFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-           
-            if (onCloseView !=null) {
-                modalFrame.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
-               
-                modalFrame.addWindowListener(new WindowAdapter() {
-                    public void windowClosing(WindowEvent e) {
-                        onCloseView.execute();
-                    }
-                });
-            }
+            final MkRun onCloseWindow = macWindow.onCloseWindow;
+            modalFrame.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+			modalFrame.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent e) {
+					if (onCloseWindow != null) {
+						onCloseWindow.execute();
+					}
+					disposeWindow(macWindow);
+				}
+			});
             modalFrame.setLayout(new BorderLayout());
             modalFrame.add(macWindow, BorderLayout.CENTER);
             modalFrame.pack();
@@ -242,13 +241,13 @@ public class MkApplication extends JFrame {
             desktopPane.add(internalFrame);
            
             internalFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);           
-            final MkRun onCloseView = macWindow.onCloseView;
-            if (onCloseView !=null) {
+            final MkRun onCloseWindow = macWindow.onCloseWindow;
+            if (onCloseWindow !=null) {
                 internalFrame.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
                
                 internalFrame.addInternalFrameListener(new InternalFrameAdapter() {
                     public void internalFrameClosing(InternalFrameEvent e){
-                        onCloseView.execute();
+                        onCloseWindow.execute();
                     }
                 });
             }
@@ -268,6 +267,13 @@ public class MkApplication extends JFrame {
 
 	public ApplicationContext getApplicationContext() {
 		return applicationContext;
+	}
+
+	public void refreshWindows() {
+		for (MkWindow mkWindow : listMkWindow) {
+			mkWindow.refreshWindow();
+		}
+		
 	}
 	
 	

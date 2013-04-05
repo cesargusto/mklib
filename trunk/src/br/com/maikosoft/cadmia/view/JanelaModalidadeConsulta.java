@@ -110,8 +110,15 @@ public class JanelaModalidadeConsulta extends MkWindow {
 		Modalidade seleted = table.getSeleted(true);
 		if (seleted != null) {
 			transferObject.postTranfer(seleted);
-			fecharJanela();
+			closeWindow();
 		}
 	}
+
+	@Override
+	public void refreshWindow() {
+		pesquisar().execute();
+	}
+	
+	
 
 }
