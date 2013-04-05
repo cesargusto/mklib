@@ -40,6 +40,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 	
 	private MkButtonAtualizar buttonAtualizar;
 	private MkButton buttonPagar;
+	private MkButton buttonRecibo;
 	
 	private FinanceiroService financeiroService;
 	private Cliente cliente;
@@ -55,9 +56,9 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 		panelCenter.addRow("Cliente", fieldCliente);
 		panelCenter.addRow(table.getJScrollPane(), GridBagConstraints.BOTH);
 		
-		addPanelCenter(panelCenter, 700, 450);
+		addPanelCenter(panelCenter, 750, 450);
 		
-		addPanelButton(true, buttonPagar, buttonAtualizar, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
+		addPanelButton(true, buttonPagar, buttonAtualizar, buttonRecibo, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
 		
 		fieldCliente.setEditable(false);
 		labelSaldo = new JLabel();
@@ -66,6 +67,10 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 		buttonPagar.setText("Pagar Itens Selecionados");
 		buttonPagar.setIcon(EnumMkButton.getIcon("dinheiro"));
 		buttonPagar.onClick(pagarSelecionados());
+		
+		buttonRecibo.setText("Recibo");
+		buttonRecibo.setIcon(EnumMkButton.getIcon("imprimir"));
+		buttonRecibo.onClick(recibo());
 		
 		table.onDoubleClickOrEnter(abrir());
 		
@@ -185,6 +190,21 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 					}
 				}
 				
+			}
+		};
+	}
+	
+	protected MkRun recibo() {
+		return new MkRun() {
+			@Override
+			public void execute() {
+				Financeiro bean = table.getSeleted(true);
+				if (bean !=null) {
+					JanelaRecibo janelaRecibo = new JanelaRecibo();
+					janelaRecibo.showWindow("Recibo", false);
+					janelaRecibo.setDados(cliente, bean.getDataPagamento(), bean.getValor(), bean.getReferencia());
+					
+				}
 			}
 		};
 	}

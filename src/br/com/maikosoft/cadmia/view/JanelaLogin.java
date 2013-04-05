@@ -81,6 +81,11 @@ public class JanelaLogin extends MkWindow {
 		String nome = fieldNome.getText();
 		String senha = new String(fieldSenha.getPassword());
 		
+		if (logger.isDebugEnabled()) {
+			nome = "m";
+			senha = "1";
+		}
+		
 		if (StringUtils.hasText(nome) && StringUtils.hasText(senha)) {
 			Usuario usuario = usuarioService.login(nome, senha);
 			if (usuario == null) {

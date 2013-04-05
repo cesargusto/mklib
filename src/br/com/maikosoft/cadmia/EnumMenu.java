@@ -11,6 +11,7 @@ import br.com.maikosoft.cadmia.menu.MenuCadastroUsuario;
 import br.com.maikosoft.cadmia.menu.MenuCadastroUsuarioConsulta;
 import br.com.maikosoft.cadmia.menu.MenuDebug;
 import br.com.maikosoft.cadmia.menu.MenuMovimentacaoLancarMensalidades;
+import br.com.maikosoft.cadmia.menu.MenuMovimentacaoRecibo;
 import br.com.maikosoft.cadmia.menu.MenuRelatorioClientePorDiaPagamento;
 import br.com.maikosoft.cadmia.menu.MenuRelatorioClientePorModalidade;
 import br.com.maikosoft.cadmia.menu.MenuRelatorioFinanceiro;
@@ -35,6 +36,7 @@ public enum EnumMenu {
     		CADASTRO_USUARIO_NOVO(new MenuCadastroUsuario()),		
     MOVIMENTACAO("Movimentação", null),
     	MOVIMENTACAO_LANCAR_MENSALIDADES(new MenuMovimentacaoLancarMensalidades()),
+    	MOVIMENTACAO_RECIBO(new MenuMovimentacaoRecibo()),
     RELATORIO("Relatório", null),
     	RELATORIO_FINANCEIRO(new MenuRelatorioFinanceiro()),
     	RELATORIO_CLIENTE_POR_MODALIDADE(new MenuRelatorioClientePorModalidade()),

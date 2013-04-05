@@ -4,12 +4,16 @@ import java.awt.GridBagConstraints;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
+
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.core.MkRun;
+import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.layout.swing.EnumMkButton;
+import br.com.maikosoft.layout.swing.MkButton.MkButtonTransferir;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
@@ -25,7 +29,9 @@ public class JanelaClienteConsulta extends MkWindow {
 	private MkFieldText fieldBusca;
 	private MkPanelTable panelCenter;
 	private MkTable<Cliente> table;
+	private MkButtonTransferir buttonTransferir;
 	
+	private MkTransferObject<Cliente> transferObject;
 	private ClienteService clienteService;
 	
 	@Override
@@ -36,10 +42,17 @@ public class JanelaClienteConsulta extends MkWindow {
 		
 		addPanelCenter(panelCenter, 500, 450);
 		
-		addPanelButton(true, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
+		addPanelButton(true, buttonTransferir, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
 		
-		fieldBusca.onEnter(pesquisar());		
-		table.onDoubleClickOrEnter(abrir());
+		fieldBusca.onEnter(pesquisar());
+		table.onDoubleClickOrEnter((transferObject==null ? abrir() : new MkRun() {
+			@Override
+			public void execute() {
+				transferir();
+			}
+		}));
+		
+		buttonTransferir.setVisible((transferObject!=null));
 		
 	}
 	
@@ -84,6 +97,21 @@ public class JanelaClienteConsulta extends MkWindow {
 				return bean.getNome();
 			}
 		});
+		if (list.size() >0 ) {
+			table.requestFocusInWindow();
+		}
+	}
+	
+	public void setTranferir(MkTransferObject<Cliente> transferObject) {
+		this.transferObject = transferObject;
+	}
+	
+	protected void transferir() {
+		Cliente seleted = table.getSeleted(true);
+		if (seleted != null) {
+			transferObject.postTranfer(seleted);
+			fecharJanela();
+		}
 	}
 
 }
