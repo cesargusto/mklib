@@ -94,5 +94,10 @@ public class JanelaUsuarioConsulta extends MkWindow {
 	protected MkRun novo() {
 		return EnumMenu.CADASTRO_USUARIO_NOVO.getMenu().getAcao();
 	}
+	
+	@Override
+	public void refreshWindow() {
+		pesquisar().execute();
+	}
 
 }

@@ -114,4 +114,11 @@ public class JanelaClienteConsulta extends MkWindow {
 		}
 	}
 
+	@Override
+	public void refreshWindow() {
+		pesquisar().execute();
+	}
+	
+	
+
 }

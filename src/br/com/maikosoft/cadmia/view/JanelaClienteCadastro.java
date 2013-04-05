@@ -71,7 +71,6 @@ public class JanelaClienteCadastro extends MkWindow {
 	private MkComboBox<String> comboDiaPagamentoMensalidade;
 	private JLabel labelSaldoFinanceiro;
 	private MkButtonPesquisar buttonConsultaFinanceiro;
-	private MkButtonAtualizar buttonAtualizarFinanceiro;
 	
 	private JLabel labelFoto;
 	
@@ -105,12 +104,10 @@ public class JanelaClienteCadastro extends MkWindow {
 		MkPanelTable panelTableMensalidade = new MkPanelTable();
 		panelTableMensalidade.setTitle("Mensalidade");
 		panelTableMensalidade.addRow("Dia Pagamento:", comboDiaPagamentoMensalidade, "Valor:", fieldValorMensalidade);
-		panelTableMensalidade.addRow(buttonConsultaFinanceiro, MkPanelTable.getDefaultCell(2), "Saldo: ", labelSaldoFinanceiro, buttonAtualizarFinanceiro);
+		panelTableMensalidade.addRow(buttonConsultaFinanceiro, MkPanelTable.getDefaultCell(2), "Saldo: ", labelSaldoFinanceiro);
 		panelTable.addRow(panelTableMensalidade);
 		buttonConsultaFinanceiro.setIcon(EnumMkButton.getIcon("dinheiro"));
 		buttonConsultaFinanceiro.setText("Consultar Financeiro");
-		buttonAtualizarFinanceiro.setText("");
-		
 		
 		panelTableModalidadeMensalidade.addRow(panelTableMensalidade);
 		
@@ -216,6 +213,8 @@ public class JanelaClienteCadastro extends MkWindow {
 			clienteModalidadeService.carregarModalidades(bean);
 			
 			beanToForm(false);
+			
+			application.refreshWindows();
 
 		} catch (Exception ex) {
 			MkDialog.error(ex.getMessage(), ex);
@@ -228,6 +227,7 @@ public class JanelaClienteCadastro extends MkWindow {
 				clienteService.delete(bean.getId());
 				MkDialog.info("Cliente excluido com sucesso");
 				closeWindow();
+				application.refreshWindows();
 			} catch (Exception ex) {
 				MkDialog.error(ex.getMessage(), ex);
 			}
@@ -286,7 +286,6 @@ public class JanelaClienteCadastro extends MkWindow {
 		atualizaListaModalidade();
 		atualizar();
 		
-		buttonAtualizarFinanceiro.setEnabled(!isEditMode);
 		buttonConsultaFinanceiro.setEnabled(!isEditMode);
 		
 		buttonNovo.setEnabled(!isEditMode);
@@ -381,5 +380,12 @@ public class JanelaClienteCadastro extends MkWindow {
 			labelFoto.setText(null);
 		}
 	}
+
+	@Override
+	public void refreshWindow() {
+		atualizar();
+	}
+	
+	
 
 }
