@@ -66,7 +66,7 @@ public class JanelaLogin extends MkWindow {
 		
 		addPanelButton(true, buttonLogin);
 		
-		this.onCloseView = new MkRun() {
+		this.onCloseWindow = new MkRun() {
 			@Override
 			public void execute() {
 				if (MkDialog.confirm("O sistema será fechado. Deseja continuar?")) {

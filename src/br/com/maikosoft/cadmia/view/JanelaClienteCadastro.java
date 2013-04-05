@@ -227,7 +227,7 @@ public class JanelaClienteCadastro extends MkWindow {
 			try {
 				clienteService.delete(bean.getId());
 				MkDialog.info("Cliente excluido com sucesso");
-				fecharJanela();
+				closeWindow();
 			} catch (Exception ex) {
 				MkDialog.error(ex.getMessage(), ex);
 			}

@@ -70,7 +70,7 @@ public class JanelaCamera extends MkWindow {
 			DSFilterInfo[][] dsiVideo = DSCapture.queryDevices(DSCapture.SKIP_AUDIO);
 			if (dsiVideo[0].length == 0) {
 				MkDialog.warm("Nenhuma camera encontrada");
-				fecharJanela();
+				closeWindow();
 			}
 			
 			graph = new DSCapture(DSFiltergraph.RENDER_NATIVE, dsiVideo[0][0],
@@ -95,7 +95,7 @@ public class JanelaCamera extends MkWindow {
 	protected void transferir() {
 		buttonLimpar.setEnabled(false);
 		buttonTransferir.setEnabled(false);
-		fecharJanela();
+		closeWindow();
 	}
 	
 

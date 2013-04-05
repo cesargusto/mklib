@@ -33,12 +33,12 @@ public abstract class MkWindow extends JPanel {
 	private static final Logger logger = Logger.getLogger(MkWindow.class);
 	
 	protected javax.swing.JPanel panelButton;
-    protected MkRun onCloseView;
+    protected MkRun onCloseWindow;
     
     protected final MkApplication application = MkApplication.getInstance();
    
-    public void setOnCloseView(MkRun onCloseView) {
-        this.onCloseView = onCloseView;
+    public void setOnCloseWindow(MkRun onCloseWindow) {
+        this.onCloseWindow = onCloseWindow;
     }
    
     public Object showWindow(String title, boolean isModal) {
@@ -50,14 +50,14 @@ public abstract class MkWindow extends JPanel {
    
     protected abstract void initWindow();
 
-	public void fecharJanela() {
+	public void closeWindow() {
 		logger.debug("fechando janela");
-		if (onCloseView == null) {
+		if (onCloseWindow == null) {
 			logger.debug("dispose");
 			application.disposeWindow(MkWindow.this);
 		} else {
-			logger.debug("oncloseview");
-			onCloseView.execute();
+			logger.debug("onCloseWindow");
+			onCloseWindow.execute();
 		}
 	}
    
@@ -79,7 +79,7 @@ public abstract class MkWindow extends JPanel {
 			mkButton.onClick(new MkRun() {
 				@Override
 				public void execute() {
-					fecharJanela();
+					closeWindow();
 				}
 			});
         	panelButton.add(mkButton);
@@ -173,6 +173,10 @@ public abstract class MkWindow extends JPanel {
     		SwingUtilities.getRootPane(this).getGlassPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     		SwingUtilities.getRootPane(this).getGlassPane().setVisible(false);
     	}
+    	
+    }
+    
+    public void refreshWindow() {
     	
     }
 
