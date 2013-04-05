@@ -20,7 +20,6 @@ import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.core.MkUtil;
 import br.com.maikosoft.layout.swing.EnumMkButton;
 import br.com.maikosoft.layout.swing.MkButton;
-import br.com.maikosoft.layout.swing.MkButton.MkButtonAtualizar;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
@@ -38,7 +37,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 	private MkTable<Financeiro> table;
 	private JLabel labelSaldo;
 	
-	private MkButtonAtualizar buttonAtualizar;
+//	private MkButtonAtualizar buttonAtualizar;
 	private MkButton buttonPagar;
 	private MkButton buttonRecibo;
 	
@@ -52,13 +51,13 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 	@Override
 	protected void initWindow() {
 		
-		buttonAtualizar.setText("Atualizar");
+//		buttonAtualizar.setText("Atualizar");
 		panelCenter.addRow("Cliente", fieldCliente);
 		panelCenter.addRow(table.getJScrollPane(), GridBagConstraints.BOTH);
 		
 		addPanelCenter(panelCenter, 750, 450);
 		
-		addPanelButton(true, buttonPagar, buttonAtualizar, buttonRecibo, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
+		addPanelButton(true, buttonPagar, buttonRecibo, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
 		
 		fieldCliente.setEditable(false);
 		labelSaldo = new JLabel();
@@ -185,7 +184,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 							logger.error("Erro Executando pagarSelecionados", ex);
 							MkDialog.error(ex.getMessage(), ex);
 						} finally {
-							atualizar();
+							application.refreshWindows();
 						}
 					}
 				}
@@ -207,6 +206,11 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 				}
 			}
 		};
+	}
+
+	@Override
+	public void refreshWindow() {
+		atualizar();
 	}
 
 }

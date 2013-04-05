@@ -95,8 +95,8 @@ public class JanelaModalidadeCadastro extends MkWindow {
 			try {
 				modalidadeService.delete(bean.getId());
 				MkDialog.info("Modalidade excluido com sucesso");
-				application.refreshWindows();
 				closeWindow();
+				application.refreshWindows();
 			} catch (Exception ex) {
 				MkDialog.error(ex.getMessage(), ex);
 			}
