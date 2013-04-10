@@ -16,6 +16,7 @@ import br.com.maikosoft.cadmia.menu.MenuRelatorioClientePorDiaPagamento;
 import br.com.maikosoft.cadmia.menu.MenuRelatorioClientePorModalidade;
 import br.com.maikosoft.cadmia.menu.MenuRelatorioFinanceiro;
 import br.com.maikosoft.cadmia.menu.MenuSair;
+import br.com.maikosoft.cadmia.menu.MenuSistemaAtualizar;
 import br.com.maikosoft.cadmia.menu.MenuSistemaBackup;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.layout.swing.MkMenu;
@@ -44,6 +45,7 @@ public enum EnumMenu {
     SISTEMA("Sistema", null),
     	SISTEMA_BACKUP(new MenuSistemaBackup()),
     	SISTEMA_DEBUG(new MenuDebug()),
+    	SISTEMA_ATUALIZAR(new MenuSistemaAtualizar()),
     	SISTEMA_SAIR(new MenuSair());
 	
 	private final MkMenu menu;

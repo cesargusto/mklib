@@ -25,7 +25,6 @@ import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.core.MkUtil;
 import br.com.maikosoft.layout.swing.EnumMkButton;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonAdicionar;
-import br.com.maikosoft.layout.swing.MkButton.MkButtonAtualizar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonExcluir;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonNovo;
