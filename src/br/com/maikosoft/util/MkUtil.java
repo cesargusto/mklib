@@ -1,4 +1,4 @@
-package br.com.maikosoft.core;
+package br.com.maikosoft.util;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -15,6 +15,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.util.StringUtils;
+
+import br.com.maikosoft.core.MkException;
 
 
 public class MkUtil {

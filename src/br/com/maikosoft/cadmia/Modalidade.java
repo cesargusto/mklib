@@ -3,7 +3,7 @@ package br.com.maikosoft.cadmia;
 import java.math.BigDecimal;
 
 import br.com.maikosoft.core.MkBean;
-import br.com.maikosoft.core.MkUtil;
+import br.com.maikosoft.util.MkUtil;
 
 @SuppressWarnings("serial")
 public class Modalidade extends MkBean {

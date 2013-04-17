@@ -13,13 +13,13 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
 import org.springframework.util.StringUtils;
 
-import br.com.maikosoft.core.MkUtil;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonSalvar;
 import br.com.maikosoft.layout.swing.MkDialog;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkTextArea;
 import br.com.maikosoft.layout.swing.MkWindow;
+import br.com.maikosoft.util.MkUtil;
 
 @SuppressWarnings("serial")
 public class JanelaBackup extends MkWindow {

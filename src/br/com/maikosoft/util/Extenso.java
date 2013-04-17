@@ -1,4 +1,4 @@
-package br.com.maikosoft.cadmia;
+package br.com.maikosoft.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

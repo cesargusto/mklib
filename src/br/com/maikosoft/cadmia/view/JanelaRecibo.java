@@ -12,9 +12,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.cadmia.Cliente;
-import br.com.maikosoft.cadmia.Extenso;
 import br.com.maikosoft.core.MkTransferObject;
-import br.com.maikosoft.core.MkUtil;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonImprimir;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonPesquisar;
 import br.com.maikosoft.layout.swing.MkDialog;
@@ -25,6 +23,8 @@ import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkTextArea;
 import br.com.maikosoft.layout.swing.MkWindow;
+import br.com.maikosoft.util.Extenso;
+import br.com.maikosoft.util.MkUtil;
 
 @SuppressWarnings("serial")
 public class JanelaRecibo extends MkWindow {

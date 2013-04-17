@@ -17,7 +17,6 @@ import br.com.maikosoft.cadmia.Financeiro;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkServiceException;
-import br.com.maikosoft.core.MkUtil;
 import br.com.maikosoft.layout.swing.EnumMkButton;
 import br.com.maikosoft.layout.swing.MkButton;
 import br.com.maikosoft.layout.swing.MkDialog;
@@ -26,6 +25,7 @@ import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkTable;
 import br.com.maikosoft.layout.swing.MkTableModel;
 import br.com.maikosoft.layout.swing.MkWindow;
+import br.com.maikosoft.util.MkUtil;
 
 @SuppressWarnings("serial")
 public class JanelaFinanceiroConsulta extends MkWindow {
