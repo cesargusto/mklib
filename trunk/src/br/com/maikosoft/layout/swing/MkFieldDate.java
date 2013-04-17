@@ -7,7 +7,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
 
 import br.com.maikosoft.core.MkException;
-import br.com.maikosoft.core.MkUtil;
+import br.com.maikosoft.util.MkUtil;
 
 
 

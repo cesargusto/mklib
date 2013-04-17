@@ -57,8 +57,8 @@ public class JanelaLogin extends MkWindow {
 	protected void initWindow() {
 		
 		MkPanelTable panelTable = new MkPanelTable();
-		panelTable.addRow("Nome:",fieldNome);
-		panelTable.addRow("Senha:", fieldSenha);
+		panelTable.addRow("Nome", MkPanelTable.getDefaultCell(1)).addRow(fieldNome);
+		panelTable.addRow("Senha", MkPanelTable.getDefaultCell(1)).addRow(fieldSenha);
 		
 		addPanelCenter(panelTable, 200, 150);
 		

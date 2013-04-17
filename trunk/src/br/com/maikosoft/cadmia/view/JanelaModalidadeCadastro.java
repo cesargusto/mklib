@@ -4,7 +4,6 @@ import java.awt.GridBagConstraints;
 
 import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.cadmia.service.ModalidadeService;
-import br.com.maikosoft.core.MkUtil;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonExcluir;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonNovo;
@@ -16,6 +15,7 @@ import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkTextArea;
 import br.com.maikosoft.layout.swing.MkWindow;
+import br.com.maikosoft.util.MkUtil;
 
 @SuppressWarnings("serial")
 public class JanelaModalidadeCadastro extends MkWindow {

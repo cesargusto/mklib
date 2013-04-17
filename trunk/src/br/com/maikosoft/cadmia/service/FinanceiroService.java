@@ -24,7 +24,7 @@ import br.com.maikosoft.cadmia.view.JanelaLogin;
 import br.com.maikosoft.core.MkDAOException;
 import br.com.maikosoft.core.MkService;
 import br.com.maikosoft.core.MkServiceException;
-import br.com.maikosoft.core.MkUtil;
+import br.com.maikosoft.util.MkUtil;
 
 @Service
 public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {

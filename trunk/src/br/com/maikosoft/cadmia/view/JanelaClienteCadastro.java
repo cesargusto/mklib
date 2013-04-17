@@ -15,14 +15,12 @@ import javax.swing.SwingConstants;
 
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.ClienteModalidade;
-import br.com.maikosoft.cadmia.EnumUF;
 import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.cadmia.service.ClienteModalidadeService;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.core.MkTransferObject;
-import br.com.maikosoft.core.MkUtil;
 import br.com.maikosoft.layout.swing.EnumMkButton;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonAdicionar;
 import br.com.maikosoft.layout.swing.MkButton.MkButtonEditar;
@@ -40,6 +38,8 @@ import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkTextArea;
 import br.com.maikosoft.layout.swing.MkWindow;
+import br.com.maikosoft.util.EnumUF;
+import br.com.maikosoft.util.MkUtil;
 
 @SuppressWarnings("serial")
 public class JanelaClienteCadastro extends MkWindow {
