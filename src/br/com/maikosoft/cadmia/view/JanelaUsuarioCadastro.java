@@ -78,7 +78,7 @@ public class JanelaUsuarioCadastro extends MkWindow {
 			} else {
 				usuarioService.update(bean);
 			}
-			MkDialog.info("Usuário salvo com sucesso");
+			MkDialog.info("Usuário salvo com sucesso", buttonSalvar);
 
 			bean = usuarioService.findById(bean.getId());
 			beanToForm(false);
@@ -93,7 +93,6 @@ public class JanelaUsuarioCadastro extends MkWindow {
 		if (MkDialog.confirm("Deseja excluir esse registro?")) {
 			try {
 				usuarioService.delete(bean.getId());
-				MkDialog.info("Usuário excluido com sucesso");
 				closeWindow();
 				application.refreshWindows();
 			} catch (Exception ex) {

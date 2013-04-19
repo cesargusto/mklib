@@ -97,7 +97,7 @@ public class JanelaFinanceiroCadastro extends MkWindow {
 			} else {
 				financeiroService.update(bean);
 			}
-			MkDialog.info("Financeiro salvo com sucesso");
+			MkDialog.info("Financeiro salvo com sucesso", buttonSalvar);
 
 			bean = financeiroService.findById(bean.getId());
 			bean.setCliente(cliente);
@@ -114,7 +114,6 @@ public class JanelaFinanceiroCadastro extends MkWindow {
 			if (MkDialog.confirm("Deseja excluir esse registro?")) {
 				try {
 					financeiroService.delete(bean.getId());
-					MkDialog.info("Financeiro excluido com sucesso");
 					closeWindow();
 					application.refreshWindows();
 				} catch (Exception ex) {

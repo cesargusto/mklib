@@ -23,6 +23,7 @@ public class MkFieldMask extends JFormattedTextField {
 	
 	private NumberFormat format;
 	private MaskFormatter maskFormatter;
+	private String lastValue;
 	
 	public MkFieldMask() {
 		this.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -55,15 +56,23 @@ public class MkFieldMask extends JFormattedTextField {
 
             public void actionPerformed(ActionEvent e) {
                 adapter.execute();
+                lastValue = getText();
             }
         });
     	
 		this.addFocusListener(new FocusAdapter() {
 
-            @Override
+			@Override
             public void focusLost(FocusEvent e) {
-            	adapter.execute();
+				if ((lastValue!=null) && (!lastValue.equals(getText()))) {
+					adapter.execute();
+				}
             }
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				lastValue = getText();
+			}
         });
     }
 

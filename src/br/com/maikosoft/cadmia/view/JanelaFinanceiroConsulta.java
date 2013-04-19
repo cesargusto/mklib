@@ -173,7 +173,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 					}
 				}
 				if (list.size()==0) {
-					MkDialog.info("Primeiro selecione o item a pagar");
+					MkDialog.info("Primeiro selecione o item a pagar", buttonPagar);
 				} else {
 					String mensagem = " Total de itens: "+list.size()+" Total a pagar: "+MkUtil.toString(total);
 					if (MkDialog.confirm("Marcar como pago itens selecionados?\n"+mensagem)) {

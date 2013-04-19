@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -13,12 +14,17 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.ClienteModalidade;
 import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.cadmia.service.ClienteModalidadeService;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
+import br.com.maikosoft.core.MkException;
+import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.layout.swing.EnumMkButton;
@@ -36,8 +42,10 @@ import br.com.maikosoft.layout.swing.MkFieldMask;
 import br.com.maikosoft.layout.swing.MkFieldMask.EnumMkMask;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
+import br.com.maikosoft.layout.swing.MkTable;
 import br.com.maikosoft.layout.swing.MkTextArea;
 import br.com.maikosoft.layout.swing.MkWindow;
+import br.com.maikosoft.util.CEP;
 import br.com.maikosoft.util.EnumUF;
 import br.com.maikosoft.util.MkUtil;
 
@@ -145,6 +153,8 @@ public class JanelaClienteCadastro extends MkWindow {
 		comboUf.setList(Arrays.asList(EnumUF.values()));
 		fieldCpf.setMask(EnumMkMask.CPF);
 		fieldCep.setMask(EnumMkMask.CEP);
+		fieldCep.onChange(buscaEndereco());
+		fieldEndereco.onChange(buscaCEP());
 		fieldId.setEnabled(false);
 		fieldValorMensalidade.setMask(EnumMkMask.CURRENCY);
 		fieldValorMensalidade.setEditable(false);
@@ -165,7 +175,7 @@ public class JanelaClienteCadastro extends MkWindow {
 			beanToForm(false);
 		}
 	}
-	
+
 	protected void novo() {
 		bean = new Cliente();
 		beanToForm(true);
@@ -204,7 +214,7 @@ public class JanelaClienteCadastro extends MkWindow {
 			} else {
 				clienteService.update(bean);
 			}
-			MkDialog.info("Cliente salvo com sucesso");
+			MkDialog.info("Cliente salvo com sucesso", buttonSalvar);
 			
 			clienteModalidadeService.update(bean.getListModalidade());
 
@@ -224,7 +234,6 @@ public class JanelaClienteCadastro extends MkWindow {
 		if (MkDialog.confirm("Deseja excluir esse registro?")) {
 			try {
 				clienteService.delete(bean.getId());
-				MkDialog.info("Cliente excluido com sucesso");
 				closeWindow();
 				application.refreshWindows();
 			} catch (Exception ex) {
@@ -383,6 +392,77 @@ public class JanelaClienteCadastro extends MkWindow {
 	@Override
 	public void refreshWindow() {
 		atualizar();
+	}
+	
+	private MkRun buscaEndereco() {
+		return new MkRun() {
+			@Override
+			public void execute() {
+								
+				if ((StringUtils.isBlank(fieldEndereco.getText())) 
+						&& (!"  .   -   ".equals(fieldCep.getText()))) {
+					try {
+						List<CEP> buscarCEP = CEP.buscarCEP(fieldCep.getText());
+						if (buscarCEP.size() == 0) {
+							MkDialog.info("CEP inválido", fieldCep);
+						} else {
+							fieldEndereco.setText(buscarCEP.get(0).logradouro);
+							fieldBairro.setText(buscarCEP.get(0).bairro);
+							fieldCidade.setText(buscarCEP.get(0).localidade);
+							comboUf.setSelected(EnumUF.valueOf(buscarCEP.get(0).uf));
+							fieldNumero.grabFocus();
+						}
+					} catch (MkException ex) {
+						MkDialog.info(ex.getMessage(), fieldCep);
+					}
+				}
+			}
+		};
+	}
+	
+	private MkRun buscaCEP() {
+		return new MkRun() {
+			@Override
+			public void execute() {
+				if (("  .   -   ".equals(fieldCep.getText())) 
+						&& (!StringUtils.isBlank(fieldEndereco.getText()))
+						&& (!StringUtils.isBlank(fieldCidade.getText()))) {
+					try {
+						final List<CEP> buscarCEP = CEP.buscarCEP(fieldEndereco.getText()+
+								", "+fieldCidade.getText());
+						if (buscarCEP.size() == 0) {
+							MkDialog.info("CEP não encontrado", fieldEndereco);
+						} else if (buscarCEP.size() == 1) {
+							fieldCep.setText(buscarCEP.get(0).cep);
+						} else {
+							
+							MkWindow janelaCEP = new MkWindow() {
+								
+								private MkTable<CEP> table;
+								
+								@Override
+								protected void initWindow() {
+									
+									addPanelCenter(table, 300, 100);
+									
+								}
+							};
+							janelaCEP.showWindow("Escolha um CEP", true);
+							
+							
+//							fieldEndereco.setText(buscarCEP.get(0).logradouro);
+//							fieldBairro.setText(buscarCEP.get(0).bairro);
+//							fieldCidade.setText(buscarCEP.get(0).localidade);
+//							comboUf.setSelected(EnumUF.valueOf(buscarCEP.get(0).uf));
+						}
+						
+						
+					} catch (MkException ex) {
+						MkDialog.info(ex.getMessage(), fieldEndereco);
+					}
+				}
+			}
+		};
 	}
 	
 	

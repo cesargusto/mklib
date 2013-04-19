@@ -61,7 +61,7 @@ public class JanelaLancaMensalidades extends MkWindow {
 			if (MkDialog.confirm("Deseja lançar as mensalidades referêntes a "+comboMes.getSelected())) {
 				this.waitCursor(true);
 				financeiroService.lancarMensalidades(comboMes.getSelected(), comboAno.getSelected());
-				MkDialog.info("Mensalidades lançadas com sucesso.");
+				MkDialog.info("Mensalidades lançadas com sucesso.", buttonLancar);
 			}
 		} catch (MkServiceException exception) {
 			MkDialog.error("Erro ao lançar mensalidades", exception);

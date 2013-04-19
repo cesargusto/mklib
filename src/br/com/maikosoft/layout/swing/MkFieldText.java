@@ -101,6 +101,7 @@ public class MkFieldText extends JTextField {
 
              public void actionPerformed(ActionEvent e) {
             	 adapterOnChange.execute();
+            	 lastValue = getText();
              }
          });
  		

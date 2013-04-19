@@ -24,6 +24,9 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import net.java.balloontip.BalloonTip;
+import net.java.balloontip.utils.TimingUtils;
+
 import org.apache.log4j.Logger;
 
 import br.com.maikosoft.core.MkRun;
@@ -102,23 +105,26 @@ public class MkDialog extends MkWindow {
     }
 	
 
-	public static void info(String message) {
+	public static void info(String message, JComponent component) {
+		BalloonTip balloonTip = new BalloonTip(component, message);
+		TimingUtils.showTimedBalloon(balloonTip, 3000);
 		
-		ImageIcon icon = new ImageIcon(MkDialog.class.getClassLoader().getResource("resource/icon/informacao.png"));
-		final JLabel labelMessage = new JLabel("<html><font size=+1 color='blue' >&nbsp;&nbsp;"+message+"&nbsp;&nbsp;</font></html>", icon, SwingConstants.CENTER);
-        
-        final MkApplication application = MkApplication.getInstance();
-        application.getContentPane().add(labelMessage, BorderLayout.NORTH);
-        application.getRootPane().revalidate();
-        
-        Timer t = new Timer(2000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	application.getContentPane().remove(labelMessage);
-            	application.getRootPane().revalidate();
-            }
-        });       
-        t.start();
+		
+//		ImageIcon icon = new ImageIcon(MkDialog.class.getClassLoader().getResource("resource/icon/informacao.png"));
+//		final JLabel labelMessage = new JLabel("<html><font size=+1 color='blue' >&nbsp;&nbsp;"+message+"&nbsp;&nbsp;</font></html>", icon, SwingConstants.CENTER);
+//        
+//        final MkApplication application = MkApplication.getInstance();
+//        application.getContentPane().add(labelMessage, BorderLayout.NORTH);
+//        application.getRootPane().revalidate();
+//        
+//        Timer t = new Timer(2000, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//            	application.getContentPane().remove(labelMessage);
+//            	application.getRootPane().revalidate();
+//            }
+//        });       
+//        t.start();
 	}
 	public static void warm(String message) {
 		new MkDialog(EnumDialog.WARM, message);

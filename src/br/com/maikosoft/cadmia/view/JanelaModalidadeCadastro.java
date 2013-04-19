@@ -78,7 +78,7 @@ public class JanelaModalidadeCadastro extends MkWindow {
 			} else {
 				modalidadeService.update(bean);
 			}
-			MkDialog.info("Modalidade salvo com sucesso");
+			MkDialog.info("Modalidade salvo com sucesso", buttonSalvar);
 
 			bean = modalidadeService.findById(bean.getId());
 			beanToForm(false);
@@ -94,7 +94,6 @@ public class JanelaModalidadeCadastro extends MkWindow {
 		if (MkDialog.confirm("Deseja excluir esse registro?")) {
 			try {
 				modalidadeService.delete(bean.getId());
-				MkDialog.info("Modalidade excluido com sucesso");
 				closeWindow();
 				application.refreshWindows();
 			} catch (Exception ex) {

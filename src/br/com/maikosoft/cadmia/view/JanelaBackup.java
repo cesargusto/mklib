@@ -109,7 +109,7 @@ public class JanelaBackup extends MkWindow {
 				
 				File fileBackup = new File(fieldPathBackup.getText());
 				if (fileBackup.exists()) {
-					MkDialog.info("Backup gerado");
+					MkDialog.info("Backup gerado", buttonSalvar);
 				} else {
 					MkDialog.warm("Backup não foi gerado.");
 				}
