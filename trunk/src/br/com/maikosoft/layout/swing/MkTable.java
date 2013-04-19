@@ -143,7 +143,7 @@ public class MkTable<T> extends JTable {
 		if (this.getSelectedRow() == -1) {
 			if (this.getRowCount() == 0) {
 				if (isMostraAviso) {
-					MkDialog.info("Seleciona um item na tabela.");
+					MkDialog.info("Seleciona um item na tabela.", this.getTableHeader());
 				}
 				return null;				
 			} else {

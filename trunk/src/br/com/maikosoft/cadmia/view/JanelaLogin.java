@@ -60,7 +60,7 @@ public class JanelaLogin extends MkWindow {
 		panelTable.addRow("Nome", MkPanelTable.getDefaultCell(1)).addRow(fieldNome);
 		panelTable.addRow("Senha", MkPanelTable.getDefaultCell(1)).addRow(fieldSenha);
 		
-		addPanelCenter(panelTable, 200, 150);
+		addPanelCenter(panelTable, 210, 150);
 		
 		buttonLogin.setText("Entrar");
 		
@@ -93,7 +93,7 @@ public class JanelaLogin extends MkWindow {
 					MkDialog.error("Você efetuou três tentativas inválidas e o sistema será fechado.", null);
 					System.exit(0);
 				}
-				MkDialog.error("Nome ou senha inválido.", null);
+				MkDialog.info("Nome ou senha inválido.", fieldNome);
 			} else {
 				usuarioLogado = usuario;
 				fieldSenha.setText("");
@@ -101,7 +101,7 @@ public class JanelaLogin extends MkWindow {
 				window.setVisible(false);
 			}
 		} else {
-			MkDialog.warm("Digite o nome e a senha");
+			MkDialog.info("Digite o nome e a senha", fieldNome);
 		}
 
 	}

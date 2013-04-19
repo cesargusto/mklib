@@ -44,5 +44,6 @@
 	<classpathentry kind="lib" path="lib/postgresql-9.2-1002.jdbc4.jar"/>
 	<classpathentry kind="lib" path="lib/dsj.jar"/>
 	<classpathentry kind="lib" path="lib/jsoup-1.7.2.jar"/>
+	<classpathentry kind="lib" path="lib/balloontip-1.2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

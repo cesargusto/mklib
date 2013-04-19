@@ -41,7 +41,7 @@ public class MenuSistemaAtualizar extends MkMenu {
 			@Override
 			public void execute() {
 				
-				MkDialog.info("Aguarde o sistema esta sendo atualizado");
+				MkDialog.warm("Aguarde o sistema esta sendo atualizado");
 				
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override

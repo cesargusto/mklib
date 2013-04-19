@@ -1,14 +1,13 @@
 package br.com.maikosoft.util;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,6 +16,8 @@ import org.jsoup.select.Elements;
 import br.com.maikosoft.core.MkException;
 
 public class CEP {
+	
+	private static final Logger logger = Logger.getLogger(CEP.class);
 	
 	private static final String INDEXOF_RESULTADO = "<!--?xml version = '1.0' encoding = 'ISO-8859-1'?-->";
     private static final String END_INDEXOF_RESULTADO = "</table>";
@@ -32,6 +33,8 @@ public class CEP {
     
     
 	public static List<CEP> buscarCEP(String query) throws MkException {
+		
+		logger.debug("Executando buscarCEP");
 		
 		LinkedList<CEP> result = new LinkedList<CEP>();
 		
@@ -93,7 +96,10 @@ public class CEP {
 		}
         
 		List<CEP> cep = CEP.buscarCEP("87.309-015");
-		System.out.println(cep.get(0).bairro);
+		System.out.println(cep.get(0).logradouro);
+		
+		List<CEP> araruna = CEP.buscarCEP("87.260-000");
+		System.out.println(araruna.get(0).localidade);
 		
 		
     }
