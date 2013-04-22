@@ -65,10 +65,10 @@ public class JanelaBackup extends MkWindow {
 		
 		try {
 			if (!StringUtils.hasText(fieldPathDB.getText())) {
-				MkDialog.warm("Informe o caminho para o programa de backup");
+				MkDialog.info("Informe o caminho para o programa de backup", fieldPathDB);
 				fieldPathDB.grabFocus();
 			} else if (!StringUtils.hasText(fieldPathBackup.getText())) {
-				MkDialog.warm("Informe o caminho do arquivo de backup");
+				MkDialog.info("Informe o caminho do arquivo de backup", fieldPathBackup);
 				fieldPathBackup.grabFocus();
 			} else {
 				this.waitCursor(true);
