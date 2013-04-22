@@ -1,6 +1,5 @@
 package br.com.maikosoft.layout.swing;
 
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -21,10 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
-import javax.swing.Timer;
 
 import net.java.balloontip.BalloonTip;
+import net.java.balloontip.positioners.RightAbovePositioner;
 import net.java.balloontip.utils.TimingUtils;
 
 import org.apache.log4j.Logger;
@@ -105,13 +103,14 @@ public class MkDialog extends MkWindow {
     }
 	
 
-	public static void info(String message, JComponent component) {
-		BalloonTip balloonTip = new BalloonTip(component, message);
+	public static BalloonTip info(String message, JComponent component) {
+		BalloonTip balloonTip = new BalloonTip(component, "<html><font size=+1 color='blue' >&nbsp;&nbsp;"+message+"&nbsp;&nbsp;</font></html>");
+		balloonTip.setPositioner(new RightAbovePositioner(40, 20));
 		TimingUtils.showTimedBalloon(balloonTip, 3000);
-		
+		return balloonTip;
 		
 //		ImageIcon icon = new ImageIcon(MkDialog.class.getClassLoader().getResource("resource/icon/informacao.png"));
-//		final JLabel labelMessage = new JLabel("<html><font size=+1 color='blue' >&nbsp;&nbsp;"+message+"&nbsp;&nbsp;</font></html>", icon, SwingConstants.CENTER);
+//		final JLabel labelMessage = new JLabel(, icon, SwingConstants.CENTER);
 //        
 //        final MkApplication application = MkApplication.getInstance();
 //        application.getContentPane().add(labelMessage, BorderLayout.NORTH);

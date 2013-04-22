@@ -15,7 +15,6 @@ import javax.swing.JList;
 import javax.swing.SwingConstants;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.ClienteModalidade;
@@ -43,6 +42,7 @@ import br.com.maikosoft.layout.swing.MkFieldMask.EnumMkMask;
 import br.com.maikosoft.layout.swing.MkFieldText;
 import br.com.maikosoft.layout.swing.MkPanelTable;
 import br.com.maikosoft.layout.swing.MkTable;
+import br.com.maikosoft.layout.swing.MkTableModel;
 import br.com.maikosoft.layout.swing.MkTextArea;
 import br.com.maikosoft.layout.swing.MkWindow;
 import br.com.maikosoft.util.CEP;
@@ -340,7 +340,7 @@ public class JanelaClienteCadastro extends MkWindow {
 	protected void remover() {
 		
 		if (listModalidade.getSelectedIndex() == -1) {
-			MkDialog.warm("Selecione uma modalidade");
+			MkDialog.info("Selecione uma modalidade", buttonRemover);
 		} else {
 			Modalidade modalidade = (Modalidade) listModalidade.getModel().getElementAt(listModalidade.getSelectedIndex());
 			for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
@@ -399,8 +399,9 @@ public class JanelaClienteCadastro extends MkWindow {
 			@Override
 			public void execute() {
 								
-				if ((StringUtils.isBlank(fieldEndereco.getText())) 
-						&& (!"  .   -   ".equals(fieldCep.getText()))) {
+				if (buttonSalvar.isEnabled()
+						&& (StringUtils.isBlank(fieldEndereco.getText())) 
+							&& (!"  .   -   ".equals(fieldCep.getText()))) {
 					try {
 						List<CEP> buscarCEP = CEP.buscarCEP(fieldCep.getText());
 						if (buscarCEP.size() == 0) {
@@ -422,11 +423,14 @@ public class JanelaClienteCadastro extends MkWindow {
 	
 	private MkRun buscaCEP() {
 		return new MkRun() {
+			
+			protected CEP cepRetorno;
+			
 			@Override
 			public void execute() {
-				if (("  .   -   ".equals(fieldCep.getText())) 
+				if (buttonSalvar.isEnabled() && ("  .   -   ".equals(fieldCep.getText())) 
 						&& (!StringUtils.isBlank(fieldEndereco.getText()))
-						&& (!StringUtils.isBlank(fieldCidade.getText()))) {
+							&& (!StringUtils.isBlank(fieldCidade.getText()))) {
 					try {
 						final List<CEP> buscarCEP = CEP.buscarCEP(fieldEndereco.getText()+
 								", "+fieldCidade.getText());
@@ -435,27 +439,50 @@ public class JanelaClienteCadastro extends MkWindow {
 						} else if (buscarCEP.size() == 1) {
 							fieldCep.setText(buscarCEP.get(0).cep);
 						} else {
-							
 							MkWindow janelaCEP = new MkWindow() {
-								
-								private MkTable<CEP> table;
-								
 								@Override
 								protected void initWindow() {
+									final MkTable<CEP> table = new MkTable<CEP>();
+									table.setModel(new MkTableModel<CEP>(buscarCEP, "Logradouro", "Bairro", "Localidade", "CEP") {
+										@Override
+										protected Object getRow(CEP bean,
+												int rowIndex, int columnIndex) {
+											switch (columnIndex) {
+											case 0:
+												return bean.logradouro;
+											case 1:
+												return bean.bairro;
+											case 2:
+												return bean.localidade;
+											default:
+												return bean.cep;
+											}
+										}
+									});
 									
-									addPanelCenter(table, 300, 100);
+									table.getColumnModel().getColumn(0).setPreferredWidth(200);
+									table.getColumnModel().getColumn(1).setPreferredWidth(100);
+									table.getColumnModel().getColumn(2).setPreferredWidth(50);
+									table.getColumnModel().getColumn(3).setPreferredWidth(30);
 									
+									table.onDoubleClickOrEnter(new MkRun() {
+										@Override
+										public void execute() {
+											cepRetorno = table.getSeleted(false);
+											closeWindow();
+										}
+									});
+									addPanelCenter(new MkPanelTable().addRow(table), 600, 150);
 								}
 							};
 							janelaCEP.showWindow("Escolha um CEP", true);
-							
-							
-//							fieldEndereco.setText(buscarCEP.get(0).logradouro);
-//							fieldBairro.setText(buscarCEP.get(0).bairro);
-//							fieldCidade.setText(buscarCEP.get(0).localidade);
-//							comboUf.setSelected(EnumUF.valueOf(buscarCEP.get(0).uf));
+							if (cepRetorno != null) {
+								fieldCep.setText(cepRetorno.cep);
+								if (StringUtils.isBlank(fieldBairro.getText())) {
+									fieldBairro.setText(cepRetorno.bairro);
+								}
+							}
 						}
-						
 						
 					} catch (MkException ex) {
 						MkDialog.info(ex.getMessage(), fieldEndereco);

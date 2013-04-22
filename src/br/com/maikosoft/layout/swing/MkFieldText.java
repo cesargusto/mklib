@@ -100,8 +100,8 @@ public class MkFieldText extends JTextField {
  		this.addActionListener(new ActionListener() {
 
              public void actionPerformed(ActionEvent e) {
-            	 adapterOnChange.execute();
             	 lastValue = getText();
+            	 adapterOnChange.execute();
              }
          });
  		

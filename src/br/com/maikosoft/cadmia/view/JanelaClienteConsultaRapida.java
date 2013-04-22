@@ -40,7 +40,7 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 						where.put("nomeOrId", fieldBusca.getText());
 						List<Cliente> list = clienteService.findAll(where);
 						if (list.size() == 0) {
-							MkDialog.warm("Cliente não encontrado");
+							MkDialog.info("Cliente não encontrado", application.getJMenuBar());
 						} else if (list.size() == 1) {
 							new JanelaClienteCadastro(list.get(0)).showWindow("Cadastro Cliente", false);
 						} else {
@@ -65,6 +65,7 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 		JInternalFrame view = (JInternalFrame) showWindow("Consulta Rápida", false);
 		view.setLocation(0, 0);
 		view.setMaximizable(false);
+		view.setResizable(false);
 		view.setClosable(false);
 		view.setIconifiable(false);
 		view.updateUI();
