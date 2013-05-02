@@ -69,8 +69,6 @@ public class MkApplication extends JFrame {
 			}
 		};
 		
-		applicationContext = new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
-		
 	}
 
 	public static MkApplication getInstance() {
@@ -80,7 +78,10 @@ public class MkApplication extends JFrame {
 		return instance;
 	}
 
-	public void init(String title) {
+	public void init(String title, String projeto) {
+		
+		applicationContext = new ClassPathXmlApplicationContext("classpath:/"+projeto+".xml", "classpath:/applicationContext.xml");
+		
 		this.setTitle(title);
 		this.addWindowListener(new WindowAdapter() {
         	@Override

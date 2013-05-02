@@ -58,7 +58,7 @@ public class MkDialog extends MkWindow {
 		textAreaMessage.setTransparent(true);
 		textAreaMessage.setOpaque(false);
 		
-		JLabel icon = new JLabel(new ImageIcon(this.getClass().getResource(enumDialog.icon)));
+		JLabel icon = new JLabel(new ImageIcon(MkDialog.class.getClassLoader().getResource(enumDialog.icon)));
 		
 		MkButton buttonCopy = new MkButton();
 		buttonCopy.setText("Copiar Mensagem");
