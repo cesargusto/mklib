@@ -22,7 +22,12 @@
 
 	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
 		<property name="configLocations" value="classpath:/sqlmap-config.xml" />
-		<property name="mappingLocations" value="classpath:/ibatis/cadmia/*.xml" />
+		<property name="mappingLocations">
+			<list>
+				<value>classpath:/ibatis/cadmia/*.xml</value>
+				<value>classpath:/ibatis/*.xml</value>
+			</list>
+		</property>
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
