@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+
+<sqlMap>
+
+<typeAlias alias="ClienteModalidade" type="br.com.maikosoft.cadmia.ClienteModalidade" />
+
+	<resultMap id="resultMapClienteModalidade" class="ClienteModalidade">
+		<result property="id" column="id" />
+		<result property="cliente.id" column="cliente_id" />
+		<result property="modalidade.id" column="modalidade_id" />
+	</resultMap>
+		
+	<sql id="fragmentWhereClienteModalidade">
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="clienteId">			
+				cliente_id = #clienteId# 
+			</isNotNull>
+			<isNotNull prepend="and" property="id">			
+				id = #id#
+			</isNotNull>	
+		</dynamic>
+	</sql>
+
+	<select id="countClienteModalidade" resultClass="long">
+		SELECT count(*) FROM Cliente_Modalidade
+		<include refid="fragmentWhereClienteModalidade"/>
+
+	</select>
+
+	<select id="allClienteModalidade" resultMap="resultMapClienteModalidade">
+		SELECT * FROM Cliente_Modalidade
+		<include refid="fragmentWhereClienteModalidade"/>
+		ORDER BY id
+<!-- 		LIMIT 15 OFFSET #limit# -->
+	</select>
+	
+	<select id="getClienteModalidade" parameterClass="long" resultMap="resultMapClienteModalidade">
+		SELECT * FROM Cliente_Modalidade
+		WHERE id = #value#
+	</select>
+	
+	<update id="updateClienteModalidade" parameterClass="ClienteModalidade">
+		UPDATE Cliente_Modalidade SET cliente_id= #cliente.id#, modalidade_id= #modalidade.id#
+		WHERE id=#id#
+	</update>	
+	
+	<select id="nextIdClienteModalidade" resultClass="long">
+		SELECT nextval('Cliente_Modalidade_id_seq');
+	</select>
+	
+	<insert id="insertClienteModalidade" parameterClass="ClienteModalidade">
+		INSERT INTO Cliente_Modalidade (id, cliente_id, modalidade_id) VALUES
+		(#id#, #cliente.id#, #modalidade.id#)
+	</insert>
+	
+	<delete id="deleteClienteModalidade" parameterClass="long" >
+		DELETE FROM Cliente_Modalidade WHERE id = #value#
+	</delete>
+
+</sqlMap>

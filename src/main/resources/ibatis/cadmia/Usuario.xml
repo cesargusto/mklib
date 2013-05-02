@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+
+<typeAlias alias="Usuario" type="br.com.maikosoft.cadmia.Usuario" />
+
+	<resultMap id="resultMapUsuario" class="Usuario">
+		<result property="id" column="id" />
+		<result property="nome" column="nome" />
+		<result property="senha" column="senha" />
+		<result property="ativo" column="ativo" />
+		<result property="administrador" column="administrador" />
+	</resultMap>
+		
+	<sql id="fragmentWhereUsuario">
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="nomeOrId">			
+				id::varchar = #nomeOrId# OR lower(to_ascii(nome, 'LATIN1')) like lower(to_ascii( '%' || #nomeOrId# ||'%', 'LATIN1'))
+			</isNotNull>
+			<isNotNull prepend="and" property="id">			
+				id::varchar = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="ativo">			
+				ativo = #ativo#
+			</isNotNull>	
+			<isNotNull prepend="and" property="senha">			
+				senha = #senha#
+			</isNotNull>
+			<isNotNull prepend="and" property="nome">			
+				nome = #nome#
+			</isNotNull>
+		</dynamic>
+	</sql>
+
+	<select id="countUsuario" resultClass="long">
+		SELECT count(*) FROM Usuario
+		<include refid="fragmentWhereUsuario"/>
+
+	</select>
+
+	<select id="allUsuario" resultMap="resultMapUsuario">
+		SELECT * FROM Usuario
+		<include refid="fragmentWhereUsuario"/>
+		ORDER BY nome
+<!-- 		LIMIT 15 OFFSET #limit# -->
+	</select>
+	
+	<select id="getUsuario" parameterClass="long" resultMap="resultMapUsuario">
+		SELECT * FROM Usuario
+		WHERE id = #value#
+	</select>
+	
+	<update id="updateUsuario" parameterClass="Usuario">
+		UPDATE Usuario SET nome= #nome#, senha= #senha#, ativo= #ativo#, administrador= #administrador#
+		WHERE id=#id#
+	</update>	
+	
+	<select id="nextIdUsuario" resultClass="long">
+		SELECT nextval('Usuario_id_seq');
+	</select>
+	
+	<insert id="insertUsuario" parameterClass="Usuario">
+		INSERT INTO Usuario (id, nome, senha, ativo, administrador) VALUES
+		(#id#, #nome#, #senha#, #ativo#, #administrador#)
+	</insert>
+	
+	<delete id="deleteUsuario" parameterClass="long" >
+		DELETE FROM Usuario WHERE id = #value#
+	</delete>
+
+</sqlMap>
