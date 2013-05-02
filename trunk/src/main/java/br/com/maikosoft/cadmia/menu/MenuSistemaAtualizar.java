@@ -14,6 +14,13 @@ import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkMenu;
 
 public class MenuSistemaAtualizar extends MkMenu {
+	
+	private String projeto;
+	
+	public MenuSistemaAtualizar(String projeto) {
+		super();
+		this.projeto = projeto;
+	}
 
 	@Override
 	public MkRun getAcao() {
@@ -45,11 +52,11 @@ public class MenuSistemaAtualizar extends MkMenu {
 				
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						File file = new File("CadMia.jar");
+						File file = new File(projeto+".jar");
 						file.delete();
 						
 						try {
-							FileUtils.copyURLToFile(new URL("http://mklib.googlecode.com/files/CadMia.jar"), file);
+							FileUtils.copyURLToFile(new URL("http://mklib.googlecode.com/files/"+projeto+".jar"), file);
 						} catch (IOException ex) {
 							MkDialog.error("Erro ao atualizar sistema", ex);
 						}
