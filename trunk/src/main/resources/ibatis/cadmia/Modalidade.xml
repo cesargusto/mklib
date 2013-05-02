@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+
+<sqlMap>
+
+<typeAlias alias="Modalidade" type="br.com.maikosoft.cadmia.Modalidade" />
+
+	<resultMap id="resultMapModalidade" class="Modalidade">
+		<result property="id" column="id" />
+		<result property="nome" column="nome" />
+		<result property="valor" column="valor" />
+		<result property="observacao" column="observacao" />
+	</resultMap>
+		
+	<sql id="fragmentWhereModalidade">
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="nomeOrId">			
+				id::varchar = #nomeOrId# OR lower(to_ascii(nome, 'LATIN1')) like lower(to_ascii( '%' || #nomeOrId# ||'%', 'LATIN1'))
+			</isNotNull>
+			<isNotNull prepend="and" property="id">			
+				id::varchar = #id#
+			</isNotNull>	
+		</dynamic>
+	</sql>
+
+	<select id="countModalidade" resultClass="long">
+		SELECT count(*) FROM Modalidade
+		<include refid="fragmentWhereModalidade"/>
+
+	</select>
+
+	<select id="allModalidade" resultMap="resultMapModalidade">
+		SELECT * FROM Modalidade
+		<include refid="fragmentWhereModalidade"/>
+		ORDER BY nome
+<!-- 		LIMIT 15 OFFSET #limit# -->
+	</select>
+	
+	<select id="getModalidade" parameterClass="long" resultMap="resultMapModalidade">
+		SELECT * FROM Modalidade
+		WHERE id = #value#
+	</select>
+	
+	<update id="updateModalidade" parameterClass="Modalidade">
+		UPDATE Modalidade SET nome= #nome#, valor= #valor#, observacao= #observacao#
+		WHERE id=#id#
+	</update>	
+	
+	<select id="nextIdModalidade" resultClass="long">
+		SELECT nextval('Modalidade_id_seq');
+	</select>
+	
+	<insert id="insertModalidade" parameterClass="Modalidade">
+		INSERT INTO Modalidade (id, nome, valor, observacao) VALUES
+		(#id#, #nome#, #valor#, #observacao#)
+	</insert>
+	
+	<delete id="deleteModalidade" parameterClass="long" >
+		DELETE FROM Modalidade WHERE id = #value#
+	</delete>
+
+</sqlMap>
