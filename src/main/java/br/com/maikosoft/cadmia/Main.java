@@ -9,8 +9,9 @@ public class Main {
 	public static void main(String[] args) {
 		
 		MkApplication application = MkApplication.getInstance();
-		application.init("CadMia");
-			
+		
+		application.init("CadMia", "cadmia");
+		
 		JanelaLogin.getInstance();
 		
 		application.updateMkMenu(EnumMenu.getListMenus());
