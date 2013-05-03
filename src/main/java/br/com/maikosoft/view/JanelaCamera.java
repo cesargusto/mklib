@@ -1,4 +1,4 @@
-package br.com.maikosoft.cadmia.view;
+package br.com.maikosoft.view;
 
 import java.awt.FlowLayout;
 import java.io.ByteArrayOutputStream;

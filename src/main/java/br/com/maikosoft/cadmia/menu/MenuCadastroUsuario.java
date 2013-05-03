@@ -1,12 +1,12 @@
 package br.com.maikosoft.cadmia.menu;
 
+import br.com.maikosoft.Usuario;
 import br.com.maikosoft.cadmia.EnumMenu;
-import br.com.maikosoft.cadmia.Usuario;
-import br.com.maikosoft.cadmia.view.JanelaLogin;
-import br.com.maikosoft.cadmia.view.JanelaUsuarioCadastro;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkMenu;
+import br.com.maikosoft.view.JanelaLogin;
+import br.com.maikosoft.view.JanelaUsuarioCadastro;
 
 public class MenuCadastroUsuario extends MkMenu {
 

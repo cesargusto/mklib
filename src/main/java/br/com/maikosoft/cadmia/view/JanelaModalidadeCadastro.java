@@ -16,6 +16,7 @@ import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
 import br.com.maikosoft.mklib.MkButton.MkButtonSalvar;
 import br.com.maikosoft.mklib.MkFieldMask.EnumMkMask;
 import br.com.maikosoft.util.MkUtil;
+import br.com.maikosoft.view.JanelaLogin;
 
 @SuppressWarnings("serial")
 public class JanelaModalidadeCadastro extends MkWindow {

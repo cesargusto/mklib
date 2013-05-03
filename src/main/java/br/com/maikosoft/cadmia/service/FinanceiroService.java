@@ -20,11 +20,11 @@ import br.com.maikosoft.cadmia.Cliente;
 import br.com.maikosoft.cadmia.Financeiro;
 import br.com.maikosoft.cadmia.dao.ClienteDAO;
 import br.com.maikosoft.cadmia.dao.FinanceiroDAO;
-import br.com.maikosoft.cadmia.view.JanelaLogin;
 import br.com.maikosoft.core.MkDAOException;
 import br.com.maikosoft.core.MkService;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.util.MkUtil;
+import br.com.maikosoft.view.JanelaLogin;
 
 @Service
 public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {

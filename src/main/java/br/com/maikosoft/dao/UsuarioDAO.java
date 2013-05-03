@@ -1,8 +1,8 @@
-package br.com.maikosoft.cadmia.dao;
+package br.com.maikosoft.dao;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.maikosoft.cadmia.Usuario;
+import br.com.maikosoft.Usuario;
 import br.com.maikosoft.core.MkDAO;
 
 @Repository

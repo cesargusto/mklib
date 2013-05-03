@@ -11,6 +11,8 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
 	default-autowire="byName">
 
+	<context:component-scan base-package="br.com.maikosoft.dao" />
+	<context:component-scan base-package="br.com.maikosoft.service" />
 	
 	<context:annotation-config />
 	

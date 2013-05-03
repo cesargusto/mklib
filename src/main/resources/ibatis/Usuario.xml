@@ -4,7 +4,7 @@
 
 <sqlMap>
 
-<typeAlias alias="Usuario" type="br.com.maikosoft.cadmia.Usuario" />
+<typeAlias alias="Usuario" type="br.com.maikosoft.Usuario" />
 
 	<resultMap id="resultMapUsuario" class="Usuario">
 		<result property="id" column="id" />

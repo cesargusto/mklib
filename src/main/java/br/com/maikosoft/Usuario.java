@@ -1,4 +1,4 @@
-package br.com.maikosoft.cadmia;
+package br.com.maikosoft;
 
 import br.com.maikosoft.core.MkBean;
 

@@ -1,4 +1,4 @@
-package br.com.maikosoft.cadmia.service;
+package br.com.maikosoft.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,9 +7,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import br.com.maikosoft.cadmia.Usuario;
-import br.com.maikosoft.cadmia.dao.UsuarioDAO;
+import br.com.maikosoft.Usuario;
 import br.com.maikosoft.core.MkService;
+import br.com.maikosoft.dao.UsuarioDAO;
 import br.com.maikosoft.util.MkUtil;
 
 @Service
