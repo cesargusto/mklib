@@ -1,4 +1,4 @@
-package br.com.maikosoft.cadmia.view;
+package br.com.maikosoft.view;
 
 import java.awt.AWTEvent;
 import java.awt.KeyEventDispatcher;
@@ -15,14 +15,14 @@ import javax.swing.JPasswordField;
 import org.apache.log4j.Logger;
 import org.springframework.util.StringUtils;
 
-import br.com.maikosoft.cadmia.Usuario;
-import br.com.maikosoft.cadmia.service.UsuarioService;
+import br.com.maikosoft.Usuario;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkWindow;
 import br.com.maikosoft.mklib.MkButton.MkButtonConfirmar;
+import br.com.maikosoft.service.UsuarioService;
 
 @SuppressWarnings("serial")
 public class JanelaLogin extends MkWindow {

@@ -1,10 +1,9 @@
-package br.com.maikosoft.cadmia.view;
+package br.com.maikosoft.view;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPasswordField;
 
-import br.com.maikosoft.cadmia.Usuario;
-import br.com.maikosoft.cadmia.service.UsuarioService;
+import br.com.maikosoft.Usuario;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
@@ -13,6 +12,7 @@ import br.com.maikosoft.mklib.MkButton.MkButtonEditar;
 import br.com.maikosoft.mklib.MkButton.MkButtonExcluir;
 import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
 import br.com.maikosoft.mklib.MkButton.MkButtonSalvar;
+import br.com.maikosoft.service.UsuarioService;
 import br.com.maikosoft.util.MkUtil;
 
 @SuppressWarnings("serial")

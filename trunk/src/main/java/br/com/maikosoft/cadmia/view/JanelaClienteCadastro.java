@@ -48,6 +48,8 @@ import br.com.maikosoft.mklib.MkFieldMask.EnumMkMask;
 import br.com.maikosoft.util.CEP;
 import br.com.maikosoft.util.EnumUF;
 import br.com.maikosoft.util.MkUtil;
+import br.com.maikosoft.view.JanelaCamera;
+import br.com.maikosoft.view.JanelaLogin;
 
 @SuppressWarnings("serial")
 public class JanelaClienteCadastro extends MkWindow {

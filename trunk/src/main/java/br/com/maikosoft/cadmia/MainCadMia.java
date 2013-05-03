@@ -1,8 +1,8 @@
 package br.com.maikosoft.cadmia;
 
 import br.com.maikosoft.cadmia.view.JanelaClienteConsultaRapida;
-import br.com.maikosoft.cadmia.view.JanelaLogin;
 import br.com.maikosoft.mklib.MkApplication;
+import br.com.maikosoft.view.JanelaLogin;
 
 public class MainCadMia {
 

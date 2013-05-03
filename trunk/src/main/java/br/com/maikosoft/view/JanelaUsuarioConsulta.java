@@ -1,4 +1,4 @@
-package br.com.maikosoft.cadmia.view;
+package br.com.maikosoft.view;
 
 import java.awt.GridBagConstraints;
 import java.util.HashMap;
@@ -7,9 +7,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import br.com.maikosoft.Usuario;
 import br.com.maikosoft.cadmia.EnumMenu;
-import br.com.maikosoft.cadmia.Usuario;
-import br.com.maikosoft.cadmia.service.UsuarioService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.EnumMkButton;
 import br.com.maikosoft.mklib.MkDialog;
@@ -18,6 +17,7 @@ import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkTable;
 import br.com.maikosoft.mklib.MkTableModel;
 import br.com.maikosoft.mklib.MkWindow;
+import br.com.maikosoft.service.UsuarioService;
 
 @SuppressWarnings("serial")
 public class JanelaUsuarioConsulta extends MkWindow {
