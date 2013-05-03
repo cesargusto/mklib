@@ -23,7 +23,7 @@ import br.com.maikosoft.view.menu.MenuSistemaBackup;
 
 
 
-public enum EnumMenu {
+public enum EnumMenuCadMia {
 	
 	CADASTRO("Cadastro", null),
 		CADASTRO_CLIENTE("Cliente", CADASTRO.getMenu()),
@@ -50,11 +50,11 @@ public enum EnumMenu {
 	
 	private final MkMenu menu;
 	
-	private EnumMenu(MkMenu menu) {
+	private EnumMenuCadMia(MkMenu menu) {
 		this.menu = menu;
 	}
 	
-	private EnumMenu(final String titulo,final MkMenu pai) {
+	private EnumMenuCadMia(final String titulo,final MkMenu pai) {
 		this.menu = new MkMenu(pai) {
 			@Override
 			public MkRun getAcao() {
@@ -75,8 +75,8 @@ public enum EnumMenu {
 	public static List<MkMenu> getListMenus() {
 		LinkedList<MkMenu> list = new LinkedList<MkMenu>();
 		
-		for (EnumMenu enumMenu : values()) {
-			list.add(enumMenu.getMenu());
+		for (EnumMenuCadMia enumMenuCadMia : values()) {
+			list.add(enumMenuCadMia.getMenu());
 		}
 		
 		return list;

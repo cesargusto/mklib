@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import br.com.maikosoft.Usuario;
-import br.com.maikosoft.cadmia.EnumMenu;
+import br.com.maikosoft.cadmia.EnumMenuCadMia;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.EnumMkButton;
 import br.com.maikosoft.mklib.MkDialog;
@@ -92,7 +92,7 @@ public class JanelaUsuarioConsulta extends MkWindow {
 	}
 	
 	protected MkRun novo() {
-		return EnumMenu.CADASTRO_USUARIO_NOVO.getMenu().getAcao();
+		return EnumMenuCadMia.CADASTRO_USUARIO_NOVO.getMenu().getAcao();
 	}
 	
 	@Override

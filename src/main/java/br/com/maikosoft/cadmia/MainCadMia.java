@@ -14,7 +14,7 @@ public class MainCadMia {
 		
 		JanelaLogin.getInstance();
 		
-		application.updateMkMenu(EnumMenu.getListMenus());
+		application.updateMkMenu(EnumMenuCadMia.getListMenus());
 		
 		new JanelaClienteConsultaRapida().showWindow();
 	}
