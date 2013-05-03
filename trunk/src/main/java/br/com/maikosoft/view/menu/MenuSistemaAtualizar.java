@@ -1,4 +1,4 @@
-package br.com.maikosoft.cadmia.menu;
+package br.com.maikosoft.view.menu;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,6 @@ import javax.swing.SwingUtilities;
 
 import org.apache.commons.io.FileUtils;
 
-import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkMenu;
@@ -17,8 +16,8 @@ public class MenuSistemaAtualizar extends MkMenu {
 	
 	private String projeto;
 	
-	public MenuSistemaAtualizar(String projeto) {
-		super();
+	public MenuSistemaAtualizar(String projeto, MkMenu menuPai) {
+		super(menuPai);
 		this.projeto = projeto;
 	}
 
@@ -30,11 +29,6 @@ public class MenuSistemaAtualizar extends MkMenu {
 	@Override
 	public String getTitulo() {
 		return "Atualizar";
-	}
-
-	@Override
-	public MkMenu getPai() {
-		return EnumMenu.SISTEMA.getMenu();
 	}
 
 	@Override
