@@ -1,4 +1,4 @@
-package br.com.maikosoft.cadmia.menu;
+package br.com.maikosoft.view.menu;
 
 import java.io.IOException;
 
@@ -6,13 +6,16 @@ import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
-import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkMenu;
 
 public class MenuDebug extends MkMenu {
 	
+	public MenuDebug(MkMenu menuPai) {
+		super(menuPai);
+	}
+
 	@Override
 	public MkRun getAcao() {
 		return new MkRun() {
@@ -31,11 +34,6 @@ public class MenuDebug extends MkMenu {
 	@Override
 	public String getTitulo() {
 		return "Ligar DEBUG";
-	}
-
-	@Override
-	public MkMenu getPai() {
-		return EnumMenu.SISTEMA.getMenu();
 	}
 
 }

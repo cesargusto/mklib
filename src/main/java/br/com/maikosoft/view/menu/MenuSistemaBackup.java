@@ -1,11 +1,14 @@
-package br.com.maikosoft.cadmia.menu;
+package br.com.maikosoft.view.menu;
 
-import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
 import br.com.maikosoft.view.JanelaBackup;
 
 public class MenuSistemaBackup extends MkMenu {
+
+	public MenuSistemaBackup(MkMenu menuPai) {
+		super(menuPai);
+	}
 
 	@Override
 	public MkRun getAcao() {
@@ -22,10 +25,6 @@ public class MenuSistemaBackup extends MkMenu {
 		return "Backup";
 	}
 
-	@Override
-	public MkMenu getPai() {
-		return EnumMenu.SISTEMA.getMenu();
-	}
 
 	@Override
 	public boolean hasSeparador() {

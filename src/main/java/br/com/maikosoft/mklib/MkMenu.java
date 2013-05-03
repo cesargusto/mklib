@@ -6,11 +6,19 @@ import br.com.maikosoft.core.MkRun;
 
 public abstract class MkMenu {
 	
+	private MkMenu menuPai;
+
+	public MkMenu(MkMenu menuPai) {
+		this.menuPai = menuPai;
+	}
+	
 	public abstract MkRun getAcao();
 
 	public abstract String getTitulo();
 
-	public abstract MkMenu getPai();
+	public MkMenu getPai() {
+		return menuPai;
+	}
 	
 	public boolean isVisivel() {
 		return true;

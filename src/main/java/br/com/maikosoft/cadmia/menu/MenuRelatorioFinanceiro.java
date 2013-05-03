@@ -1,6 +1,5 @@
 package br.com.maikosoft.cadmia.menu;
 
-import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.cadmia.view.JanelaRelatorioFinanceiro;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkDialog;
@@ -8,6 +7,10 @@ import br.com.maikosoft.mklib.MkMenu;
 import br.com.maikosoft.view.JanelaLogin;
 
 public class MenuRelatorioFinanceiro extends MkMenu {
+
+	public MenuRelatorioFinanceiro(MkMenu menuPai) {
+		super(menuPai);
+	}
 
 	@Override
 	public MkRun getAcao() {
@@ -29,10 +32,5 @@ public class MenuRelatorioFinanceiro extends MkMenu {
 	public String getTitulo() {
 		return "Relatório Financeiro";
 	}
-
-	@Override
-	public MkMenu getPai() {
-		return EnumMenu.RELATORIO.getMenu();
-	}
-
+	
 }

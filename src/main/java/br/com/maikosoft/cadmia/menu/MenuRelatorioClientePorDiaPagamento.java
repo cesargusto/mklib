@@ -1,11 +1,14 @@
 package br.com.maikosoft.cadmia.menu;
 
-import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.cadmia.view.JanelaRelatorioClientePorDiaPagamento;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
 
 public class MenuRelatorioClientePorDiaPagamento extends MkMenu {
+
+	public MenuRelatorioClientePorDiaPagamento(MkMenu menuPai) {
+		super(menuPai);
+	}
 
 	@Override
 	public MkRun getAcao() {
@@ -22,11 +25,6 @@ public class MenuRelatorioClientePorDiaPagamento extends MkMenu {
 	@Override
 	public String getTitulo() {
 		return "Relatório Clientes por Dia do Pagamento";
-	}
-
-	@Override
-	public MkMenu getPai() {
-		return EnumMenu.RELATORIO.getMenu();
 	}
 
 }

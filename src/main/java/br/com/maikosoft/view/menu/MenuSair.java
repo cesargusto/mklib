@@ -1,10 +1,13 @@
-package br.com.maikosoft.cadmia.menu;
+package br.com.maikosoft.view.menu;
 
-import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
 
 public class MenuSair extends MkMenu {
+	
+	public MenuSair(MkMenu menuPai) {
+		super(menuPai);
+	}
 
 	@Override
 	public MkRun getAcao() {
@@ -20,14 +23,5 @@ public class MenuSair extends MkMenu {
 	public String getTitulo() {
 		return "Sair";
 	}
-
-	@Override
-	public MkMenu getPai() {
-		return EnumMenu.SISTEMA.getMenu();
-	}
-	
-	
-
-	
 
 }

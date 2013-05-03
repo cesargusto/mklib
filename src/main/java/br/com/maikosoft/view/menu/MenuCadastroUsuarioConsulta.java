@@ -1,6 +1,5 @@
-package br.com.maikosoft.cadmia.menu;
+package br.com.maikosoft.view.menu;
 
-import br.com.maikosoft.cadmia.EnumMenu;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkMenu;
@@ -8,6 +7,10 @@ import br.com.maikosoft.view.JanelaLogin;
 import br.com.maikosoft.view.JanelaUsuarioConsulta;
 
 public class MenuCadastroUsuarioConsulta extends MkMenu {
+
+	public MenuCadastroUsuarioConsulta(MkMenu menuPai) {
+		super(menuPai);
+	}
 
 	@Override
 	public MkRun getAcao() {
@@ -27,10 +30,5 @@ public class MenuCadastroUsuarioConsulta extends MkMenu {
 	public String getTitulo() {
 		return "Consultar Usuário";
 	}
-
-	@Override
-	public MkMenu getPai() {
-		return EnumMenu.CADASTRO_USUARIO.getMenu();
-	}
-
+	
 }
