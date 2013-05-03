@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
 import br.com.maikosoft.cadmia.Modalidade;
-import br.com.maikosoft.cadmia.EnumMenu;
+import br.com.maikosoft.cadmia.EnumMenuCadMia;
 import br.com.maikosoft.cadmia.service.ModalidadeService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkTransferObject;
@@ -99,7 +99,7 @@ public class JanelaModalidadeConsulta extends MkWindow {
 	}
 	
 	protected MkRun novo() {
-		return EnumMenu.CADASTRO_MODALIDADE_NOVO.getMenu().getAcao();
+		return EnumMenuCadMia.CADASTRO_MODALIDADE_NOVO.getMenu().getAcao();
 	}
 
 	public void setTranferir(MkTransferObject<Modalidade> transferObject) {

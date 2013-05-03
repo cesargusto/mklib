@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import br.com.maikosoft.cadmia.Cliente;
-import br.com.maikosoft.cadmia.EnumMenu;
+import br.com.maikosoft.cadmia.EnumMenuCadMia;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkTransferObject;
@@ -87,7 +87,7 @@ public class JanelaClienteConsulta extends MkWindow {
 	}
 	
 	protected MkRun novo() {
-		return EnumMenu.CADASTRO_CLIENTE_NOVO.getMenu().getAcao();
+		return EnumMenuCadMia.CADASTRO_CLIENTE_NOVO.getMenu().getAcao();
 	}
 
 	public void setPesquisa(List<Cliente> list) {

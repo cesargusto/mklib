@@ -9,7 +9,7 @@ import javax.swing.JInternalFrame;
 import org.springframework.util.StringUtils;
 
 import br.com.maikosoft.cadmia.Cliente;
-import br.com.maikosoft.cadmia.EnumMenu;
+import br.com.maikosoft.cadmia.EnumMenuCadMia;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkServiceException;
@@ -50,7 +50,7 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 						}
 						fieldBusca.setText("");
 					} else {
-						EnumMenu.CADASTRO_CLIENTE_NOVO.getMenu().getAcao().execute();
+						EnumMenuCadMia.CADASTRO_CLIENTE_NOVO.getMenu().getAcao().execute();
 					}
 					
 				} catch (MkServiceException exception) {
