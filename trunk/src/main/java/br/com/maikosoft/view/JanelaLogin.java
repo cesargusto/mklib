@@ -60,7 +60,7 @@ public class JanelaLogin extends MkWindow {
 		panelTable.addRow("Nome", MkPanelTable.getDefaultCell(1)).addRow(fieldNome);
 		panelTable.addRow("Senha", MkPanelTable.getDefaultCell(1)).addRow(fieldSenha);
 		
-		addPanelCenter(panelTable, 210, 150);
+		addPanelCenter(panelTable, 250, 150);
 		
 		buttonLogin.setText("Entrar");
 		
