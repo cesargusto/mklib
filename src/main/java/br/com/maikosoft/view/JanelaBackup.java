@@ -9,16 +9,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JFileChooser;
+
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
 import org.springframework.util.StringUtils;
 
+import br.com.maikosoft.mklib.MkButton.MkButtonSalvar;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkTextArea;
 import br.com.maikosoft.mklib.MkWindow;
-import br.com.maikosoft.mklib.MkButton.MkButtonSalvar;
 import br.com.maikosoft.util.MkUtil;
 
 @SuppressWarnings("serial")
@@ -44,7 +46,15 @@ public class JanelaBackup extends MkWindow {
 		panelTable.addRow(textAreaMensagem.getJScrollPane("Saída"), GridBagConstraints.BOTH);
 		
 		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
-			fieldPathDB.setText("C:\\Arquivos de Programas\\PostgreSQL\\9.1\\bin\\pg_dump.exe");
+			File filePGDump = new File(
+					"C:\\Arquivos de Programas\\PostgreSQL\\9.1\\bin\\pg_dump.exe");
+			if (filePGDump.exists()) {
+				fieldPathDB.setText(filePGDump.getAbsolutePath());
+			} else {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.showOpenDialog(this);
+				fieldPathDB.setText(fileChooser.getSelectedFile().getAbsolutePath());
+			}
 		} else {
 			fieldPathDB.setText("/usr/bin/pg_dump");
 		}
