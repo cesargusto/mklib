@@ -11,7 +11,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
-import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldDate;
@@ -38,7 +38,7 @@ public class JanelaRecibo extends MkWindow {
 	
 //	private ClienteService clienteService;
 	
-	private Cliente cliente;
+	private ClienteCadMia clienteCadMia;
 	
 	@Override
 	protected void initWindow() {
@@ -65,11 +65,11 @@ public class JanelaRecibo extends MkWindow {
 		janelaConsulta.showWindow("Transferir Cliente", false);
 	}
 	
-	private MkTransferObject<Cliente> getTransferObject() {
-		MkTransferObject<Cliente> transferObject = new MkTransferObject<Cliente>() {
+	private MkTransferObject<ClienteCadMia> getTransferObject() {
+		MkTransferObject<ClienteCadMia> transferObject = new MkTransferObject<ClienteCadMia>() {
 			@Override
-			public void postTranfer(Cliente value) {
-				cliente = value;
+			public void postTranfer(ClienteCadMia value) {
+				clienteCadMia = value;
 				fieldCliente.setText(value.getNome());
 				fieldValor.grabFocus();
 			}
@@ -80,14 +80,14 @@ public class JanelaRecibo extends MkWindow {
 	protected void imprimir() {
 			
 		try {
-			if (cliente == null) {
+			if (clienteCadMia == null) {
 				MkDialog.warm("Informe o Cliente");
 				buttonPesquisar.grabFocus();
 			} else {
 					this.waitCursor(true);
 					
 					HashMap<String, Object> parametro = new HashMap<String, Object>();
-					parametro.put("cliente", cliente.getNome());
+					parametro.put("cliente", clienteCadMia.getNome());
 					BigDecimal valor = MkUtil.toBigDecimal(fieldValor.getText());
 					StringBuilder sb = new StringBuilder(50);
 					sb.append("R$ ").append(fieldValor.getText()).append(" (").append(new Extenso(valor, true)).append(')');
@@ -108,8 +108,8 @@ public class JanelaRecibo extends MkWindow {
 			
 	}
 
-	public void setDados(Cliente cliente, Date data, BigDecimal valor, String observacao) {
-		getTransferObject().postTranfer(cliente);
+	public void setDados(ClienteCadMia clienteCadMia, Date data, BigDecimal valor, String observacao) {
+		getTransferObject().postTranfer(clienteCadMia);
 		fieldValor.setValue(valor);
 		fieldData.setText(MkUtil.toString(data));
 		textObservacao.setText(observacao);

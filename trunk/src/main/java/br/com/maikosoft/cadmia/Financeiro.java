@@ -9,7 +9,7 @@ import br.com.maikosoft.core.MkBean;
 public class Financeiro extends MkBean {
 	
 	private Date dataCadastro;
-	private Cliente cliente;
+	private ClienteCadMia clienteCadMia;
 	private BigDecimal valor;
 	private String observacao;
 	private String referencia;
@@ -22,11 +22,11 @@ public class Financeiro extends MkBean {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	public Cliente getCliente() {
-		return cliente;
+	public ClienteCadMia getCliente() {
+		return clienteCadMia;
 	}
-	public void setCliente(Cliente pessoa) {
-		this.cliente = pessoa;
+	public void setCliente(ClienteCadMia pessoa) {
+		this.clienteCadMia = pessoa;
 	}
 	public BigDecimal getValor() {
 		return valor;

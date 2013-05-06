@@ -5,15 +5,15 @@ import br.com.maikosoft.core.MkBean;
 @SuppressWarnings("serial")
 public class ClienteModalidade extends MkBean {
 	
-	private Cliente cliente;
+	private ClienteCadMia clienteCadMia;
 	private Modalidade modalidade;
 	private boolean isDelete;
 	
-	public Cliente getCliente() {
-		return cliente;
+	public ClienteCadMia getCliente() {
+		return clienteCadMia;
 	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setCliente(ClienteCadMia clienteCadMia) {
+		this.clienteCadMia = clienteCadMia;
 	}
 	public Modalidade getModalidade() {
 		return modalidade;

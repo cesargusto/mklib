@@ -4,16 +4,16 @@ import java.math.BigDecimal;
 
 
 @SuppressWarnings("serial")
-public class ClienteAndSaldoVO extends Cliente {
+public class ClienteAndSaldoVO extends ClienteCadMia {
 	
 	private BigDecimal totalPago;
 	private BigDecimal saldoDevedor;
 	
-	public ClienteAndSaldoVO(Cliente cliente, BigDecimal totalPago, BigDecimal saldoDevedor) {
+	public ClienteAndSaldoVO(ClienteCadMia clienteCadMia, BigDecimal totalPago, BigDecimal saldoDevedor) {
 		this.totalPago = totalPago;
 		this.saldoDevedor = saldoDevedor;
-		this.setNome(cliente.getNome());
-		this.setId(cliente.getId());
+		this.setNome(clienteCadMia.getNome());
+		this.setId(clienteCadMia.getId());
 	}
 
 	public BigDecimal getTotalPago() {

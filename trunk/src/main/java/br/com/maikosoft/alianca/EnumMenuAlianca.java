@@ -17,9 +17,9 @@ import br.com.maikosoft.view.menu.MenuSistemaBackup;
 public enum EnumMenuAlianca {
 	
 	CADASTRO("Cadastro", null),
-//		CADASTRO_CLIENTE("Cliente", CADASTRO.getMenu()),
+		CADASTRO_CLIENTE("Cliente", CADASTRO.getMenu()),
 //			CADASTRO_CLIENTE_CONSULTA(new MenuCadastroClienteConsulta()),
-//    		CADASTRO_CLIENTE_NOVO(new MenuCadastroCliente()),
+//    		CADASTRO_CLIENTE_NOVO(new MenuCadastroCliente(new Cli)),
 //    	CADASTRO_RECEITA("Receita", CADASTRO.getMenu()),
 //			CADASTRO_RECEITA_CONSULTA(new MenuCadastroReceitaConsulta()),
 //    		CADASTRO_RECEITA_NOVO(new MenuCadastroReceita()),	
@@ -31,7 +31,7 @@ public enum EnumMenuAlianca {
     SISTEMA("Sistema", null),
 		SISTEMA_BACKUP(new MenuSistemaBackup(SISTEMA.getMenu())),
 		SISTEMA_DEBUG(new MenuDebug(SISTEMA.getMenu())),
-		SISTEMA_ATUALIZAR(new MenuSistemaAtualizar("Otica", SISTEMA.getMenu())),
+		SISTEMA_ATUALIZAR(new MenuSistemaAtualizar("Alianca", SISTEMA.getMenu())),
 		SISTEMA_SAIR(new MenuSair(SISTEMA.getMenu()));
 	
 	private final MkMenu menu;

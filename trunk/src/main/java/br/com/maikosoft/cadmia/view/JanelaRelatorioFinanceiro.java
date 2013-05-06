@@ -13,7 +13,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.cadmia.ClienteAndSaldoVO;
 import br.com.maikosoft.cadmia.Financeiro;
 import br.com.maikosoft.cadmia.Modalidade;
@@ -103,15 +103,15 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 					}
 					
 					LinkedList<ClienteAndSaldoVO> list = new LinkedList<ClienteAndSaldoVO>();
-					List<Cliente> listCliente = clienteService.findAll(whereCliente);
-					for (Cliente cliente : listCliente) {
+					List<ClienteCadMia> listCliente = clienteService.findAll(whereCliente);
+					for (ClienteCadMia clienteCadMia : listCliente) {
 						
 						BigDecimal totalPago = BigDecimal.ZERO;
 						BigDecimal saldoDevedor = BigDecimal.ZERO;
 						
-						if (cliente.getId()!=null) {
+						if (clienteCadMia.getId()!=null) {
 							Map<String, Object> where = new HashMap<String, Object>();
-							where.put("cliente_id", cliente.getId());
+							where.put("cliente_id", clienteCadMia.getId());
 							where.put("before_data_cadastro", MkUtil.setUltimaHora(fieldDataFinal.getDate()));
 							where.put("after_data_cadastro", fieldDataInicial.getDate());
 							List<Financeiro> listFinanceiro = financeiroService.findAll(where );			
@@ -127,14 +127,14 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 						}
 						if (filtroPago.getSelected().equals(radioItens[1])) { // nao pago
 							if (saldoDevedor.compareTo(BigDecimal.ZERO)>0) {
-								list.add(new ClienteAndSaldoVO(cliente, totalPago, saldoDevedor));
+								list.add(new ClienteAndSaldoVO(clienteCadMia, totalPago, saldoDevedor));
 							}
 						} else if (filtroPago.getSelected().equals(radioItens[2])) { // pago
 							if (totalPago.compareTo(BigDecimal.ZERO) > 0) {
-								list.add(new ClienteAndSaldoVO(cliente, totalPago, saldoDevedor));
+								list.add(new ClienteAndSaldoVO(clienteCadMia, totalPago, saldoDevedor));
 							}
 						} else {
-							list.add(new ClienteAndSaldoVO(cliente, totalPago, saldoDevedor));
+							list.add(new ClienteAndSaldoVO(clienteCadMia, totalPago, saldoDevedor));
 						}
 					}
 					

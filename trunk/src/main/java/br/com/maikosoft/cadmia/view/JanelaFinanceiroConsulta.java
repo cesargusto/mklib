@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 
 import org.apache.log4j.Logger;
 
-import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.cadmia.Financeiro;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.core.MkRun;
@@ -42,10 +42,10 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 	private MkButton buttonRecibo;
 	
 	private FinanceiroService financeiroService;
-	private Cliente cliente;
+	private ClienteCadMia clienteCadMia;
 	
-	public JanelaFinanceiroConsulta(Cliente cliente) {
-		this.cliente = cliente;
+	public JanelaFinanceiroConsulta(ClienteCadMia clienteCadMia) {
+		this.clienteCadMia = clienteCadMia;
 	}
 
 	@Override
@@ -88,10 +88,10 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 	protected void atualizar() {
 		logger.debug("Executando atualizar");
 		
-		fieldCliente.setText(cliente.getNome());
+		fieldCliente.setText(clienteCadMia.getNome());
 		
 		Map<String, Object> where = new HashMap<String, Object>();
-		where.put("cliente_id", cliente.getId());
+		where.put("cliente_id", clienteCadMia.getId());
 		where.put("before_data_cadastro", new Date());
 		
 		try {
@@ -129,7 +129,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 					}
 				}
 			});
-			labelSaldo.setText("Saldo: "+MkUtil.toString(financeiroService.getSaldo(cliente)));
+			labelSaldo.setText("Saldo: "+MkUtil.toString(financeiroService.getSaldo(clienteCadMia)));
 			if (list.size()>0) {
 				table.getColumnModel().getColumn(0).setPreferredWidth(40);
 				table.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -148,7 +148,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 			public void execute() {
 				Financeiro bean = (isNew ? new Financeiro() : table.getSeleted(true));
 				if (bean !=null) {
-					bean.setCliente(cliente);
+					bean.setCliente(clienteCadMia);
 					JanelaFinanceiroCadastro view = new JanelaFinanceiroCadastro(bean);
 					view.showWindow("Cadastro Financeiro", false);
 					if (isNew) {
@@ -201,7 +201,7 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 				if (bean !=null) {
 					JanelaRecibo janelaRecibo = new JanelaRecibo();
 					janelaRecibo.showWindow("Recibo", false);
-					janelaRecibo.setDados(cliente, bean.getDataPagamento(), bean.getValor(), bean.getReferencia());
+					janelaRecibo.setDados(clienteCadMia, bean.getDataPagamento(), bean.getValor(), bean.getReferencia());
 					
 				}
 			}

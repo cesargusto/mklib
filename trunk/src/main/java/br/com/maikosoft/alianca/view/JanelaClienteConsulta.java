@@ -1,4 +1,4 @@
-package br.com.maikosoft.cadmia.view;
+package br.com.maikosoft.alianca.view;
 
 import java.awt.GridBagConstraints;
 import java.util.HashMap;

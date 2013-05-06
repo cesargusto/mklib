@@ -11,7 +11,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.core.MkServiceException;
@@ -73,7 +73,7 @@ public class JanelaRelatorioClientePorModalidade extends MkWindow {
 					
 					Map<String, Object> where = new HashMap<String, Object>();
 					where.put("modalidadeId", modalidade.getId());
-					List<Cliente> list = clienteService.findAll(where);
+					List<ClienteCadMia> list = clienteService.findAll(where);
 					
 					HashMap<String, Object> parametro = new HashMap<String, Object>();
 					parametro.put("modalidade", modalidade.getNome());

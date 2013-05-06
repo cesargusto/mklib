@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.cadmia.ClienteModalidade;
 import br.com.maikosoft.cadmia.dao.ClienteModalidadeDAO;
 import br.com.maikosoft.cadmia.dao.ModalidadeDAO;
@@ -26,15 +26,15 @@ public class ClienteModalidadeService extends MkService<ClienteModalidade, Clien
 	@Autowired
 	private ModalidadeDAO modalidadeDAO;
 	
-	public void carregarModalidades(Cliente cliente) throws MkServiceException {
+	public void carregarModalidades(ClienteCadMia clienteCadMia) throws MkServiceException {
 		try {
 			Map<String, Object> where = new HashMap<String, Object>();
-			where.put("clienteId", cliente.getId());
+			where.put("clienteId", clienteCadMia.getId());
 			List<ClienteModalidade> list = this.genericDao.findAll(where);
 			for (ClienteModalidade clienteModalidade : list) {
 				clienteModalidade.setModalidade(modalidadeDAO.findById(clienteModalidade.getModalidade().getId()));
 			}
-			cliente.setListModalidade(list);
+			clienteCadMia.setListModalidade(list);
 		} catch (MkDAOException e) {
 			throw new MkServiceException(e);
 		}

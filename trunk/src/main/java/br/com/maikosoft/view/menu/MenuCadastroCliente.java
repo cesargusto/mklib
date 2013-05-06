@@ -1,6 +1,6 @@
-package br.com.maikosoft.cadmia.menu;
+package br.com.maikosoft.view.menu;
 
-import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.cadmia.view.JanelaClienteCadastro;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
@@ -17,7 +17,7 @@ public class MenuCadastroCliente extends MkMenu {
 			
 			@Override
 			public void execute() {
-				JanelaClienteCadastro janela = new JanelaClienteCadastro(new Cliente());
+				JanelaClienteCadastro janela = new JanelaClienteCadastro(new ClienteCadMia());
 				janela.showWindow("Cadastro Cliente", false);
 			}
 		};
