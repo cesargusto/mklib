@@ -3,8 +3,6 @@ package br.com.maikosoft.cadmia;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.maikosoft.cadmia.menu.MenuCadastroCliente;
-import br.com.maikosoft.cadmia.menu.MenuCadastroClienteConsulta;
 import br.com.maikosoft.cadmia.menu.MenuCadastroModalidade;
 import br.com.maikosoft.cadmia.menu.MenuCadastroModalidadeConsulta;
 import br.com.maikosoft.cadmia.menu.MenuMovimentacaoLancarMensalidades;
@@ -14,6 +12,8 @@ import br.com.maikosoft.cadmia.menu.MenuRelatorioClientePorModalidade;
 import br.com.maikosoft.cadmia.menu.MenuRelatorioFinanceiro;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
+import br.com.maikosoft.view.menu.MenuCadastroCliente;
+import br.com.maikosoft.view.menu.MenuCadastroClienteConsulta;
 import br.com.maikosoft.view.menu.MenuCadastroUsuario;
 import br.com.maikosoft.view.menu.MenuCadastroUsuarioConsulta;
 import br.com.maikosoft.view.menu.MenuDebug;

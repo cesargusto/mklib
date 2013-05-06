@@ -4,9 +4,9 @@
 
 <sqlMap>
 
-<typeAlias alias="ClienteCadMia" type="br.com.maikosoft.cadmia.ClienteCadMia" />
+<typeAlias alias="Cliente" type="br.com.maikosoft.alianca.Cliente" />
 
-	<resultMap id="resultMapClienteCadMia" class="ClienteCadMia">
+	<resultMap id="resultMapCliente" class="Cliente">
 		<result property="id" column="id" />
 		<result property="nome" column="nome" />
 		<result property="cpf" column="cpf" />
@@ -23,14 +23,11 @@
 		<result property="cidade" column="cidade" />
 		<result property="uf" column="uf" />
 		<result property="dataNascimento" column="data_nascimento" />
-		<result property="diaPagamento" column="dia_pagamento" />
-		<result property="valorMensalidade" column="valor_mensalidade" />
-		<result property="codigoBarra" column="codigo_barra" />
 		<result property="owner" column="owner" />
 		<result property="foto" column="foto" jdbcType="BLOB" javaType="[B" typeHandler="org.springframework.orm.ibatis.support.BlobByteArrayTypeHandler"/>
 	</resultMap>
 		
-	<sql id="fragmentWhereClienteCadMia">
+	<sql id="fragmentWhereCliente">
 		<dynamic prepend="where">
 			<isNotNull prepend="and" property="nomeOrId">			
 				codigo_barra = #nomeOrId# OR lower(to_ascii(nome, 'LATIN1')) like lower(to_ascii( '%' || #nomeOrId# ||'%', 'LATIN1')) OR id::varchar = #nomeOrId#
@@ -47,48 +44,47 @@
 		</dynamic>
 	</sql>
 
-	<select id="countClienteCadMia" resultClass="long">
+	<select id="countCliente" resultClass="long">
 		SELECT count(*) FROM cliente
-		<include refid="fragmentWhereClienteCadMia"/>
+		<include refid="fragmentWhereCliente"/>
 
 	</select>
 
-	<select id="allClienteCadMia" resultMap="resultMapClienteCadMia">
+	<select id="allCliente" resultMap="resultMapCliente">
 		SELECT * FROM cliente
-		<include refid="fragmentWhereClienteCadMia"/>
+		<include refid="fragmentWhereCliente"/>
 		ORDER BY nome
 <!-- 		LIMIT 15 OFFSET #limit# -->
 	</select>
 	
-	<select id="getClienteCadMia" parameterClass="long" resultMap="resultMapClienteCadMia">
+	<select id="getCliente" parameterClass="long" resultMap="resultMapCliente">
 		SELECT * FROM cliente
 		WHERE id = #value#
 	</select>
 	
-	<update id="updateClienteCadMia" parameterClass="ClienteCadMia">
+	<update id="updateCliente" parameterClass="Cliente">
 		UPDATE cliente SET nome= #nome#, cpf= #cpf#, rg= #rg#, telefone1= #telefone1#, telefone2= #telefone2#,
 		   endereco= #endereco#, numero= #numero#, bairro= #bairro#, 
-			cep= #cep#, cidade= #cidade#, uf= #uf#, dia_pagamento=#diaPagamento#, valor_mensalidade= #valorMensalidade#,
-			telefone3= #telefone3#, email= #email#, observacao= #observacao#, codigo_barra= #codigoBarra#, 
+			cep= #cep#, cidade= #cidade#, uf= #uf#, 
+			telefone3= #telefone3#, email= #email#, observacao= #observacao#,  
 			data_nascimento=#dataNascimento#, foto=#foto#
 		WHERE id=#id#
 	</update>	
 	
-	<select id="nextIdClienteCadMia" resultClass="long">
+	<select id="nextIdCliente" resultClass="long">
 		SELECT nextval('cliente_id_seq');
 	</select>
 	
-	<insert id="insertClienteCadMia" parameterClass="ClienteCadMia">
+	<insert id="insertCliente" parameterClass="Cliente">
 		INSERT INTO cliente (id, nome, cpf, rg, telefone1, telefone2, telefone3, 
 			email, observacao, endereco, numero, bairro, cep, cidade, uf , data_nascimento, 
-			dia_pagamento, valor_mensalidade, codigo_barra, owner, foto) VALUES
+			owner, foto) VALUES
 		(#id#, #nome#, #cpf#, #rg#, #telefone1#, #telefone2#, #telefone3#, 
 		#email#, #observacao#, #endereco#, #numero#, #bairro#,
-		 #cep#, #cidade#, #uf#,  #dataNascimento#, #diaPagamento#, 
-		 #valorMensalidade#, #codigoBarra#, #owner#, #foto#)
+		 #cep#, #cidade#, #uf#,  #dataNascimento#, #owner#, #foto#)
 	</insert>
 	
-	<delete id="deleteClienteCadMia" parameterClass="long" >
+	<delete id="deleteCliente" parameterClass="long" >
 		DELETE FROM cliente WHERE id = #value#
 	</delete>
 

@@ -1,4 +1,4 @@
-package br.com.maikosoft.cadmia.view;
+package br.com.maikosoft.alianca.view;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;

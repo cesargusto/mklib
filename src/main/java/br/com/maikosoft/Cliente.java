@@ -1,8 +1,4 @@
-package br.com.maikosoft.cadmia;
-
-import java.math.BigDecimal;
-import java.util.LinkedList;
-import java.util.List;
+package br.com.maikosoft;
 
 import br.com.maikosoft.core.MkBean;
 
@@ -24,12 +20,8 @@ public class Cliente extends MkBean {
 	private String telefone3;
 	private String email;
 	private String observacao;	
-	private String diaPagamento;
-	private BigDecimal valorMensalidade;
-	private String codigoBarra;
 	private byte[] foto;
 	
-	private List<ClienteModalidade> listModalidade;
 	
 	public String getNome() {
 		return nome;
@@ -120,33 +112,6 @@ public class Cliente extends MkBean {
 	}
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
-	}
-	public List<ClienteModalidade> getListModalidade() {
-		if (listModalidade == null) {
-			listModalidade = new LinkedList<ClienteModalidade>();
-		}
-		return listModalidade;
-	}
-	public void setListModalidade(List<ClienteModalidade> listModalidade) {
-		this.listModalidade = listModalidade;
-	}
-	public String getDiaPagamento() {
-		return diaPagamento;
-	}
-	public void setDiaPagamento(String diaPagamento) {
-		this.diaPagamento = diaPagamento;
-	}
-	public BigDecimal getValorMensalidade() {
-		return valorMensalidade;
-	}
-	public void setValorMensalidade(BigDecimal valorMensalidade) {
-		this.valorMensalidade = valorMensalidade;
-	}
-	public String getCodigoBarra() {
-		return codigoBarra;
-	}
-	public void setCodigoBarra(String codigoBarra) {
-		this.codigoBarra = codigoBarra;
 	}
 	public byte[] getFoto() {
 		return foto;

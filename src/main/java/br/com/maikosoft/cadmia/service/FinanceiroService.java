@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.cadmia.Financeiro;
 import br.com.maikosoft.cadmia.dao.ClienteDAO;
 import br.com.maikosoft.cadmia.dao.FinanceiroDAO;
@@ -38,25 +38,25 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 	public void lancarMensalidades(String mes, String ano) throws MkServiceException {
 		try {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("ddyyyyMMMMM");
-			List<Cliente> listCliente = clienteDAO.findAll(Collections.<String, Object>emptyMap());
-			for (Cliente cliente : listCliente) {
+			List<ClienteCadMia> listCliente = clienteDAO.findAll(Collections.<String, Object>emptyMap());
+			for (ClienteCadMia clienteCadMia : listCliente) {
 				
-				if (BigDecimal.ZERO.equals(cliente.getValorMensalidade())) {
+				if (BigDecimal.ZERO.equals(clienteCadMia.getValorMensalidade())) {
 					continue;
 				}
 				
 				Financeiro financeiro = new Financeiro();
 				try {
-					Date dataCadastro = dateFormat.parse(cliente.getDiaPagamento()+ano+mes);
+					Date dataCadastro = dateFormat.parse(clienteCadMia.getDiaPagamento()+ano+mes);
 					financeiro.setDataCadastro(MkUtil.setUltimaHora(dataCadastro));
 				} catch (ParseException ex) {
-					throw new MkServiceException("Erro ao gerar data de cadastro para cliente #"+cliente.getId(), ex);
+					throw new MkServiceException("Erro ao gerar data de cadastro para cliente #"+clienteCadMia.getId(), ex);
 				}
 				financeiro.setId(this.genericDao.nextId());
-				financeiro.setCliente(cliente);
+				financeiro.setCliente(clienteCadMia);
 				financeiro.setReferencia(MENSALIDADE+mes+"/"+ano);
 //				financeiro.setValor(cliente.getValorMensalidade().multiply(new BigDecimal(-1)));
-				financeiro.setValor(cliente.getValorMensalidade());
+				financeiro.setValor(clienteCadMia.getValorMensalidade());
 				financeiro.setOwner(JanelaLogin.getInstance().getUsuarioLogado().getId());
 				this.genericDao.insert(financeiro);
 			}
@@ -66,13 +66,13 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 		
 	}
 
-	public BigDecimal getSaldo(Cliente cliente) throws MkServiceException {
+	public BigDecimal getSaldo(ClienteCadMia clienteCadMia) throws MkServiceException {
 		try {
 			BigDecimal saldo = BigDecimal.ZERO;
 			
-			if (cliente.getId()!=null) {
+			if (clienteCadMia.getId()!=null) {
 				Map<String, Object> where = new HashMap<String, Object>();
-				where.put("cliente_id", cliente.getId());
+				where.put("cliente_id", clienteCadMia.getId());
 				where.put("before_data_cadastro", new Date());
 				
 				List<Financeiro> list = this.genericDao.findAll(where );			
@@ -88,7 +88,7 @@ public class FinanceiroService extends MkService<Financeiro, FinanceiroDAO> {
 			logger.debug("Retornando saldo:"+saldo);
 			return saldo;			
 		} catch (MkDAOException exception) {
-			throw new MkServiceException("Erro obtendo saldo cliente #"+cliente.getId(), exception);
+			throw new MkServiceException("Erro obtendo saldo cliente #"+clienteCadMia.getId(), exception);
 		}
 	}
 

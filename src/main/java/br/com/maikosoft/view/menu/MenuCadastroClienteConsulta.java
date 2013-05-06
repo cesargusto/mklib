@@ -1,4 +1,4 @@
-package br.com.maikosoft.cadmia.menu;
+package br.com.maikosoft.view.menu;
 
 import br.com.maikosoft.cadmia.view.JanelaClienteConsulta;
 import br.com.maikosoft.core.MkRun;

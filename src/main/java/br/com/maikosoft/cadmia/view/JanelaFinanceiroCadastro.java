@@ -3,7 +3,7 @@ package br.com.maikosoft.cadmia.view;
 import java.awt.GridBagConstraints;
 import java.util.Date;
 
-import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.cadmia.Financeiro;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.mklib.MkDialog;
@@ -66,10 +66,10 @@ public class JanelaFinanceiroCadastro extends MkWindow {
 	}
 	
 	public void novo() {
-		Cliente cliente = bean.getCliente();
+		ClienteCadMia clienteCadMia = bean.getCliente();
 		bean = new Financeiro();
 		bean.setDataCadastro(new Date());
-		bean.setCliente(cliente);
+		bean.setCliente(clienteCadMia);
 		beanToForm(true);
 		fieldReferencia.grabFocus();
 	}
@@ -85,7 +85,7 @@ public class JanelaFinanceiroCadastro extends MkWindow {
 
 	protected void salvar() {
 		try {
-			Cliente cliente = bean.getCliente();
+			ClienteCadMia clienteCadMia = bean.getCliente();
 			bean.setDataCadastro(fieldDataCadastro.getDate());
 			bean.setReferencia(fieldReferencia.getText());
 			bean.setValor(MkUtil.toBigDecimal(fieldValor.getText()));
@@ -101,7 +101,7 @@ public class JanelaFinanceiroCadastro extends MkWindow {
 			MkDialog.info("Financeiro salvo com sucesso", buttonSalvar);
 
 			bean = financeiroService.findById(bean.getId());
-			bean.setCliente(cliente);
+			bean.setCliente(clienteCadMia);
 			beanToForm(false);
 			application.refreshWindows();
 

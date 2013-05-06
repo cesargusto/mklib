@@ -13,7 +13,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-import br.com.maikosoft.cadmia.Cliente;
+import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.cadmia.ClienteAndSaldoVO;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
@@ -59,12 +59,12 @@ public class JanelaRelatorioClientePorDiaPagamento extends MkWindow {
 					
 					Map<String, Object> where = new HashMap<String, Object>();
 					where.put("diaPagamento", comboDiaPagamentoMensalidade.getSelected());
-					List<Cliente> listCliente = clienteService.findAll(where);
+					List<ClienteCadMia> listCliente = clienteService.findAll(where);
 					
 					LinkedList<ClienteAndSaldoVO> list = new LinkedList<ClienteAndSaldoVO>();
-					for (Cliente cliente : listCliente) {
-						BigDecimal saldo = financeiroService.getSaldo(cliente);
-						list.add(new ClienteAndSaldoVO(cliente, null, saldo));
+					for (ClienteCadMia clienteCadMia : listCliente) {
+						BigDecimal saldo = financeiroService.getSaldo(clienteCadMia);
+						list.add(new ClienteAndSaldoVO(clienteCadMia, null, saldo));
 					}
 					
 					HashMap<String, Object> parametro = new HashMap<String, Object>();
