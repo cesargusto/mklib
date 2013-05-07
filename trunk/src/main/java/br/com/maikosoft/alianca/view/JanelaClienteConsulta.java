@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import br.com.maikosoft.cadmia.ClienteCadMia;
-import br.com.maikosoft.cadmia.EnumMenuCadMia;
-import br.com.maikosoft.cadmia.service.ClienteService;
+import br.com.maikosoft.alianca.ClienteAlianca;
+import br.com.maikosoft.alianca.EnumMenuAlianca;
+import br.com.maikosoft.alianca.service.ClienteService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.mklib.EnumMkButton;
@@ -28,10 +28,10 @@ public class JanelaClienteConsulta extends MkWindow {
 	
 	private MkFieldText fieldBusca;
 	private MkPanelTable panelCenter;
-	private MkTable<ClienteCadMia> table;
+	private MkTable<ClienteAlianca> table;
 	private MkButtonTransferir buttonTransferir;
 	
-	private MkTransferObject<ClienteCadMia> transferObject;
+	private MkTransferObject<ClienteAlianca> transferObject;
 	private ClienteService clienteService;
 	
 	@Override
@@ -60,7 +60,7 @@ public class JanelaClienteConsulta extends MkWindow {
 		return new MkRun() {
 			@Override
 			public void execute() {
-				ClienteCadMia bean = table.getSeleted(true);
+				ClienteAlianca bean = table.getSeleted(true);
 				if (bean !=null) {
 					JanelaClienteCadastro view = new JanelaClienteCadastro(bean);
 					view.showWindow("Cadastro Cliente", false);					
@@ -77,7 +77,7 @@ public class JanelaClienteConsulta extends MkWindow {
 				Map<String, Object> where = new HashMap<String, Object>();
 				where.put("nomeOrId", fieldBusca.getText());
 				try {
-					List<ClienteCadMia> list = clienteService.findAll(where);
+					List<ClienteAlianca> list = clienteService.findAll(where);
 					setPesquisa(list);
 				} catch (Exception ex) {
 					MkDialog.error("Erro ao pesquisar", ex);
@@ -87,13 +87,13 @@ public class JanelaClienteConsulta extends MkWindow {
 	}
 	
 	protected MkRun novo() {
-		return EnumMenuCadMia.CADASTRO_CLIENTE_NOVO.getMenu().getAcao();
+		return EnumMenuAlianca.CADASTRO_CLIENTE_NOVO.getMenu().getAcao();
 	}
 
-	public void setPesquisa(List<ClienteCadMia> list) {
-		table.setModel(new MkTableModel<ClienteCadMia>(list, "Nome") {
+	public void setPesquisa(List<ClienteAlianca> list) {
+		table.setModel(new MkTableModel<ClienteAlianca>(list, "Nome") {
 			@Override
-			protected Object getRow(ClienteCadMia bean, int rowIndex, int columnIndex) {
+			protected Object getRow(ClienteAlianca bean, int rowIndex, int columnIndex) {
 				return bean.getNome();
 			}
 		});
@@ -102,12 +102,12 @@ public class JanelaClienteConsulta extends MkWindow {
 		}
 	}
 	
-	public void setTranferir(MkTransferObject<ClienteCadMia> transferObject) {
+	public void setTranferir(MkTransferObject<ClienteAlianca> transferObject) {
 		this.transferObject = transferObject;
 	}
 	
 	protected void transferir() {
-		ClienteCadMia seleted = table.getSeleted(true);
+		ClienteAlianca seleted = table.getSeleted(true);
 		if (seleted != null) {
 			transferObject.postTranfer(seleted);
 			closeWindow();

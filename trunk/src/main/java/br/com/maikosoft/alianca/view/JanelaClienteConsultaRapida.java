@@ -8,13 +8,14 @@ import javax.swing.JInternalFrame;
 
 import org.springframework.util.StringUtils;
 
-import br.com.maikosoft.cadmia.ClienteCadMia;
-import br.com.maikosoft.cadmia.EnumMenuCadMia;
-import br.com.maikosoft.cadmia.service.ClienteService;
+import br.com.maikosoft.alianca.ClienteAlianca;
+import br.com.maikosoft.alianca.EnumMenuAlianca;
+import br.com.maikosoft.alianca.service.ClienteService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldText;
+import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkWindow;
 
 @SuppressWarnings("serial")
@@ -27,7 +28,11 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 	@Override
 	protected void initWindow() {
 		
-		addPanelCenter(fieldBusca, 200, 30);
+		MkPanelTable panelTableCliente = new MkPanelTable();
+		panelTableCliente.setTitle("Cliente");
+		panelTableCliente.addRow(fieldBusca);
+		
+		addPanelCenter(panelTableCliente, 200, 90);
 		
 		fieldBusca.setColumns(15);
 		
@@ -38,7 +43,7 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 					if (StringUtils.hasText(fieldBusca.getText())) {
 						Map<String, Object> where = new HashMap<String, Object>();
 						where.put("nomeOrId", fieldBusca.getText());
-						List<ClienteCadMia> list = clienteService.findAll(where);
+						List<ClienteAlianca> list = clienteService.findAll(where);
 						if (list.size() == 0) {
 							MkDialog.info("Cliente não encontrado", application.getJMenuBar());
 						} else if (list.size() == 1) {
@@ -50,7 +55,7 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 						}
 						fieldBusca.setText("");
 					} else {
-						EnumMenuCadMia.CADASTRO_CLIENTE_NOVO.getMenu().getAcao().execute();
+						EnumMenuAlianca.CADASTRO_CLIENTE_NOVO.getMenu().getAcao().execute();
 					}
 					
 				} catch (MkServiceException exception) {
