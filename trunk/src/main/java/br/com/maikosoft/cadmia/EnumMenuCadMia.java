@@ -3,6 +3,8 @@ package br.com.maikosoft.cadmia;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.maikosoft.cadmia.view.JanelaClienteCadastro;
+import br.com.maikosoft.cadmia.view.JanelaClienteConsulta;
 import br.com.maikosoft.cadmia.menu.MenuCadastroModalidade;
 import br.com.maikosoft.cadmia.menu.MenuCadastroModalidadeConsulta;
 import br.com.maikosoft.cadmia.menu.MenuMovimentacaoLancarMensalidades;
@@ -12,8 +14,6 @@ import br.com.maikosoft.cadmia.menu.MenuRelatorioClientePorModalidade;
 import br.com.maikosoft.cadmia.menu.MenuRelatorioFinanceiro;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
-import br.com.maikosoft.view.menu.MenuCadastroCliente;
-import br.com.maikosoft.view.menu.MenuCadastroClienteConsulta;
 import br.com.maikosoft.view.menu.MenuCadastroUsuario;
 import br.com.maikosoft.view.menu.MenuCadastroUsuarioConsulta;
 import br.com.maikosoft.view.menu.MenuDebug;
@@ -27,8 +27,8 @@ public enum EnumMenuCadMia {
 	
 	CADASTRO("Cadastro", null),
 		CADASTRO_CLIENTE("Cliente", CADASTRO.getMenu()),
-			CADASTRO_CLIENTE_CONSULTA(new MenuCadastroClienteConsulta(CADASTRO_CLIENTE.getMenu())),
-    		CADASTRO_CLIENTE_NOVO(new MenuCadastroCliente(CADASTRO_CLIENTE.getMenu())),
+			CADASTRO_CLIENTE_CONSULTA(MkMenu.createMenu(CADASTRO_CLIENTE.getMenu(), "Consulta Cliente", new JanelaClienteConsulta())),
+			CADASTRO_CLIENTE_NOVO(MkMenu.createMenu(CADASTRO_CLIENTE.getMenu(), "Cadastro Cliente", new JanelaClienteCadastro(null))),
     	CADASTRO_MODALIDADE("Modalidade", CADASTRO.getMenu()),
 			CADASTRO_MODALIDADE_CONSULTA(new MenuCadastroModalidadeConsulta(CADASTRO_MODALIDADE.getMenu())),
     		CADASTRO_MODALIDADE_NOVO(new MenuCadastroModalidade(CADASTRO_MODALIDADE.getMenu())),	

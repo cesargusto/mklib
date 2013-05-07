@@ -334,9 +334,9 @@ public class JanelaClienteCadastro extends MkWindow {
 //				}
 			}
 		};
-		JanelaModalidadeConsulta janelaModalidadeConsulta = new JanelaModalidadeConsulta();
-		janelaModalidadeConsulta.setTranferir(transferObject);
-		janelaModalidadeConsulta.showWindow("Transferir Modalidade", false);
+//		JanelaModalidadeConsulta janelaModalidadeConsulta = new JanelaModalidadeConsulta();
+//		janelaModalidadeConsulta.setTranferir(transferObject);
+//		janelaModalidadeConsulta.showWindow("Transferir Modalidade", false);
 	}
 	
 	protected void remover() {
@@ -356,8 +356,8 @@ public class JanelaClienteCadastro extends MkWindow {
 	}
 	
 	protected void pesquisar() {
-		JanelaFinanceiroConsulta janelaFinanceiroConsulta = new JanelaFinanceiroConsulta(bean);
-		janelaFinanceiroConsulta.showWindow("Financeiro", false);
+//		JanelaFinanceiroConsulta janelaFinanceiroConsulta = new JanelaFinanceiroConsulta(bean);
+//		janelaFinanceiroConsulta.showWindow("Financeiro", false);
 	}
 	
 	protected void atualizar() {
