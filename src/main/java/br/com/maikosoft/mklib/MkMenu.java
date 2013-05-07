@@ -28,4 +28,22 @@ public abstract class MkMenu {
 		return false;
 	}	
 	
+	public static MkMenu createMenu(MkMenu menuPai, final String titulo, final MkWindow janela) {
+		return new MkMenu(menuPai) {
+			@Override
+			public String getTitulo() {
+				return titulo;
+			}
+			@Override
+			public MkRun getAcao() {
+				return new MkRun() {			
+					@Override
+					public void execute() {
+						janela.showWindow(titulo, false);
+					}
+				};
+			}
+		};
+	}
+	
 }

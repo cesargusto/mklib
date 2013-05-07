@@ -3,6 +3,8 @@ package br.com.maikosoft.alianca;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.maikosoft.alianca.view.JanelaClienteCadastro;
+import br.com.maikosoft.alianca.view.JanelaClienteConsulta;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
 import br.com.maikosoft.view.menu.MenuCadastroUsuario;
@@ -18,8 +20,8 @@ public enum EnumMenuAlianca {
 	
 	CADASTRO("Cadastro", null),
 		CADASTRO_CLIENTE("Cliente", CADASTRO.getMenu()),
-//			CADASTRO_CLIENTE_CONSULTA(new MenuCadastroClienteConsulta()),
-//    		CADASTRO_CLIENTE_NOVO(new MenuCadastroCliente(new Cli)),
+			CADASTRO_CLIENTE_CONSULTA(MkMenu.createMenu(CADASTRO_CLIENTE.getMenu(), "Consulta Cliente", new JanelaClienteConsulta())),
+    		CADASTRO_CLIENTE_NOVO(MkMenu.createMenu(CADASTRO_CLIENTE.getMenu(), "Cadastro Cliente", new JanelaClienteCadastro(null))),
 //    	CADASTRO_RECEITA("Receita", CADASTRO.getMenu()),
 //			CADASTRO_RECEITA_CONSULTA(new MenuCadastroReceitaConsulta()),
 //    		CADASTRO_RECEITA_NOVO(new MenuCadastroReceita()),	
