@@ -16,11 +16,10 @@ import javax.swing.SwingConstants;
 
 import org.apache.commons.lang.StringUtils;
 
-import br.com.maikosoft.cadmia.ClienteCadMia;
-import br.com.maikosoft.cadmia.ClienteModalidade;
+import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.cadmia.service.ClienteModalidadeService;
-import br.com.maikosoft.cadmia.service.ClienteService;
+import br.com.maikosoft.alianca.service.ClienteService;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.core.MkException;
 import br.com.maikosoft.core.MkRun;
@@ -88,12 +87,12 @@ public class JanelaClienteCadastro extends MkWindow {
 	private MkButtonEditar buttonEditar;
 	private MkButtonExcluir buttonExcluir;
 		
-	private ClienteCadMia bean;
+	private ClienteAlianca bean;
 	private ClienteService clienteService;
-	private ClienteModalidadeService clienteModalidadeService;
-	private FinanceiroService financeiroService;
+//	private ClienteModalidadeService clienteModalidadeService;
+//	private FinanceiroService financeiroService;
 	
-	public JanelaClienteCadastro(ClienteCadMia bean) {
+	public JanelaClienteCadastro(ClienteAlianca bean) {
 		this.bean = bean;
 	}
 
@@ -169,17 +168,12 @@ public class JanelaClienteCadastro extends MkWindow {
 		if (bean.getId() == null) {
 			novo();
 		} else {
-			try {
-				clienteModalidadeService.carregarModalidades(bean);
-			} catch (MkServiceException exception) {
-				MkDialog.error("Erro carregando Lista de Modalidade", exception);
-			}
 			beanToForm(false);
 		}
 	}
 
 	protected void novo() {
-		bean = new ClienteCadMia();
+		bean = new ClienteAlianca();
 		beanToForm(true);
 		fieldCidade.setText("Londrina");
 		comboUf.setSelected(EnumUF.PR);
@@ -206,9 +200,9 @@ public class JanelaClienteCadastro extends MkWindow {
 			bean.setTelefone3(fieldTelefone3.getText());
 			bean.setEmail(fieldEmail.getText());
 			bean.setObservacao(textObservacao.getText());
-			bean.setValorMensalidade(MkUtil.toBigDecimal(fieldValorMensalidade.getText()));
-			bean.setDiaPagamento(comboDiaPagamentoMensalidade.getSelected());
-			bean.setCodigoBarra(fieldCodigoBarra.getText());
+//			bean.setValorMensalidade(MkUtil.toBigDecimal(fieldValorMensalidade.getText()));
+//			bean.setDiaPagamento(comboDiaPagamentoMensalidade.getSelected());
+//			bean.setCodigoBarra(fieldCodigoBarra.getText());
 
 			if (bean.getId() == null) {
 				bean.setOwner(JanelaLogin.getInstance().getUsuarioLogado().getId());
@@ -218,10 +212,10 @@ public class JanelaClienteCadastro extends MkWindow {
 			}
 			MkDialog.info("Cliente salvo com sucesso", buttonSalvar);
 			
-			clienteModalidadeService.update(bean.getListModalidade());
+//			clienteModalidadeService.update(bean.getListModalidade());
 
 			bean = clienteService.findById(bean.getId());
-			clienteModalidadeService.carregarModalidades(bean);
+//			clienteModalidadeService.carregarModalidades(bean);
 			
 			beanToForm(false);
 			
@@ -268,7 +262,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldTelefone3.setText(bean.getTelefone3());
 		fieldEmail.setText(bean.getEmail());
 		textObservacao.setText(bean.getObservacao());
-		fieldCodigoBarra.setText(bean.getCodigoBarra());
+//		fieldCodigoBarra.setText(bean.getCodigoBarra());
 		carregarFoto(bean.getFoto());
 		
 		fieldNome.setEditable(isEditMode);
@@ -290,7 +284,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		
 //		fieldValorMensalidade.setValue(bean.getValorMensalidade());
 //		fieldValorMensalidade.setEditable(isEditMode);
-		comboDiaPagamentoMensalidade.setSelected(bean.getDiaPagamento());
+//		comboDiaPagamentoMensalidade.setSelected(bean.getDiaPagamento());
 		comboDiaPagamentoMensalidade.setEnabled(isEditMode);
 		
 		atualizaListaModalidade();
@@ -310,12 +304,12 @@ public class JanelaClienteCadastro extends MkWindow {
 	private void atualizaListaModalidade() {
 		DefaultListModel listModelModalidade = new DefaultListModel();
 		BigDecimal totalMensalidade = BigDecimal.ZERO;
-		for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
-			if (!clienteModalidade.isDelete()) {
-				listModelModalidade.addElement(clienteModalidade.getModalidade());
-				totalMensalidade = totalMensalidade.add(clienteModalidade.getModalidade().getValor());
-			}
-		}
+//		for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
+//			if (!clienteModalidade.isDelete()) {
+//				listModelModalidade.addElement(clienteModalidade.getModalidade());
+//				totalMensalidade = totalMensalidade.add(clienteModalidade.getModalidade().getValor());
+//			}
+//		}
 		listModalidade.setModel(listModelModalidade);
 		fieldValorMensalidade.setText(MkUtil.toString(totalMensalidade));
 	}
@@ -324,10 +318,10 @@ public class JanelaClienteCadastro extends MkWindow {
 		MkTransferObject<Modalidade> transferObject = new MkTransferObject<Modalidade>() {
 			@Override
 			public void postTranfer(Modalidade object) {
-				ClienteModalidade clienteModalidade = new ClienteModalidade();
-				clienteModalidade.setModalidade(object);
-				clienteModalidade.setCliente(bean);
-				bean.getListModalidade().add(clienteModalidade);
+//				ClienteModalidade clienteModalidade = new ClienteModalidade();
+//				clienteModalidade.setModalidade(object);
+//				clienteModalidade.setCliente(bean);
+//				bean.getListModalidade().add(clienteModalidade);
 				atualizaListaModalidade();
 //				if ("0,00".equals(fieldValorMensalidade.getText())) {
 //					fieldValorMensalidade.setText(MkUtil.toString(object.getValor()));
@@ -345,11 +339,11 @@ public class JanelaClienteCadastro extends MkWindow {
 			MkDialog.info("Selecione uma modalidade", buttonRemover);
 		} else {
 			Modalidade modalidade = (Modalidade) listModalidade.getModel().getElementAt(listModalidade.getSelectedIndex());
-			for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
-				if (clienteModalidade.getModalidade().equals(modalidade)) {
-					clienteModalidade.setDelete(true);
-				}
-			}
+//			for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
+//				if (clienteModalidade.getModalidade().equals(modalidade)) {
+//					clienteModalidade.setDelete(true);
+//				}
+//			}
 			atualizaListaModalidade();
 		}
 		
@@ -361,16 +355,16 @@ public class JanelaClienteCadastro extends MkWindow {
 	}
 	
 	protected void atualizar() {
-		try {
-			BigDecimal saldo = financeiroService.getSaldo(bean);
-			if (saldo.compareTo(BigDecimal.ZERO) < 0) {
-				labelSaldoFinanceiro.setText("<html><b><font color=red>"+MkUtil.toString(saldo)+"</font></b></html>");
-			} else {
-				labelSaldoFinanceiro.setText("<html><b><font color=blue>EM DIA</font></b></html>");
-			}
-		} catch (MkServiceException ex) {
-			MkDialog.error(ex.getMessage(), ex);
-		}
+//		try {
+//			BigDecimal saldo = financeiroService.getSaldo(bean);
+//			if (saldo.compareTo(BigDecimal.ZERO) < 0) {
+//				labelSaldoFinanceiro.setText("<html><b><font color=red>"+MkUtil.toString(saldo)+"</font></b></html>");
+//			} else {
+//				labelSaldoFinanceiro.setText("<html><b><font color=blue>EM DIA</font></b></html>");
+//			}
+//		} catch (MkServiceException ex) {
+//			MkDialog.error(ex.getMessage(), ex);
+//		}
 	}
 	
 	private void editarFoto() {

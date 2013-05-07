@@ -4,9 +4,9 @@
 
 <sqlMap>
 
-<typeAlias alias="Cliente" type="br.com.maikosoft.alianca.Cliente" />
+<typeAlias alias="ClienteAlianca" type="br.com.maikosoft.alianca.ClienteAlianca" />
 
-	<resultMap id="resultMapCliente" class="Cliente">
+	<resultMap id="resultMapClienteAlianca" class="ClienteAlianca">
 		<result property="id" column="id" />
 		<result property="nome" column="nome" />
 		<result property="cpf" column="cpf" />
@@ -23,14 +23,34 @@
 		<result property="cidade" column="cidade" />
 		<result property="uf" column="uf" />
 		<result property="dataNascimento" column="data_nascimento" />
+		
+		<result property="empresa" column="empresa" />
+        <result property="empresaEndereco" column="empresa_endereco" />
+        <result property="empresaDesde" column="empresa_desde" />
+        <result property="empresaTelefone" column="empresa_telefone" />
+        <result property="empresaSalario" column="empresa_salario" />
+        <result property="empresaCargo" column="empresa_cargo" />
+        <result property="estadoCivil" column="estado_civil" />
+        <result property="naturalidade" column="naturalidade" />
+        <result property="conjuge" column="conjuge" />
+        <result property="conjugeNascimento" column="conjuge_nascimento" />
+        <result property="conjugeEmpresa" column="conjuge_empresa" />
+        <result property="conjugeCargo" column="conjuge_cargo" />
+        <result property="conjugeEmpresaEndereco" column="conjuge_empresa_endereco" />
+        <result property="pai" column="pai" />
+        <result property="mae" column="mae" />
+        <result property="desde" column="desde" />
+        <result property="seproc" column="seproc" />
+        <result property="enderecoDesde" column="endereco_desde" />
+		
 		<result property="owner" column="owner" />
 		<result property="foto" column="foto" jdbcType="BLOB" javaType="[B" typeHandler="org.springframework.orm.ibatis.support.BlobByteArrayTypeHandler"/>
 	</resultMap>
 		
-	<sql id="fragmentWhereCliente">
+	<sql id="fragmentWhereClienteAlianca">
 		<dynamic prepend="where">
 			<isNotNull prepend="and" property="nomeOrId">			
-				codigo_barra = #nomeOrId# OR lower(to_ascii(nome, 'LATIN1')) like lower(to_ascii( '%' || #nomeOrId# ||'%', 'LATIN1')) OR id::varchar = #nomeOrId#
+				lower(to_ascii(nome, 'LATIN1')) like lower(to_ascii( '%' || #nomeOrId# ||'%', 'LATIN1'))
 			</isNotNull>
 			<isNotNull prepend="and" property="id">			
 				id::varchar = #id#
@@ -44,47 +64,63 @@
 		</dynamic>
 	</sql>
 
-	<select id="countCliente" resultClass="long">
+	<select id="countClienteAlianca" resultClass="long">
 		SELECT count(*) FROM cliente
-		<include refid="fragmentWhereCliente"/>
+		<include refid="fragmentWhereClienteAlianca"/>
 
 	</select>
 
-	<select id="allCliente" resultMap="resultMapCliente">
+	<select id="allClienteAlianca" resultMap="resultMapClienteAlianca">
 		SELECT * FROM cliente
-		<include refid="fragmentWhereCliente"/>
+		<include refid="fragmentWhereClienteAlianca"/>
 		ORDER BY nome
 <!-- 		LIMIT 15 OFFSET #limit# -->
 	</select>
 	
-	<select id="getCliente" parameterClass="long" resultMap="resultMapCliente">
+	<select id="getClienteAlianca" parameterClass="long" resultMap="resultMapClienteAlianca">
 		SELECT * FROM cliente
 		WHERE id = #value#
 	</select>
 	
-	<update id="updateCliente" parameterClass="Cliente">
+	<update id="updateClienteAlianca" parameterClass="ClienteAlianca">
 		UPDATE cliente SET nome= #nome#, cpf= #cpf#, rg= #rg#, telefone1= #telefone1#, telefone2= #telefone2#,
 		   endereco= #endereco#, numero= #numero#, bairro= #bairro#, 
 			cep= #cep#, cidade= #cidade#, uf= #uf#, 
 			telefone3= #telefone3#, email= #email#, observacao= #observacao#,  
-			data_nascimento=#dataNascimento#, foto=#foto#
+			data_nascimento=#dataNascimento#, foto=#foto#,
+			
+			empresa=#empresa#, empresa_endereco=#empresaEndereco#, empresa_desde=#empresaDesde#,
+            empresa_telefone=#empresaTelefone#, empresa_salario=#empresaSalario#, empresa_cargo=#empresaCargo#,
+            estado_civil=#estadoCivil#, naturalidade=#naturalidade#, conjuge=#conjuge#,
+            conjuge_nascimento=#conjugeNascimento#, conjuge_empresa=#conjugeEmpresa#, conjuge_cargo=#conjugeCargo#,
+            conjuge_empresa_endereco=#conjugeEmpresaEndereco#, pai=#pai#, mae=#mae#, desde=#desde#, seproc=#seproc#, 
+            conjuge_empresa_endereco=#conjugeEmpresaEndereco#
+            
 		WHERE id=#id#
 	</update>	
 	
-	<select id="nextIdCliente" resultClass="long">
+	<select id="nextIdClienteAlianca" resultClass="long">
 		SELECT nextval('cliente_id_seq');
 	</select>
 	
-	<insert id="insertCliente" parameterClass="Cliente">
+	<insert id="insertClienteAlianca" parameterClass="ClienteAlianca">
 		INSERT INTO cliente (id, nome, cpf, rg, telefone1, telefone2, telefone3, 
 			email, observacao, endereco, numero, bairro, cep, cidade, uf , data_nascimento, 
-			owner, foto) VALUES
+			owner, foto,
+			empresa, empresa_endereco, empresa_desde,
+            empresa_telefone, empresa_salario, empresa_cargo,
+            estado_civil, naturalidade, conjuge,
+            conjuge_nascimento, conjuge_empresa, conjuge_cargo,
+            conjuge_empresa_endereco, pai, mae, desde, seproc, endereco_desde) VALUES
 		(#id#, #nome#, #cpf#, #rg#, #telefone1#, #telefone2#, #telefone3#, 
 		#email#, #observacao#, #endereco#, #numero#, #bairro#,
-		 #cep#, #cidade#, #uf#,  #dataNascimento#, #owner#, #foto#)
+		 #cep#, #cidade#, #uf#,  #dataNascimento#, #owner#, #foto#,
+		 #empresa#, #empresaEndereco#, #empresaDesde#, #empresaTelefone#,  #empresaSalario#, #empresaCargo#,
+        #estadoCivil#, #naturalidade#, #conjuge#, #conjugeNascimento#, #conjugeEmpresa#, #conjugeCargo#,
+        #conjugeEmpresaEndereco#, #pai#, #mae#, #desde#, #seproc#, #enderecoDesde#)
 	</insert>
 	
-	<delete id="deleteCliente" parameterClass="long" >
+	<delete id="deleteClienteAlianca" parameterClass="long" >
 		DELETE FROM cliente WHERE id = #value#
 	</delete>
 

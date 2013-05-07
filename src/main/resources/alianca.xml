@@ -10,8 +10,8 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
 	default-autowire="byName">
  
-	<context:component-scan base-package="br.com.maikosoft.dao.alianca" />
-	<context:component-scan base-package="br.com.maikosoft.service.alianca" />
+	<context:component-scan base-package="br.com.maikosoft.alianca.dao" />
+	<context:component-scan base-package="br.com.maikosoft.alianca.service" />
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
