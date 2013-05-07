@@ -94,7 +94,8 @@ public class JanelaClienteCadastro extends MkWindow {
 	private FinanceiroService financeiroService;
 	
 	public JanelaClienteCadastro(ClienteCadMia bean) {
-		this.bean = bean;
+		this.bean = (bean == null ? new ClienteCadMia() : bean);
+		
 	}
 
 	@Override
