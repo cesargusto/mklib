@@ -21,7 +21,8 @@ import br.com.maikosoft.mklib.MkWindow;
 @SuppressWarnings("serial")
 public class JanelaClienteConsultaRapida extends MkWindow {
 	
-	private MkFieldText fieldBusca;
+	private MkFieldText fieldBuscaCliente;
+	private MkFieldText fieldBuscaReceita;
 	
 	private ClienteService clienteService;
 
@@ -30,19 +31,24 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 		
 		MkPanelTable panelTableCliente = new MkPanelTable();
 		panelTableCliente.setTitle("Cliente");
-		panelTableCliente.addRow(fieldBusca);
+		panelTableCliente.addRow(fieldBuscaCliente);
 		
-		addPanelCenter(panelTableCliente, 200, 90);
+		MkPanelTable panelTableReceita = new MkPanelTable();
+		panelTableReceita.setTitle("Receita");
+		panelTableReceita.addRow(fieldBuscaReceita);
 		
-		fieldBusca.setColumns(15);
+		addPanelCenter(new MkPanelTable().addRow(panelTableCliente).addRow(panelTableReceita), 200, 120);
 		
-		fieldBusca.onEnter(new MkRun() {
+		fieldBuscaCliente.setColumns(15);
+		fieldBuscaReceita.setColumns(15);
+		
+		fieldBuscaCliente.onEnter(new MkRun() {
 			@Override
 			public void execute() {
 				try {					
-					if (StringUtils.hasText(fieldBusca.getText())) {
+					if (StringUtils.hasText(fieldBuscaCliente.getText())) {
 						Map<String, Object> where = new HashMap<String, Object>();
-						where.put("nomeOrId", fieldBusca.getText());
+						where.put("nomeOrId", fieldBuscaCliente.getText());
 						List<ClienteAlianca> list = clienteService.findAll(where);
 						if (list.size() == 0) {
 							MkDialog.info("Cliente não encontrado", application.getJMenuBar());
@@ -53,7 +59,7 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 							janelaClienteConsulta.showWindow("Consulta Cliente", false);
 							janelaClienteConsulta.setPesquisa(list);
 						}
-						fieldBusca.setText("");
+						fieldBuscaCliente.setText("");
 					} else {
 						EnumMenuAlianca.CADASTRO_CLIENTE_NOVO.getMenu().getAcao().execute();
 					}

@@ -7,24 +7,26 @@ import br.com.maikosoft.Cliente;
 @SuppressWarnings("serial")
 public class ClienteAlianca extends Cliente {
 
+	private String estadoCivil;
+	private String naturalidade;
+	private String pai;
+	private String mae;
+	private String desde;
+	private String seproc;// retirar
+	private String enderecoDesde;
+	
 	private String empresa;
     private String empresaEndereco;
     private String empresaDesde;
     private String empresaTelefone;
     private String empresaSalario;
     private String empresaCargo;
-    private String estadoCivil;
-    private String naturalidade;
+    
     private String conjuge;
     private Date conjugeNascimento;
     private String conjugeEmpresa;
     private String conjugeCargo;
     private String conjugeEmpresaEndereco;
-    private String pai;
-    private String mae;
-    private String desde;
-    private String seproc;
-    private String enderecoDesde;
     
 	public String getEmpresa() {
 		return empresa;
