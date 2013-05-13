@@ -50,16 +50,13 @@
 	<sql id="fragmentWhereClienteAlianca">
 		<dynamic prepend="where">
 			<isNotNull prepend="and" property="nomeOrId">			
-				lower(to_ascii(nome, 'LATIN1')) like lower(to_ascii( '%' || #nomeOrId# ||'%', 'LATIN1'))
+				lower(sem_acento(nome)) like lower(sem_acento( '%' || #nomeOrId# ||'%'))
 			</isNotNull>
 			<isNotNull prepend="and" property="id">			
 				id::varchar = #id#
 			</isNotNull>
 			<isNotNull prepend="and" property="modalidadeId">			
 				id in (select cliente_id from Cliente_Modalidade where modalidade_id= #modalidadeId#)
-			</isNotNull>
-			<isNotNull prepend="and" property="diaPagamento">			
-				dia_pagamento = #diaPagamento#
 			</isNotNull>
 		</dynamic>
 	</sql>
@@ -94,7 +91,7 @@
             estado_civil=#estadoCivil#, naturalidade=#naturalidade#, conjuge=#conjuge#,
             conjuge_nascimento=#conjugeNascimento#, conjuge_empresa=#conjugeEmpresa#, conjuge_cargo=#conjugeCargo#,
             conjuge_empresa_endereco=#conjugeEmpresaEndereco#, pai=#pai#, mae=#mae#, desde=#desde#, seproc=#seproc#, 
-            conjuge_empresa_endereco=#conjugeEmpresaEndereco#
+            endereco_desde=#enderecoDesde#
             
 		WHERE id=#id#
 	</update>	

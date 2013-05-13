@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -74,16 +75,20 @@ public class JanelaClienteCadastro extends MkWindow {
 	private MkFieldText fieldEmail;
 	private MkFieldText fieldEnderecoDesde;
 	
+	private MkFieldText fieldEmpresa;
+    private MkFieldText fieldEmpresaEndereco;
+    private MkFieldText fieldEmpresaDesde;
+    private MkFieldText fieldEmpresaTelefone;
+    private MkFieldText fieldEmpresaSalario;
+    private MkFieldText fieldEmpresaCargo;
+    
+    private MkFieldText fieldConjuge;
+    private MkFieldDate fieldConjugeNascimento;
+    private MkFieldText fieldConjugeEmpresa;
+    private MkFieldText fieldConjugeCargo;
+    private MkFieldText fieldConjugeEmpresaEndereco;
+	
 	private MkTextArea textObservacao;
-	
-	private JList listModalidade;
-	private MkButtonAdicionar buttonAdicionar;
-	private MkButtonRemover buttonRemover;
-	
-	private MkFieldMask fieldValorMensalidade;
-	private MkComboBox<String> comboDiaPagamentoMensalidade;
-	private JLabel labelSaldoFinanceiro;
-	private MkButtonPesquisar buttonConsultaFinanceiro;
 	
 	private JLabel labelFoto;
 	
@@ -120,24 +125,28 @@ public class JanelaClienteCadastro extends MkWindow {
 		
 		panelTable.addRow(panelTableEndereco);
 		
-		MkPanelTable panelTableModalidadeMensalidade = new MkPanelTable();
+		MkPanelTable panelTableEmpresaConjuge = new MkPanelTable();
 		
-		MkPanelTable panelTableMensalidade = new MkPanelTable();
-		panelTableMensalidade.setTitle("Mensalidade");
-		panelTableMensalidade.addRow("Dia Pagamento:", comboDiaPagamentoMensalidade, "Valor:", fieldValorMensalidade);
-		panelTableMensalidade.addRow(buttonConsultaFinanceiro, MkPanelTable.getDefaultCell(2), "Saldo: ", labelSaldoFinanceiro);
-		panelTable.addRow(panelTableMensalidade);
-		buttonConsultaFinanceiro.setIcon(EnumMkButton.getIcon("dinheiro"));
-		buttonConsultaFinanceiro.setText("Consultar Financeiro");
+		MkPanelTable panelTableEmpresa = new MkPanelTable();
+		panelTableEmpresa.setTitle("Empresa");
+		panelTableEmpresa.addRow("Nome:", fieldEmpresa);
+		panelTableEmpresa.addRow("Cargo:", fieldEmpresaCargo, "Desde:", fieldEmpresaDesde);
+		panelTableEmpresa.addRow("Endereço:", fieldEmpresaEndereco);
+		panelTableEmpresa.addRow("Telefone:", fieldEmpresaTelefone, "Salario:", fieldEmpresaSalario);
 		
-		panelTableModalidadeMensalidade.addRow(panelTableMensalidade);
+		panelTable.addRow(panelTableEmpresa);
 		
-		MkPanelTable panelTableModalidade = new MkPanelTable();
-		panelTableModalidade.setTitle("Modalidades");
-		panelTableModalidade.addRow(buttonAdicionar, buttonRemover);
-		panelTableModalidade.addRow(listModalidade);
+		panelTableEmpresaConjuge.addRow(panelTableEmpresa);
 		
-		panelTableModalidadeMensalidade.addRow(panelTableModalidade, GridBagConstraints.BOTH);
+		MkPanelTable panelTableConjuge = new MkPanelTable();
+		panelTableConjuge.setTitle("Conjuge");
+		panelTableConjuge.addRow("Nome:", fieldConjuge);
+		panelTableConjuge.addRow("Data Nascimento", fieldConjugeNascimento);
+		panelTableConjuge.addRow("Empresa:", fieldConjugeEmpresa);
+		panelTableConjuge.addRow("Cargo:", fieldConjugeCargo);
+		panelTableConjuge.addRow("Endereço:", fieldConjugeEmpresaEndereco);
+		
+		panelTableEmpresaConjuge.addRow(panelTableConjuge, GridBagConstraints.BOTH);
 		
 		MkPanelTable panelTableFoto = new MkPanelTable();
 		panelTableFoto.setTitle("Foto");		
@@ -158,11 +167,11 @@ public class JanelaClienteCadastro extends MkWindow {
 		
 		panelTableFoto.addRow(labelFoto, GridBagConstraints.BOTH);
 		
-		panelTable.addRow(panelTableFoto, MkPanelTable.getDefaultCell(3) , panelTableModalidadeMensalidade, MkPanelTable.getDefaultCell(3));
+		panelTable.addRow(panelTableFoto, MkPanelTable.getDefaultCell(3) , panelTableEmpresaConjuge, MkPanelTable.getDefaultCell(3));
 		
 		panelTable.addRow(textObservacao.getJScrollPane("Observação"), GridBagConstraints.BOTH);
 		
-		addPanelCenter(panelTable, 800, 650);
+		addPanelCenter(panelTable, 800, 680);
 		
 		comboUf.setList(Arrays.asList(EnumUF.values()));
 		fieldCpf.setMask(EnumMkMask.CPF);
@@ -170,11 +179,6 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldCep.onChange(buscaEndereco());
 		fieldEndereco.onChange(buscaCEP());
 		fieldId.setEnabled(false);
-		fieldValorMensalidade.setMask(EnumMkMask.CURRENCY);
-		fieldValorMensalidade.setEditable(false);
-		fieldValorMensalidade.setFocusable(false);
-		
-		comboDiaPagamentoMensalidade.setList(Arrays.asList("01","05", "10", "15", "20", "25"));
 	
 		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir);
 		
@@ -213,9 +217,27 @@ public class JanelaClienteCadastro extends MkWindow {
 			bean.setTelefone3(fieldTelefone3.getText());
 			bean.setEmail(fieldEmail.getText());
 			bean.setObservacao(textObservacao.getText());
-//			bean.setValorMensalidade(MkUtil.toBigDecimal(fieldValorMensalidade.getText()));
-//			bean.setDiaPagamento(comboDiaPagamentoMensalidade.getSelected());
-//			bean.setCodigoBarra(fieldCodigoBarra.getText());
+			
+			bean.setEstadoCivil(fieldEstadoCivil.getText());
+			bean.setNaturalidade(fieldNaturalidade.getText());
+			bean.setPai(fieldPai.getText());
+			bean.setMae(fieldMae.getText());
+			bean.setDesde(fieldClienteDesde.getText());
+			bean.setEmail(fieldEmail.getText());
+			bean.setEnderecoDesde(fieldEnderecoDesde.getText());
+			
+			bean.setEmpresa(fieldEmpresa.getText());
+			bean.setEmpresaEndereco(fieldEmpresaEndereco.getText());
+			bean.setEmpresaDesde(fieldEmpresaDesde.getText());
+			bean.setEmpresaTelefone(fieldEmpresaTelefone.getText());
+			bean.setEmpresaSalario(fieldEmpresaSalario.getText());
+			bean.setEmpresaCargo(fieldEmpresaCargo.getText());
+			
+			bean.setConjuge(fieldConjuge.getText());
+			bean.setConjugeNascimento(fieldConjugeNascimento.getDate());
+			bean.setConjugeEmpresa(fieldConjugeEmpresa.getText());
+			bean.setConjugeCargo(fieldConjugeCargo.getText());
+			bean.setConjugeEmpresaEndereco(fieldConjugeEmpresaEndereco.getText());
 
 			if (bean.getId() == null) {
 				bean.setOwner(JanelaLogin.getInstance().getUsuarioLogado().getId());
@@ -275,8 +297,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldTelefone3.setText(bean.getTelefone3());
 		fieldEmail.setText(bean.getEmail());
 		textObservacao.setText(bean.getObservacao());
-//		fieldCodigoBarra.setText(bean.getCodigoBarra());
-		carregarFoto(bean.getFoto());
+		fieldEnderecoDesde.setText(bean.getEnderecoDesde());
 		
 		fieldNome.setEditable(isEditMode);
 		fieldDataNascimento.setEditable(isEditMode);
@@ -295,38 +316,58 @@ public class JanelaClienteCadastro extends MkWindow {
 		textObservacao.setEditable(isEditMode);
 		fieldEnderecoDesde.setEditable(isEditMode);
 		
-//		fieldValorMensalidade.setValue(bean.getValorMensalidade());
-//		fieldValorMensalidade.setEditable(isEditMode);
-//		comboDiaPagamentoMensalidade.setSelected(bean.getDiaPagamento());
-		comboDiaPagamentoMensalidade.setEnabled(isEditMode);
+		fieldEstadoCivil.setText(bean.getEstadoCivil());
+		fieldNaturalidade.setText(bean.getNaturalidade());
+		fieldPai.setText(bean.getPai());
+		fieldMae.setText(bean.getMae());
+		fieldClienteDesde.setText(bean.getDesde());
+		fieldEmail.setText(bean.getEmail());
+		fieldEnderecoDesde.setText(bean.getEnderecoDesde());
 		
-		atualizaListaModalidade();
-		atualizar();
+		fieldEstadoCivil.setEditable(isEditMode);
+		fieldNaturalidade.setEditable(isEditMode);
+		fieldPai.setEditable(isEditMode);
+		fieldMae.setEditable(isEditMode);
+		fieldClienteDesde.setEditable(isEditMode);
+		fieldEmail.setEditable(isEditMode);
+		fieldEnderecoDesde.setEditable(isEditMode);
 		
-		buttonConsultaFinanceiro.setEnabled(!isEditMode);
+		fieldEmpresa.setText(bean.getEmpresa());
+		fieldEmpresaEndereco.setText(bean.getEmpresaEndereco());
+		fieldEmpresaDesde.setText(bean.getEmpresaDesde());
+		fieldEmpresaTelefone.setText(bean.getEmpresaTelefone());
+		fieldEmpresaSalario.setText(bean.getEmpresaSalario());
+		fieldEmpresaCargo.setText(bean.getEmpresaCargo());
+		
+		fieldEmpresa.setEditable(isEditMode);
+		fieldEmpresaEndereco.setEditable(isEditMode);
+		fieldEmpresaDesde.setEditable(isEditMode);
+		fieldEmpresaTelefone.setEditable(isEditMode);
+		fieldEmpresaSalario.setEditable(isEditMode);
+		fieldEmpresaCargo.setEditable(isEditMode);
+		
+		fieldConjuge.setText(bean.getConjuge());
+		fieldConjugeNascimento.setText(MkUtil.toString(bean.getConjugeNascimento()));
+		fieldConjugeEmpresa.setText(bean.getConjugeEmpresa());
+		fieldConjugeCargo.setText(bean.getConjugeCargo());
+		fieldConjugeEmpresaEndereco.setText(bean.getConjugeEmpresaEndereco());
+		
+		fieldConjuge.setEditable(isEditMode);
+		fieldConjugeNascimento.setEditable(isEditMode);
+		fieldConjugeEmpresa.setEditable(isEditMode);
+		fieldConjugeCargo.setEditable(isEditMode);
+		fieldConjugeEmpresaEndereco.setEditable(isEditMode);
+		
+		carregarFoto(bean.getFoto());
 		
 		buttonNovo.setEnabled(!isEditMode);
 		buttonSalvar.setEnabled(isEditMode);
 		buttonEditar.setEnabled(!isEditMode);
 		buttonExcluir.setEnabled(!isEditMode);
-		buttonAdicionar.setEnabled(isEditMode);
-		buttonRemover.setEnabled(isEditMode);
 						
 	}
 	
-	private void atualizaListaModalidade() {
-		DefaultListModel listModelModalidade = new DefaultListModel();
-		BigDecimal totalMensalidade = BigDecimal.ZERO;
-//		for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
-//			if (!clienteModalidade.isDelete()) {
-//				listModelModalidade.addElement(clienteModalidade.getModalidade());
-//				totalMensalidade = totalMensalidade.add(clienteModalidade.getModalidade().getValor());
-//			}
-//		}
-		listModalidade.setModel(listModelModalidade);
-		fieldValorMensalidade.setText(MkUtil.toString(totalMensalidade));
-	}
-
+	
 	protected void adicionar() {
 		MkTransferObject<Modalidade> transferObject = new MkTransferObject<Modalidade>() {
 			@Override
@@ -335,7 +376,7 @@ public class JanelaClienteCadastro extends MkWindow {
 //				clienteModalidade.setModalidade(object);
 //				clienteModalidade.setCliente(bean);
 //				bean.getListModalidade().add(clienteModalidade);
-				atualizaListaModalidade();
+//				atualizaListaModalidade();
 //				if ("0,00".equals(fieldValorMensalidade.getText())) {
 //					fieldValorMensalidade.setText(MkUtil.toString(object.getValor()));
 //				}
@@ -346,21 +387,6 @@ public class JanelaClienteCadastro extends MkWindow {
 //		janelaModalidadeConsulta.showWindow("Transferir Modalidade", false);
 	}
 	
-	protected void remover() {
-		
-		if (listModalidade.getSelectedIndex() == -1) {
-			MkDialog.info("Selecione uma modalidade", buttonRemover);
-		} else {
-			Modalidade modalidade = (Modalidade) listModalidade.getModel().getElementAt(listModalidade.getSelectedIndex());
-//			for (ClienteModalidade clienteModalidade : bean.getListModalidade()) {
-//				if (clienteModalidade.getModalidade().equals(modalidade)) {
-//					clienteModalidade.setDelete(true);
-//				}
-//			}
-			atualizaListaModalidade();
-		}
-		
-	}
 	
 	protected void pesquisar() {
 //		JanelaFinanceiroConsulta janelaFinanceiroConsulta = new JanelaFinanceiroConsulta(bean);
