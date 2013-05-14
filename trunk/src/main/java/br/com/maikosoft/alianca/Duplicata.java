@@ -10,14 +10,14 @@ import br.com.maikosoft.core.MkBean;
 public class Duplicata extends MkBean {
 	
 	private Long numeroNota;
-    private String ordem;
-    private Date dataDulicata;
+    private String referencia;
+    private Date dataCadastro;
     private Date dataVencimento;
     private boolean pago;
     private Date dataPagamento;
     private String vendedor;
     private String observacao;
-    private Cliente cliente;
+    private ClienteAlianca cliente;
     private BigDecimal valor;
     private BigDecimal valorTotal;
         
@@ -27,17 +27,17 @@ public class Duplicata extends MkBean {
 	public void setNumeroNota(Long numeroNota) {
 		this.numeroNota = numeroNota;
 	}
-	public String getOrdem() {
-		return ordem;
+	public String getReferencia() {
+		return referencia;
 	}
-	public void setOrdem(String ordem) {
-		this.ordem = ordem;
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
 	}
-	public Date getDataDulicata() {
-		return dataDulicata;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
-	public void setDataDulicata(Date dataDulicata) {
-		this.dataDulicata = dataDulicata;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 	public Date getDataVencimento() {
 		return dataVencimento;
@@ -69,10 +69,10 @@ public class Duplicata extends MkBean {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	public Cliente getCliente() {
+	public ClienteAlianca getClienteAlianca() {
 		return cliente;
 	}
-	public void setCliente(Cliente cliente) {
+	public void setClienteAlianca(ClienteAlianca cliente) {
 		this.cliente = cliente;
 	}
 	public BigDecimal getValor() {
