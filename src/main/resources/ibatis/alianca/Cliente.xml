@@ -50,7 +50,7 @@
 	<sql id="fragmentWhereClienteAlianca">
 		<dynamic prepend="where">
 			<isNotNull prepend="and" property="nomeOrId">			
-				lower(sem_acento(nome)) like lower(sem_acento( '%' || #nomeOrId# ||'%'))
+				id::varchar = #nomeOrId# OR lower(sem_acento(nome)) like lower(sem_acento( '%' || #nomeOrId# ||'%'))
 			</isNotNull>
 			<isNotNull prepend="and" property="id">			
 				id::varchar = #id#

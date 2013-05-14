@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.alianca.EnumMenuAlianca;
-import br.com.maikosoft.alianca.service.ClienteService;
+import br.com.maikosoft.alianca.Receita;
+import br.com.maikosoft.alianca.service.ReceitaService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.mklib.EnumMkButton;
@@ -20,19 +20,21 @@ import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkTable;
 import br.com.maikosoft.mklib.MkTableModel;
 import br.com.maikosoft.mklib.MkWindow;
+import br.com.maikosoft.util.MkUtil;
 
 @SuppressWarnings("serial")
-public class JanelaClienteConsulta extends MkWindow {
+public class JanelaReceitaConsulta extends MkWindow {
 	
-	private static final Logger logger = Logger.getLogger(JanelaClienteConsulta.class);
+	private static final Logger logger = Logger.getLogger(JanelaReceitaConsulta.class);
 	
 	private MkFieldText fieldBusca;
 	private MkPanelTable panelCenter;
-	private MkTable<ClienteAlianca> table;
+	private MkTable<Receita> table;
 	private MkButtonTransferir buttonTransferir;
 	
-	private MkTransferObject<ClienteAlianca> transferObject;
-	private ClienteService clienteService;
+	private ReceitaService receitaService;
+	
+	private MkTransferObject<Receita> transferObject;
 	
 	@Override
 	protected void initWindow() {
@@ -44,7 +46,7 @@ public class JanelaClienteConsulta extends MkWindow {
 		
 		addPanelButton(true, buttonTransferir, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
 		
-		fieldBusca.onEnter(pesquisar());
+		fieldBusca.onEnter(pesquisar());		
 		table.onDoubleClickOrEnter((transferObject==null ? abrir() : new MkRun() {
 			@Override
 			public void execute() {
@@ -54,19 +56,44 @@ public class JanelaClienteConsulta extends MkWindow {
 		
 		buttonTransferir.setVisible((transferObject!=null));
 		
+		pesquisar().execute();
+		
 	}
 	
 	protected MkRun abrir() {
 		return new MkRun() {
 			@Override
 			public void execute() {
-				ClienteAlianca bean = table.getSeleted(true);
+				Receita bean = table.getSeleted(true);
 				if (bean !=null) {
-					JanelaClienteCadastro view = new JanelaClienteCadastro(bean);
-					view.showWindow("Cadastro Cliente", false);					
+					JanelaReceitaCadastro view = new JanelaReceitaCadastro(bean);
+					view.showWindow("Cadastro Receita", false);					
 				}
 			}
 		}; 
+	}
+	
+	public void setPesquisa(List<Receita> list) {
+		table.setModel(new MkTableModel<Receita>(list, "Data Receita", "Nome", "Telefone") {
+			@Override
+			protected Object getRow(Receita bean, int rowIndex, int columnIndex) {
+				switch (columnIndex) {
+				case 0:
+					return MkUtil.toString(bean.getDataReceita());
+				case 2:
+					return bean.getTelefone();
+				default:
+					return bean.getCliente();
+				}
+			}
+		});
+		if (list.size() >0 ) {
+			table.requestFocusInWindow();
+			table.getColumnModel().getColumn(0).setPreferredWidth(90);
+			table.getColumnModel().getColumn(1).setPreferredWidth(300);
+			table.getColumnModel().getColumn(2).setPreferredWidth(120);
+		}
+		
 	}
 	
 	protected MkRun pesquisar() {
@@ -77,8 +104,9 @@ public class JanelaClienteConsulta extends MkWindow {
 				Map<String, Object> where = new HashMap<String, Object>();
 				where.put("nomeOrId", fieldBusca.getText());
 				try {
-					List<ClienteAlianca> list = clienteService.findAll(where);
+					List<Receita> list = receitaService.findAll(where);
 					setPesquisa(list);
+					
 				} catch (Exception ex) {
 					MkDialog.error("Erro ao pesquisar", ex);
 				}
@@ -87,37 +115,15 @@ public class JanelaClienteConsulta extends MkWindow {
 	}
 	
 	protected MkRun novo() {
-		return EnumMenuAlianca.CADASTRO_CLIENTE_NOVO.getMenu().getAcao();
+		return EnumMenuAlianca.CADASTRO_RECEITA_NOVO.getMenu().getAcao();
 	}
 
-	public void setPesquisa(List<ClienteAlianca> list) {
-		table.setModel(new MkTableModel<ClienteAlianca>(list, "Nome", "Telefone 1", "Telefone 2") {
-			@Override
-			protected Object getRow(ClienteAlianca bean, int rowIndex, int columnIndex) {
-				switch (columnIndex) {
-				case 1:
-					return bean.getTelefone1();
-				case 2:
-					return bean.getTelefone2();
-				default:
-					return bean.getNome();
-				}
-			}
-		});
-		if (list.size() >0 ) {
-			table.requestFocusInWindow();
-			table.getColumnModel().getColumn(0).setPreferredWidth(400);
-			table.getColumnModel().getColumn(1).setPreferredWidth(100);
-			table.getColumnModel().getColumn(2).setPreferredWidth(100);
-		}
-	}
-	
-	public void setTranferir(MkTransferObject<ClienteAlianca> transferObject) {
+	public void setTranferir(MkTransferObject<Receita> transferObject) {
 		this.transferObject = transferObject;
 	}
 	
 	protected void transferir() {
-		ClienteAlianca seleted = table.getSeleted(true);
+		Receita seleted = table.getSeleted(true);
 		if (seleted != null) {
 			transferObject.postTranfer(seleted);
 			closeWindow();

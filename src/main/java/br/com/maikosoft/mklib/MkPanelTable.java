@@ -72,6 +72,11 @@ public class MkPanelTable extends JPanel {
 	                    cellFinal.fill = GridBagConstraints.NONE;
 	                    cellFinal.weightx = 0d;
 	                    break;
+	                case GridBagConstraints.CENTER:
+	                    cellFinal.fill = GridBagConstraints.NONE;
+	                    cellFinal.weightx = 0d;
+	                    cellFinal.anchor = GridBagConstraints.CENTER;
+	                    break;    
 	                default:
 	                    
 	                }

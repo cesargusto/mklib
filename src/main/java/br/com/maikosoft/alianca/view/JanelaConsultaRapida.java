@@ -10,7 +10,9 @@ import org.springframework.util.StringUtils;
 
 import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.alianca.EnumMenuAlianca;
+import br.com.maikosoft.alianca.Receita;
 import br.com.maikosoft.alianca.service.ClienteService;
+import br.com.maikosoft.alianca.service.ReceitaService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.mklib.MkDialog;
@@ -19,12 +21,13 @@ import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkWindow;
 
 @SuppressWarnings("serial")
-public class JanelaClienteConsultaRapida extends MkWindow {
+public class JanelaConsultaRapida extends MkWindow {
 	
 	private MkFieldText fieldBuscaCliente;
 	private MkFieldText fieldBuscaReceita;
 	
 	private ClienteService clienteService;
+	private ReceitaService receitaService;
 
 	@Override
 	protected void initWindow() {
@@ -42,7 +45,14 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 		fieldBuscaCliente.setColumns(15);
 		fieldBuscaReceita.setColumns(15);
 		
-		fieldBuscaCliente.onEnter(new MkRun() {
+		fieldBuscaCliente.onEnter(buscaCliente());
+		
+		fieldBuscaReceita.onEnter(buscaReceita());
+		
+	}
+
+	private MkRun buscaCliente() {
+		return new MkRun() {
 			@Override
 			public void execute() {
 				try {					
@@ -68,8 +78,37 @@ public class JanelaClienteConsultaRapida extends MkWindow {
 					MkDialog.error("Erro consulta rapida", exception);
 				}
 			}
-		});
-		
+		};
+	}
+	
+	private MkRun buscaReceita() {
+		return new MkRun() {
+			@Override
+			public void execute() {
+				try {					
+					if (StringUtils.hasText(fieldBuscaReceita.getText())) {
+						Map<String, Object> where = new HashMap<String, Object>();
+						where.put("nomeOrId", fieldBuscaReceita.getText());
+						List<Receita> list = receitaService.findAll(where);
+						if (list.size() == 0) {
+							MkDialog.info("Receita não encontrada", application.getJMenuBar());
+						} else if (list.size() == 1) {
+							new JanelaReceitaCadastro(list.get(0)).showWindow("Cadastro Receita", false);
+						} else {
+							JanelaReceitaConsulta janelaReceitaConsulta = new JanelaReceitaConsulta();
+							janelaReceitaConsulta.showWindow("Consulta Receita", false);
+							janelaReceitaConsulta.setPesquisa(list);
+						}
+						fieldBuscaReceita.setText("");
+					} else {
+						EnumMenuAlianca.CADASTRO_RECEITA_NOVO.getMenu().getAcao().execute();
+					}
+					
+				} catch (MkServiceException exception) {
+					MkDialog.error("Erro consulta rapida", exception);
+				}
+			}
+		};
 	}
 
 	public void showWindow() {

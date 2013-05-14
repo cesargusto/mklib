@@ -19,6 +19,7 @@ public class Receita extends MkBean {
     private String lente;
     private String armacao;
     private String observacao;
+    
 	public String getCliente() {
 		return cliente;
 	}
