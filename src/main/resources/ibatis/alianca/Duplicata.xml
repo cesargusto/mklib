@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+
+<sqlMap>
+
+<typeAlias alias="Duplicata" type="br.com.maikosoft.alianca.Duplicata" />
+
+	<resultMap id="resultMapDuplicata" class="Duplicata">
+		<result property="id" column="id" />
+		<result property="cliente.id" column="cliente_id" />
+		<result property="cliente.nome" column="cliente_nome" />
+		<result property="valor" column="valor" />
+		<result property="dataCadastro" column="data_cadastro" />
+		<result property="observacao" column="observacao" />
+		<result property="referencia" column="referencia" />
+		<result property="dataPagamento" column="data_pagamento" />
+		<result property="numeroNota" column="numero_nota" />
+		<result property="dataVencimento" column="data_vencimento" />
+		<result property="vendedor" column="vendedor" />
+		<result property="valorTotal" column="valor_total" />
+		<result property="pago" column="pago" />
+		
+	</resultMap>
+	
+	
+	<sql id="fragmentWhereDuplicata">
+			<isNotNull prepend="and" property="cliente_id">			
+				cliente_id = #cliente_id#
+			</isNotNull>
+			<isNotNull prepend="and" property="before_data_cadastro">			
+				data_cadastro &lt; #before_data_cadastro#
+			</isNotNull>
+			<isNotNull prepend="and" property="after_data_cadastro">			
+				data_cadastro &gt; #after_data_cadastro#
+			</isNotNull>
+	</sql>
+	
+<!-- 	<select id="getSaldo" resultClass="java.math.BigDecimal" parameterClass="long"> -->
+<!-- 		SELECT SUM(valor) FROM Duplicata WHERE data_cadastro &lt; now() AND cliente_id = #value# -->
+<!-- 	</select> -->
+
+	<select id="countDuplicata" resultClass="long">
+		SELECT count(Duplicata.*) FROM Duplicata, cliente
+		WHERE Cliente.id = Duplicata.cliente_id
+		<include refid="fragmentWhereDuplicata"/>
+
+	</select>
+
+	<select id="allDuplicata" resultMap="resultMapDuplicata">
+		SELECT Duplicata.*, cliente.nome as cliente_nome FROM Duplicata, cliente
+		WHERE Cliente.id = Duplicata.cliente_id
+		<include refid="fragmentWhereDuplicata"/>
+		ORDER BY data_pagamento DESC, data_cadastro DESC
+<!-- 		LIMIT 15 OFFSET #limit# -->
+	</select>
+	
+	<select id="getDuplicata" parameterClass="long" resultMap="resultMapDuplicata">
+		SELECT Duplicata.*, cliente.nome as cliente_nome FROM Duplicata, cliente
+		WHERE id = #value# AND Cliente.id = Duplicata.cliente_id
+	</select>
+	
+	<update id="updateDuplicata" parameterClass="Duplicata">
+		UPDATE Duplicata SET cliente_id= #cliente.id#, valor= #valor#, observacao= #observacao#, 
+		referencia=#referencia#, data_pagamento=#dataPagamento#,
+		numero_nota=#numeroNota#, data_vencimento=#dataVencimento#, vendedor=#vendedor#,
+		valor_total= #valorTotal#, pago=#pago#
+		WHERE id=#id#
+	</update>	
+	
+	<select id="nextIdDuplicata" resultClass="long">
+		SELECT nextval('Duplicata_id_seq');
+	</select>
+	
+	<insert id="insertDuplicata" parameterClass="Duplicata">
+		INSERT INTO Duplicata (id, cliente_id, valor, observacao, referencia, data_cadastro, data_pagamento, 
+		numero_nota, data_vencimento, vendedor, valor_total, pago) VALUES
+		(#id#, #cliente.id#, #valor#, #observacao#, #referencia#, #dataCadastro#, #dataPagamento#, 
+		#numeroNota#, #dataVencimento#, #vendedor#, #valorTotal#, #pago#)
+	</insert>
+	
+	<delete id="deleteDuplicata" parameterClass="long" >
+		DELETE FROM Duplicata WHERE id = #value#
+	</delete>
+
+</sqlMap>

@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import br.com.maikosoft.alianca.Duplicata;
 import br.com.maikosoft.alianca.EnumMenuAlianca;
-import br.com.maikosoft.alianca.Receita;
-import br.com.maikosoft.alianca.service.ReceitaService;
+import br.com.maikosoft.alianca.service.DuplicataService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.EnumMkButton;
 import br.com.maikosoft.mklib.MkDialog;
@@ -21,15 +21,16 @@ import br.com.maikosoft.mklib.MkWindow;
 import br.com.maikosoft.util.MkUtil;
 
 @SuppressWarnings("serial")
-public class JanelaReceitaConsulta extends MkWindow {
+public class JanelaDuplicataConsulta extends MkWindow {
 	
-	private static final Logger logger = Logger.getLogger(JanelaReceitaConsulta.class);
+	private static final Logger logger = Logger.getLogger(JanelaDuplicataConsulta.class);
 	
 	private MkFieldText fieldBusca;
 	private MkPanelTable panelCenter;
-	private MkTable<Receita> table;
+	private MkTable<Duplicata> table;
 	
-	private ReceitaService receitaService;
+	private DuplicataService duplicataService;
+	
 	
 	@Override
 	protected void initWindow() {
@@ -37,7 +38,7 @@ public class JanelaReceitaConsulta extends MkWindow {
 		panelCenter.addRow("Busca", fieldBusca, EnumMkButton.PESQUISAR.getButton(this), GridBagConstraints.NONE);
 		panelCenter.addRow(table.getJScrollPane(), GridBagConstraints.BOTH);
 		
-		addPanelCenter(panelCenter, 700, 450);
+		addPanelCenter(panelCenter, 750, 450);
 		
 		addPanelButton(true, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
 		
@@ -50,34 +51,40 @@ public class JanelaReceitaConsulta extends MkWindow {
 		return new MkRun() {
 			@Override
 			public void execute() {
-				Receita bean = table.getSeleted(true);
+				Duplicata bean = table.getSeleted(true);
 				if (bean !=null) {
-					JanelaReceitaCadastro view = new JanelaReceitaCadastro(bean);
-					view.showWindow("Cadastro Receita", false);					
+					JanelaDuplicataCadastro view = new JanelaDuplicataCadastro(bean);
+					view.showWindow("Cadastro Duplicata", false);					
 				}
 			}
 		}; 
 	}
 	
-	public void setPesquisa(List<Receita> list) {
-		table.setModel(new MkTableModel<Receita>(list, "Data Receita", "Nome", "Telefone") {
+	public void setPesquisa(List<Duplicata> list) {
+		table.setModel(new MkTableModel<Duplicata>(list, "Ref.", "Cliente", "Valor", "Vencimento", "Pago") {
 			@Override
-			protected Object getRow(Receita bean, int rowIndex, int columnIndex) {
+			protected Object getRow(Duplicata bean, int rowIndex, int columnIndex) {
 				switch (columnIndex) {
 				case 0:
-					return MkUtil.toString(bean.getDataReceita());
+					return bean.getReferencia();
+				case 1:
+					return bean.getClienteAlianca().getNome();	
 				case 2:
-					return bean.getTelefone();
+					return MkUtil.toString(bean.getValor());
+				case 3:
+					return MkUtil.toString(bean.getDataVencimento());	
 				default:
-					return bean.getCliente();
+					return bean.isPago();
 				}
 			}
 		});
 		if (list.size() >0 ) {
 			table.requestFocusInWindow();
-			table.getColumnModel().getColumn(0).setPreferredWidth(90);
+			table.getColumnModel().getColumn(0).setPreferredWidth(60);
 			table.getColumnModel().getColumn(1).setPreferredWidth(300);
-			table.getColumnModel().getColumn(2).setPreferredWidth(120);
+			table.getColumnModel().getColumn(2).setPreferredWidth(90);
+			table.getColumnModel().getColumn(3).setPreferredWidth(60);
+			table.getColumnModel().getColumn(4).setPreferredWidth(30);
 		}
 		
 	}
@@ -90,7 +97,7 @@ public class JanelaReceitaConsulta extends MkWindow {
 				Map<String, Object> where = new HashMap<String, Object>();
 				where.put("nomeOrId", fieldBusca.getText());
 				try {
-					List<Receita> list = receitaService.findAll(where);
+					List<Duplicata> list = duplicataService.findAll(where);
 					setPesquisa(list);
 					
 				} catch (Exception ex) {
