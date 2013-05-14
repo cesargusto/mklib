@@ -161,4 +161,15 @@ public class MkUtil {
 		return instance.getTime();
 	}
 
+	public static String somenteNumero(String value) {
+		StringBuilder sb = new StringBuilder(value.length());
+		for (char c : value.toCharArray()) {
+			if (Character.isDigit(c)) {
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+		
+	}
+
 }

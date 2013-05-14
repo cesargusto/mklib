@@ -1,6 +1,6 @@
 package br.com.maikosoft.alianca;
 
-import br.com.maikosoft.alianca.view.JanelaClienteConsultaRapida;
+import br.com.maikosoft.alianca.view.JanelaConsultaRapida;
 import br.com.maikosoft.mklib.MkApplication;
 import br.com.maikosoft.view.JanelaLogin;
 
@@ -16,7 +16,7 @@ public class MainAlianca {
 		
 		application.updateMkMenu(EnumMenuAlianca.getListMenus());
 		
-		new JanelaClienteConsultaRapida().showWindow();
+		new JanelaConsultaRapida().showWindow();
 	}
 
 }

@@ -110,16 +110,16 @@ public class JanelaClienteCadastro extends MkWindow {
 	protected void initWindow() {
 		
 		MkPanelTable panelTable = new MkPanelTable();
-		panelTable.addRow("Nome Completo:",fieldNome, MkPanelTable.getDefaultCell(3), "Código:", fieldId);		
+		panelTable.addRow("Nome:",fieldNome, MkPanelTable.getDefaultCell(3), "Código:", fieldId);		
 		panelTable.addRow("CPF:", fieldCpf, "RG:", fieldRg, "Data Nacimento:", fieldDataNascimento, GridBagConstraints.NONE);
-		panelTable.addRow("Estado Civil:", fieldEstadoCivil, "Naturalidade:", fieldNaturalidade, "Cliente Desde:", fieldClienteDesde);
+		panelTable.addRow("Naturalidade:", fieldNaturalidade, "Estado Civil:", fieldEstadoCivil, "Cliente Desde:", fieldClienteDesde);
 		panelTable.addRow("Pai:", fieldPai, MkPanelTable.getDefaultCell(2), "Mãe:", fieldMae, MkPanelTable.getDefaultCell(2));
 		
 		
 		MkPanelTable panelTableEndereco = new MkPanelTable();
 		panelTableEndereco.setTitle("Contato");
 		panelTableEndereco.addRow("Endereço:", fieldEndereco, MkPanelTable.getDefaultCell(3), "Numero:", fieldNumero);
-		panelTableEndereco.addRow("Bairro:", fieldBairro, "CEP:", fieldCep, "Cidade:", new MkPanelTable().addRow(fieldCidade, comboUf));
+		panelTableEndereco.addRow("Bairro:", fieldBairro, "CEP:", fieldCep, "Cidade:", new MkPanelTable().addRow(fieldCidade, comboUf, GridBagConstraints.NONE));
 		panelTableEndereco.addRow("e-mail", fieldEmail, MkPanelTable.getDefaultCell(3), "Desde:", fieldEnderecoDesde);
 		panelTableEndereco.addRow("Telefone 1:", fieldTelefone1, "Telefone 2:", fieldTelefone2, "Telefone 3:", fieldTelefone3);
 		

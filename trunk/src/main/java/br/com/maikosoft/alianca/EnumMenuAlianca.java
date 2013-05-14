@@ -5,6 +5,8 @@ import java.util.List;
 
 import br.com.maikosoft.alianca.view.JanelaClienteCadastro;
 import br.com.maikosoft.alianca.view.JanelaClienteConsulta;
+import br.com.maikosoft.alianca.view.JanelaReceitaCadastro;
+import br.com.maikosoft.alianca.view.JanelaReceitaConsulta;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
 import br.com.maikosoft.view.menu.MenuCadastroUsuario;
@@ -22,9 +24,9 @@ public enum EnumMenuAlianca {
 		CADASTRO_CLIENTE("Cliente", CADASTRO.getMenu()),
 			CADASTRO_CLIENTE_CONSULTA(MkMenu.createMenu(CADASTRO_CLIENTE.getMenu(), "Consulta Cliente", new JanelaClienteConsulta())),
     		CADASTRO_CLIENTE_NOVO(MkMenu.createMenu(CADASTRO_CLIENTE.getMenu(), "Cadastro Cliente", new JanelaClienteCadastro(null))),
-//    	CADASTRO_RECEITA("Receita", CADASTRO.getMenu()),
-//			CADASTRO_RECEITA_CONSULTA(new MenuCadastroReceitaConsulta()),
-//    		CADASTRO_RECEITA_NOVO(new MenuCadastroReceita()),	
+    	CADASTRO_RECEITA("Receita", CADASTRO.getMenu()),
+			CADASTRO_RECEITA_CONSULTA(MkMenu.createMenu(CADASTRO_RECEITA.getMenu(), "Consulta Receita", new JanelaReceitaConsulta())),
+    		CADASTRO_RECEITA_NOVO(MkMenu.createMenu(CADASTRO_RECEITA.getMenu(), "Cadastro Receita", new JanelaReceitaCadastro(null))),
     	CADASTRO_USUARIO("Usuário", CADASTRO.getMenu()),
     		CADASTRO_USUARIO_CONSULTA(new MenuCadastroUsuarioConsulta(CADASTRO_USUARIO.getMenu())),
     		CADASTRO_USUARIO_NOVO(new MenuCadastroUsuario(CADASTRO_USUARIO.getMenu())),	

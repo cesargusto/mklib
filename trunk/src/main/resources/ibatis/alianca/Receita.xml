@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+
+<sqlMap>
+
+<typeAlias alias="Receita" type="br.com.maikosoft.alianca.Receita" />
+
+	<resultMap id="resultMapReceita" class="Receita">
+		<result property="id" column="id" />
+		<result property="cliente" column="cliente" />
+		<result property="telefone" column="telefone" />
+		<result property="oftalmologista" column="oftalmologista" />
+		<result property="dataReceita" column="data" />
+		<result property="olhoDireitoLonge" column="od_longe" />
+		<result property="olhoEsquerdoLonge" column="oe_longe" />
+		<result property="olhoDireitoPerto" column="od_perto" />
+		<result property="olhoEsquerdoPerto" column="oe_perto" />
+		<result property="adicao" column="adicao" />
+		<result property="lente" column="lente" />
+		<result property="armacao" column="armacao" />
+		<result property="observacao" column="observacao" />
+	</resultMap>
+			
+	<sql id="fragmentWhereReceita">
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="nomeOrId">			
+				id::varchar = #nomeOrId# OR lower(sem_acento(cliente)) like lower(sem_acento( '%' || #nomeOrId# ||'%'))
+			</isNotNull>
+			<isNotNull prepend="and" property="id">			
+				id::varchar = #id#
+			</isNotNull>	
+		</dynamic>
+	</sql>
+
+	<select id="countReceita" resultClass="long">
+		SELECT count(*) FROM Receita
+		<include refid="fragmentWhereReceita"/>
+
+	</select>
+
+	<select id="allReceita" resultMap="resultMapReceita">
+		SELECT * FROM Receita
+		<include refid="fragmentWhereReceita"/>
+		ORDER BY cliente
+<!-- 		LIMIT 15 OFFSET #limit# -->
+	</select>
+	
+	<select id="getReceita" parameterClass="long" resultMap="resultMapReceita">
+		SELECT * FROM Receita
+		WHERE id = #value#
+	</select>
+	
+	<update id="updateReceita" parameterClass="Receita">
+		UPDATE Receita SET cliente = #cliente#, telefone = #telefone#, oftalmologista = #oftalmologista#, data = #dataReceita#,
+		od_longe = #olhoDireitoLonge#, oe_longe = #olhoEsquerdoLonge#, od_perto = #olhoDireitoPerto#, oe_perto= #olhoEsquerdoPerto#,
+		adicao = #adicao#, lente = #lente#, armacao = #armacao#, observacao = #observacao#
+		WHERE id=#id#
+	</update>	
+	
+	<select id="nextIdReceita" resultClass="long">
+		SELECT nextval('Receita_id_seq');
+	</select>
+	
+	<insert id="insertReceita" parameterClass="Receita">
+		INSERT INTO Receita (id, cliente, telefone, oftalmologista, data, od_longe, oe_longe, od_perto, oe_perto,
+		adicao, lente, armacao, observacao) VALUES
+		(#id#, #cliente#, #telefone#, #oftalmologista#, #dataReceita#,
+		#olhoDireitoLonge#, #olhoEsquerdoLonge#, #olhoDireitoPerto#, #olhoEsquerdoPerto#,
+		#adicao#, #lente#, #armacao#, #observacao#)
+	</insert>
+	
+	<delete id="deleteReceita" parameterClass="long" >
+		DELETE FROM Receita WHERE id = #value#
+	</delete>
+
+</sqlMap>
