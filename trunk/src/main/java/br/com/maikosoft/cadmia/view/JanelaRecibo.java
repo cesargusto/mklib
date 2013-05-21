@@ -7,22 +7,21 @@ import java.util.Date;
 import java.util.HashMap;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.core.MkTransferObject;
+import br.com.maikosoft.mklib.MkButton.MkButtonImprimir;
+import br.com.maikosoft.mklib.MkButton.MkButtonPesquisar;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldDate;
 import br.com.maikosoft.mklib.MkFieldMask;
+import br.com.maikosoft.mklib.MkFieldMask.EnumMkMask;
 import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkTextArea;
 import br.com.maikosoft.mklib.MkWindow;
-import br.com.maikosoft.mklib.MkButton.MkButtonImprimir;
-import br.com.maikosoft.mklib.MkButton.MkButtonPesquisar;
-import br.com.maikosoft.mklib.MkFieldMask.EnumMkMask;
 import br.com.maikosoft.util.Extenso;
 import br.com.maikosoft.util.MkUtil;
 
@@ -92,7 +91,7 @@ public class JanelaRecibo extends MkWindow {
 					StringBuilder sb = new StringBuilder(50);
 					sb.append("R$ ").append(fieldValor.getText()).append(" (").append(new Extenso(valor, true)).append(')');
 					parametro.put("valor", sb.toString());
-					parametro.put("data", fieldData.getText());
+					parametro.put("data", MkUtil.toString(fieldData.getDate()));
 					parametro.put("observacao", textObservacao.getText());
 					
 					InputStream streamResource = JanelaRelatorioClientePorModalidade.class.getClassLoader().getResourceAsStream("report/cadmia/Recibo.jasper");
@@ -100,7 +99,7 @@ public class JanelaRecibo extends MkWindow {
 					JasperViewer.viewReport(print, false);
 					
 			}
-		} catch (JRException ex) {
+		} catch (Exception ex) {
 			MkDialog.error("Erro ao gerar recibo", ex);
 		} finally {
 			this.waitCursor(false);
@@ -108,10 +107,10 @@ public class JanelaRecibo extends MkWindow {
 			
 	}
 
-	public void setDados(ClienteCadMia clienteCadMia, Date data, BigDecimal valor, String observacao) {
+	public void setDados(ClienteCadMia clienteCadMia, Date dataRecibo, BigDecimal valor, String observacao) {
 		getTransferObject().postTranfer(clienteCadMia);
 		fieldValor.setValue(valor);
-		fieldData.setText(MkUtil.toString(data));
+		fieldData.setDate(dataRecibo);
 		textObservacao.setText(observacao);
 		imprimir();
 	}

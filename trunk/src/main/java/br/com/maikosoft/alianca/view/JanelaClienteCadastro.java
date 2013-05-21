@@ -281,7 +281,7 @@ public class JanelaClienteCadastro extends MkWindow {
 			fieldId.setText(bean.getId()+"");
 		}
 		fieldNome.setText(bean.getNome());
-		fieldDataNascimento.setText(MkUtil.toString(bean.getDataNascimento()));
+		fieldDataNascimento.setDate(bean.getDataNascimento());
 		fieldCpf.setText(bean.getCpf());
 		fieldRg.setText(bean.getRg());
 		fieldEndereco.setText(bean.getEndereco());
@@ -347,7 +347,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldEmpresaCargo.setEditable(isEditMode);
 		
 		fieldConjuge.setText(bean.getConjuge());
-		fieldConjugeNascimento.setText(MkUtil.toString(bean.getConjugeNascimento()));
+		fieldConjugeNascimento.setDate(bean.getConjugeNascimento());
 		fieldConjugeEmpresa.setText(bean.getConjugeEmpresa());
 		fieldConjugeCargo.setText(bean.getConjugeCargo());
 		fieldConjugeEmpresaEndereco.setText(bean.getConjugeEmpresaEndereco());

@@ -147,10 +147,10 @@ public class JanelaDuplicataCadastro extends MkWindow {
 			fieldId.setText(bean.getId()+"");
 		}
 		fieldCliente.setText(bean.getClienteAlianca().getNome());
-		fieldDataCadastro.setText(MkUtil.toString(bean.getDataCadastro()));
+		fieldDataCadastro.setDate(bean.getDataCadastro());
 		fieldReferencia.setText(bean.getReferencia());
 		fieldValor.setValue(bean.getValor());
-		fieldDataPagamento.setText(MkUtil.toString(bean.getDataPagamento()));
+		fieldDataPagamento.setDate(bean.getDataPagamento());
 		textObservacao.setText(bean.getObservacao());
 		
 		fieldDataCadastro.setEditable(isEditMode);
@@ -159,7 +159,7 @@ public class JanelaDuplicataCadastro extends MkWindow {
 		fieldDataPagamento.setEditable(isEditMode);
 		textObservacao.setEditable(isEditMode);
 		
-		fieldDataVencimento.setText(MkUtil.toString(bean.getDataVencimento()));
+		fieldDataVencimento.setDate(bean.getDataVencimento());
 		fieldValorTotal.setValue(bean.getValorTotal());
 		fieldNumeroNota.setValue(bean.getNumeroNota());
 		fieldVendedor.setText(bean.getVendedor());
