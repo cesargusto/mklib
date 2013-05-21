@@ -13,7 +13,7 @@ import br.com.maikosoft.alianca.service.DuplicataService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.EnumMkButton;
 import br.com.maikosoft.mklib.MkDialog;
-import br.com.maikosoft.mklib.MkFieldText;
+import br.com.maikosoft.mklib.MkFieldDate;
 import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkTable;
 import br.com.maikosoft.mklib.MkTableModel;
@@ -25,24 +25,23 @@ public class JanelaDuplicataConsulta extends MkWindow {
 	
 	private static final Logger logger = Logger.getLogger(JanelaDuplicataConsulta.class);
 	
-	private MkFieldText fieldBusca;
+	private MkFieldDate fieldDataIncial;
+	private MkFieldDate fieldDataFinal;
 	private MkPanelTable panelCenter;
 	private MkTable<Duplicata> table;
 	
 	private DuplicataService duplicataService;
 	
-	
 	@Override
 	protected void initWindow() {
 		
-		panelCenter.addRow("Busca", fieldBusca, EnumMkButton.PESQUISAR.getButton(this), GridBagConstraints.NONE);
+		panelCenter.addRow("Data Vencimento Inicial", fieldDataIncial, "Data Vencimento Final", fieldDataFinal, EnumMkButton.PESQUISAR.getButton(this), GridBagConstraints.NONE);
 		panelCenter.addRow(table.getJScrollPane(), GridBagConstraints.BOTH);
 		
 		addPanelCenter(panelCenter, 750, 450);
 		
 		addPanelButton(true, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
 		
-		fieldBusca.onEnter(pesquisar());
 		table.onDoubleClickOrEnter(abrir());
 		
 	}
@@ -93,10 +92,12 @@ public class JanelaDuplicataConsulta extends MkWindow {
 		return new MkRun() {
 			@Override
 			public void execute() {
-				logger.debug("Executando perquisar");
-				Map<String, Object> where = new HashMap<String, Object>();
-				where.put("nomeOrId", fieldBusca.getText());
 				try {
+					logger.debug("Executando perquisar");
+					Map<String, Object> where = new HashMap<String, Object>();
+					where.put("before_data_vencimento", fieldDataFinal.getDate());
+					where.put("after_data_vencimento", fieldDataIncial.getDate());
+				
 					List<Duplicata> list = duplicataService.findAll(where);
 					setPesquisa(list);
 					

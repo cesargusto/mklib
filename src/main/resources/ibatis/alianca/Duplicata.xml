@@ -28,13 +28,13 @@
 	
 	<sql id="fragmentWhereDuplicata">
 			<isNotNull prepend="and" property="cliente_id">			
-				cliente_id = #cliente_id#
+				Duplicata.cliente_id = #cliente_id#
 			</isNotNull>
-			<isNotNull prepend="and" property="before_data_cadastro">			
-				data_cadastro &lt; #before_data_cadastro#
+			<isNotNull prepend="and" property="before_data_vencimento">			
+				Duplicata.data_vencimento &lt; #before_data_vencimento#
 			</isNotNull>
-			<isNotNull prepend="and" property="after_data_cadastro">			
-				data_cadastro &gt; #after_data_cadastro#
+			<isNotNull prepend="and" property="after_data_vencimento">			
+				Duplicata.data_vencimento &gt; #after_data_vencimento#
 			</isNotNull>
 	</sql>
 	
@@ -59,7 +59,7 @@
 	
 	<select id="getDuplicata" parameterClass="long" resultMap="resultMapDuplicata">
 		SELECT Duplicata.*, cliente.nome as cliente_nome FROM Duplicata, cliente
-		WHERE id = #value# AND Cliente.id = Duplicata.cliente_id
+		WHERE Duplicata.id = #value# AND Cliente.id = Duplicata.cliente_id
 	</select>
 	
 	<update id="updateDuplicata" parameterClass="Duplicata">

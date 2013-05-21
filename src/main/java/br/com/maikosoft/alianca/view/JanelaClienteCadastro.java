@@ -4,32 +4,31 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.SwingConstants;
 
 import org.apache.commons.lang.StringUtils;
 
 import br.com.maikosoft.alianca.ClienteAlianca;
+import br.com.maikosoft.alianca.Duplicata;
 import br.com.maikosoft.alianca.service.ClienteService;
+import br.com.maikosoft.alianca.service.DuplicataService;
 import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.core.MkException;
 import br.com.maikosoft.core.MkRun;
+import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.mklib.EnumMkButton;
-import br.com.maikosoft.mklib.MkButton.MkButtonAdicionar;
+import br.com.maikosoft.mklib.MkButton;
 import br.com.maikosoft.mklib.MkButton.MkButtonEditar;
 import br.com.maikosoft.mklib.MkButton.MkButtonExcluir;
 import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
-import br.com.maikosoft.mklib.MkButton.MkButtonPesquisar;
-import br.com.maikosoft.mklib.MkButton.MkButtonRemover;
 import br.com.maikosoft.mklib.MkButton.MkButtonSalvar;
 import br.com.maikosoft.mklib.MkComboBox;
 import br.com.maikosoft.mklib.MkDialog;
@@ -44,7 +43,6 @@ import br.com.maikosoft.mklib.MkTextArea;
 import br.com.maikosoft.mklib.MkWindow;
 import br.com.maikosoft.util.CEP;
 import br.com.maikosoft.util.EnumUF;
-import br.com.maikosoft.util.MkUtil;
 import br.com.maikosoft.view.JanelaCamera;
 import br.com.maikosoft.view.JanelaLogin;
 
@@ -96,9 +94,13 @@ public class JanelaClienteCadastro extends MkWindow {
 	private MkButtonSalvar buttonSalvar;
 	private MkButtonEditar buttonEditar;
 	private MkButtonExcluir buttonExcluir;
+	
+	private MkButton buttonDuplicata;
 		
 	private ClienteAlianca bean;
 	private ClienteService clienteService;
+	private DuplicataService duplicataService;
+	
 //	private ClienteModalidadeService clienteModalidadeService;
 //	private FinanceiroService financeiroService;
 	
@@ -179,8 +181,12 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldCep.onChange(buscaEndereco());
 		fieldEndereco.onChange(buscaCEP());
 		fieldId.setEnabled(false);
+		
+		buttonDuplicata.setText("Consulta Duplicatas");
+		buttonDuplicata.setIcon(EnumMkButton.getIcon("dinheiro"));
+		buttonDuplicata.onClick(abrirDuplicata());
 	
-		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir);
+		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir, buttonDuplicata);
 		
 		if (bean.getId() == null) {
 			novo();
@@ -360,6 +366,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		
 		carregarFoto(bean.getFoto());
 		
+		buttonDuplicata.setEnabled(!isEditMode);
 		buttonNovo.setEnabled(!isEditMode);
 		buttonSalvar.setEnabled(isEditMode);
 		buttonEditar.setEnabled(!isEditMode);
@@ -423,6 +430,26 @@ public class JanelaClienteCadastro extends MkWindow {
 			labelFoto.setText(null);
 		}
 	}
+	
+	private MkRun abrirDuplicata() {
+		return new MkRun() {
+			@Override
+			public void execute() {
+				try {
+					JanelaDuplicataConsulta janelaDuplicataConsulta = new JanelaDuplicataConsulta();
+					janelaDuplicataConsulta.showWindow("Duplicatas", false);
+					Map<String, Object> where = new HashMap<String, Object>();
+					where.put("cliente_id", bean.getId());			
+					List<Duplicata> list = duplicataService.findAll(where);
+					janelaDuplicataConsulta.setPesquisa(list);				
+				} catch (MkServiceException ex) {
+					MkDialog.error("Erro ao consultar duplicatas", ex);
+				}
+			}
+		};
+	}
+
+	
 
 	@Override
 	public void refreshWindow() {

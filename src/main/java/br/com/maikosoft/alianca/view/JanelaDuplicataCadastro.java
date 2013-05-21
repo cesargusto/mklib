@@ -10,7 +10,6 @@ import br.com.maikosoft.alianca.Duplicata;
 import br.com.maikosoft.alianca.service.DuplicataService;
 import br.com.maikosoft.mklib.MkButton.MkButtonEditar;
 import br.com.maikosoft.mklib.MkButton.MkButtonExcluir;
-import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
 import br.com.maikosoft.mklib.MkButton.MkButtonSalvar;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldDate;
@@ -40,7 +39,7 @@ public class JanelaDuplicataCadastro extends MkWindow {
 	private MkFieldText fieldVendedor;
 	private JCheckBox fieldPago;
 	
-	private MkButtonNovo buttonNovo;
+//	private MkButtonNovo buttonNovo;
 	private MkButtonSalvar buttonSalvar;
 	private MkButtonEditar buttonEditar;
 	private MkButtonExcluir buttonExcluir;
@@ -64,7 +63,7 @@ public class JanelaDuplicataCadastro extends MkWindow {
 		panelTable.addRow("Vendedor:", fieldVendedor, fieldPago);
 		panelTable.addRow(textObservacao.getJScrollPane("Observação"), GridBagConstraints.BOTH);
 		
-		addPanelCenter(panelTable, 500, 350);
+		addPanelCenter(panelTable, 650, 450);
 		fieldValor.setColumns(10);
 		fieldValor.setMask(EnumMkMask.CURRENCY);
 		fieldNumeroNota.setMask(EnumMkMask.NUMBER);
@@ -73,19 +72,19 @@ public class JanelaDuplicataCadastro extends MkWindow {
 		fieldId.setEnabled(false);
 		fieldCliente.setEnabled(false);
 	
-		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir);
+		addPanelButton(true,  buttonSalvar, buttonEditar, buttonExcluir);
 		
 		beanToForm(false);
 	}
 	
-	public void novo() {
-		ClienteAlianca clienteAlianca = bean.getClienteAlianca();
-		bean = new Duplicata();
-		bean.setDataCadastro(new Date());
-		bean.setClienteAlianca(clienteAlianca);
-		beanToForm(true);
-		fieldReferencia.grabFocus();
-	}
+//	public void novo() {
+//		ClienteAlianca clienteAlianca = bean.getClienteAlianca();
+//		bean = new Duplicata();
+//		bean.setDataCadastro(new Date());
+//		bean.setClienteAlianca(clienteAlianca);
+//		beanToForm(true);
+//		fieldReferencia.grabFocus();
+//	}
 
 	protected void editar() {
 		beanToForm(true);
@@ -104,6 +103,12 @@ public class JanelaDuplicataCadastro extends MkWindow {
 			bean.setValor(MkUtil.toBigDecimal(fieldValor.getText()));
 			bean.setDataPagamento(fieldDataPagamento.getDate());
 			bean.setObservacao(textObservacao.getText());
+						
+			bean.setDataVencimento(fieldDataVencimento.getDate());
+			bean.setValorTotal(MkUtil.toBigDecimal(fieldValorTotal.getText()));
+			bean.setNumeroNota(MkUtil.toLong(fieldNumeroNota.getText()));
+			bean.setVendedor(fieldVendedor.getText());
+			bean.setPago(fieldPago.isSelected());
 			
 			if (bean.getId() == null) {
 				bean.setOwner(JanelaLogin.getInstance().getUsuarioLogado().getId());
@@ -165,7 +170,13 @@ public class JanelaDuplicataCadastro extends MkWindow {
 		fieldVendedor.setText(bean.getVendedor());
 		fieldPago.setSelected(bean.isPago());
 		
-		buttonNovo.setEnabled(!isEditMode);
+		fieldDataVencimento.setEditable(isEditMode);
+		fieldValorTotal.setEditable(isEditMode);
+		fieldNumeroNota.setEditable(isEditMode);
+		fieldVendedor.setEditable(isEditMode);
+		fieldPago.setEnabled(isEditMode);
+		
+//		buttonNovo.setEnabled(!isEditMode);
 		buttonSalvar.setEnabled(isEditMode);
 		buttonEditar.setEnabled(!isEditMode);
 		buttonExcluir.setEnabled(!isEditMode);
