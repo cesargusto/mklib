@@ -134,10 +134,10 @@ public class JanelaFinanceiroCadastro extends MkWindow {
 			fieldId.setText(bean.getId()+"");
 		}
 		fieldCliente.setText(bean.getCliente().getNome());
-		fieldDataCadastro.setText(MkUtil.toString(bean.getDataCadastro()));
+		fieldDataCadastro.setDate(bean.getDataCadastro());
 		fieldReferencia.setText(bean.getReferencia());
 		fieldValor.setValue(bean.getValor());
-		fieldDataPagamento.setText(MkUtil.toString(bean.getDataPagamento()));
+		fieldDataPagamento.setDate(bean.getDataPagamento());
 		textObservacao.setText(bean.getObservacao());
 		
 		fieldDataCadastro.setEditable(isEditMode);

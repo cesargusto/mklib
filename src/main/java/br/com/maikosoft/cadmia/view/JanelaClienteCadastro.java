@@ -253,7 +253,7 @@ public class JanelaClienteCadastro extends MkWindow {
 			fieldId.setText(bean.getId()+"");
 		}
 		fieldNome.setText(bean.getNome());
-		fieldDataNascimento.setText(MkUtil.toString(bean.getDataNascimento()));
+		fieldDataNascimento.setDate(bean.getDataNascimento());
 		fieldCpf.setText(bean.getCpf());
 		fieldRg.setText(bean.getRg());
 		fieldEndereco.setText(bean.getEndereco());

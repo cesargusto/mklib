@@ -157,7 +157,7 @@ public class JanelaReceitaCadastro extends MkWindow {
 		fieldCliente.setText(bean.getCliente());
 		fieldTelefone.setText(bean.getTelefone());
 		fieldOftalmologista.setText(bean.getOftalmologista());
-		fieldDataReceita.setText(MkUtil.toString(bean.getDataReceita()));
+		fieldDataReceita.setDate(bean.getDataReceita());
 		fieldOlhoDireitoLonge.setText(bean.getOlhoDireitoLonge());
 		fieldOlhoEsquerdoLonge.setText(bean.getOlhoEsquerdoLonge());
 		fieldOlhoDireitoPerto.setText(bean.getOlhoDireitoPerto());
