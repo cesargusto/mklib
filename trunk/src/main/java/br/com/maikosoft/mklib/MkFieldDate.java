@@ -67,11 +67,13 @@ public class MkFieldDate extends JPanel {
         field.setText(null); // para começar a formatacao certa;
         field.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                if ("__/__/____".equals(field.getText())) {
-                	field.setText(evt.getKeyChar()+ (MkUtil.now().substring(1)));
-                	evt.consume();
-                	field.setCaretPosition(1);
-                }
+            	if (field.isEditable()) {
+            		if ("__/__/____".equals(field.getText())) {
+            			field.setText(evt.getKeyChar()+ (MkUtil.now().substring(1)));
+            			evt.consume();
+            			field.setCaretPosition(1);
+            		}
+            	}
             }
         });
         
