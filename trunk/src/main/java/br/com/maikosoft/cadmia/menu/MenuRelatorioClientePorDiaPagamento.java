@@ -1,8 +1,11 @@
 package br.com.maikosoft.cadmia.menu;
 
+import br.com.maikosoft.Usuario;
 import br.com.maikosoft.cadmia.view.JanelaRelatorioClientePorDiaPagamento;
 import br.com.maikosoft.core.MkRun;
+import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkMenu;
+import br.com.maikosoft.view.JanelaLogin;
 
 public class MenuRelatorioClientePorDiaPagamento extends MkMenu {
 
@@ -13,11 +16,15 @@ public class MenuRelatorioClientePorDiaPagamento extends MkMenu {
 	@Override
 	public MkRun getAcao() {
 		return new MkRun() {
-			
 			@Override
 			public void execute() {
-				JanelaRelatorioClientePorDiaPagamento janela = new JanelaRelatorioClientePorDiaPagamento();
-				janela.showWindow(getTitulo(), false);
+				Usuario usuarioLogado = JanelaLogin.getInstance().getUsuarioLogado();
+				if (usuarioLogado.isAdministrador() || usuarioLogado.getId().equals("3")) {
+					JanelaRelatorioClientePorDiaPagamento janela = new JanelaRelatorioClientePorDiaPagamento();
+					janela.showWindow(getTitulo(), false);
+				} else {
+					MkDialog.warm("Acesso Negado");
+				}
 			}
 		};
 	}
