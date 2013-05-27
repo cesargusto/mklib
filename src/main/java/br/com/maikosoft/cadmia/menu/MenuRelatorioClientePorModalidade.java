@@ -20,7 +20,7 @@ public class MenuRelatorioClientePorModalidade extends MkMenu {
 			@Override
 			public void execute() {
 				Usuario usuarioLogado = JanelaLogin.getInstance().getUsuarioLogado();
-				if (usuarioLogado.isAdministrador() || usuarioLogado.getId().equals("3")) {
+				if (usuarioLogado.isAdministrador() || usuarioLogado.getId().equals(3L)) {
 					JanelaRelatorioClientePorModalidade janela = new JanelaRelatorioClientePorModalidade();
 					janela.showWindow(getTitulo(), false);
 				} else {

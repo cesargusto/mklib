@@ -19,7 +19,7 @@ public class MenuRelatorioClientePorDiaPagamento extends MkMenu {
 			@Override
 			public void execute() {
 				Usuario usuarioLogado = JanelaLogin.getInstance().getUsuarioLogado();
-				if (usuarioLogado.isAdministrador() || usuarioLogado.getId().equals("3")) {
+				if (usuarioLogado.isAdministrador() || usuarioLogado.getId().equals(3L)) {
 					JanelaRelatorioClientePorDiaPagamento janela = new JanelaRelatorioClientePorDiaPagamento();
 					janela.showWindow(getTitulo(), false);
 				} else {
