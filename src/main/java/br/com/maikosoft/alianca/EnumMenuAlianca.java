@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.maikosoft.alianca.view.JanelaClienteCadastro;
 import br.com.maikosoft.alianca.view.JanelaClienteConsulta;
 import br.com.maikosoft.alianca.view.JanelaDuplicataConsulta;
+import br.com.maikosoft.alianca.view.JanelaDuplicataGerar;
 import br.com.maikosoft.alianca.view.JanelaReceitaCadastro;
 import br.com.maikosoft.alianca.view.JanelaReceitaConsulta;
 import br.com.maikosoft.core.MkRun;
@@ -33,7 +34,7 @@ public enum EnumMenuAlianca {
     		CADASTRO_USUARIO_NOVO(new MenuCadastroUsuario(CADASTRO_USUARIO.getMenu())),	
     MOVIMENTACAO("Movimentação", null),
     	CADASTRO_DUPLICATA_CONSULTA(MkMenu.createMenu(MOVIMENTACAO.getMenu(), "Consulta Duplicata", new JanelaDuplicataConsulta())),
-//    	CADASTRO_DUPLICATA_NOVO(MkMenu.createMenu(MOVIMENTACAO.getMenu(), "Cadastro Duplicata", new JanelaDuplicataCadastro(null))),
+    	CADASTRO_DUPLICATA_GERAR(MkMenu.createMenu(MOVIMENTACAO.getMenu(), "Gerar Duplicata", new JanelaDuplicataGerar())),
     SISTEMA("Sistema", null),
 		SISTEMA_BACKUP(new MenuSistemaBackup(SISTEMA.getMenu())),
 		SISTEMA_DEBUG(new MenuDebug(SISTEMA.getMenu())),

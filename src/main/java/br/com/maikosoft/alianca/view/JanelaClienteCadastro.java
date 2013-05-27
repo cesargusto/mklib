@@ -5,9 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -16,13 +14,10 @@ import javax.swing.SwingConstants;
 import org.apache.commons.lang.StringUtils;
 
 import br.com.maikosoft.alianca.ClienteAlianca;
-import br.com.maikosoft.alianca.Duplicata;
 import br.com.maikosoft.alianca.service.ClienteService;
-import br.com.maikosoft.alianca.service.DuplicataService;
 import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.core.MkException;
 import br.com.maikosoft.core.MkRun;
-import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.mklib.EnumMkButton;
 import br.com.maikosoft.mklib.MkButton;
@@ -100,7 +95,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		
 	private ClienteAlianca bean;
 	private ClienteService clienteService;
-	private DuplicataService duplicataService;
+//	private DuplicataService duplicataService;
 	
 //	private ClienteModalidadeService clienteModalidadeService;
 //	private FinanceiroService financeiroService;
@@ -376,10 +371,10 @@ public class JanelaClienteCadastro extends MkWindow {
 	}
 	
 	
-	protected void adicionar() {
-		MkTransferObject<Modalidade> transferObject = new MkTransferObject<Modalidade>() {
-			@Override
-			public void postTranfer(Modalidade object) {
+//	protected void adicionar() {
+//		MkTransferObject<Modalidade> transferObject = new MkTransferObject<Modalidade>() {
+//			@Override
+//			public void postTranfer(Modalidade object) {
 //				ClienteModalidade clienteModalidade = new ClienteModalidade();
 //				clienteModalidade.setModalidade(object);
 //				clienteModalidade.setCliente(bean);
@@ -388,20 +383,20 @@ public class JanelaClienteCadastro extends MkWindow {
 //				if ("0,00".equals(fieldValorMensalidade.getText())) {
 //					fieldValorMensalidade.setText(MkUtil.toString(object.getValor()));
 //				}
-			}
-		};
+//			}
+//		};
 //		JanelaModalidadeConsulta janelaModalidadeConsulta = new JanelaModalidadeConsulta();
 //		janelaModalidadeConsulta.setTranferir(transferObject);
 //		janelaModalidadeConsulta.showWindow("Transferir Modalidade", false);
-	}
+//	}
 	
 	
-	protected void pesquisar() {
+//	protected void pesquisar() {
 //		JanelaFinanceiroConsulta janelaFinanceiroConsulta = new JanelaFinanceiroConsulta(bean);
 //		janelaFinanceiroConsulta.showWindow("Financeiro", false);
-	}
+//	}
 	
-	protected void atualizar() {
+//	protected void atualizar() {
 //		try {
 //			BigDecimal saldo = financeiroService.getSaldo(bean);
 //			if (saldo.compareTo(BigDecimal.ZERO) < 0) {
@@ -412,7 +407,7 @@ public class JanelaClienteCadastro extends MkWindow {
 //		} catch (MkServiceException ex) {
 //			MkDialog.error(ex.getMessage(), ex);
 //		}
-	}
+//	}
 	
 	private void editarFoto() {
 		JanelaCamera janelaCamera = new JanelaCamera();
@@ -436,32 +431,19 @@ public class JanelaClienteCadastro extends MkWindow {
 		return new MkRun() {
 			@Override
 			public void execute() {
-				try {
-					JanelaDuplicataConsulta janelaDuplicataConsulta = new JanelaDuplicataConsulta();
-					janelaDuplicataConsulta.showWindow("Duplicatas", false);
-					Map<String, Object> where = new HashMap<String, Object>();
-					where.put("cliente_id", bean.getId());			
-					List<Duplicata> list = duplicataService.findAll(where);
-					if (list.isEmpty()) {
-						JanelaDuplicataGerar janelaDuplicataGerar = new JanelaDuplicataGerar();
-						janelaDuplicataGerar.showWindow("Gerar Duplicatas", false);
-						janelaDuplicataGerar.setDados(bean);
-					} else {
-						janelaDuplicataConsulta.setPesquisa(list);
-					}
-				} catch (MkServiceException ex) {
-					MkDialog.error("Erro ao consultar duplicatas", ex);
-				}
+				JanelaDuplicataConsulta janelaDuplicataConsulta = new JanelaDuplicataConsulta();
+				janelaDuplicataConsulta.showWindow("Duplicatas", false);
+				janelaDuplicataConsulta.setClienteAlianca(bean);
 			}
 		};
 	}
 
 	
 
-	@Override
-	public void refreshWindow() {
-		atualizar();
-	}
+//	@Override
+//	public void refreshWindow() {
+//		atualizar();
+//	}
 	
 	private MkRun buscaEndereco() {
 		return new MkRun() {
