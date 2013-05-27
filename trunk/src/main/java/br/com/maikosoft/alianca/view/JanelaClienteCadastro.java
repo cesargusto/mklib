@@ -43,6 +43,7 @@ import br.com.maikosoft.mklib.MkTextArea;
 import br.com.maikosoft.mklib.MkWindow;
 import br.com.maikosoft.util.CEP;
 import br.com.maikosoft.util.EnumUF;
+import br.com.maikosoft.util.MkUtil;
 import br.com.maikosoft.view.JanelaCamera;
 import br.com.maikosoft.view.JanelaLogin;
 
@@ -293,7 +294,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		fieldEndereco.setText(bean.getEndereco());
 		fieldNumero.setText(bean.getNumero());
 		fieldBairro.setText(bean.getBairro());
-		fieldCep.setValue(bean.getCep());
+		fieldCep.setValue(MkUtil.somenteNumero(bean.getCep()));
 		fieldCidade.setText(bean.getCidade());
 		if (bean.getUf() != null) {
 			comboUf.setSelected(EnumUF.valueOf(bean.getUf()));
@@ -441,7 +442,13 @@ public class JanelaClienteCadastro extends MkWindow {
 					Map<String, Object> where = new HashMap<String, Object>();
 					where.put("cliente_id", bean.getId());			
 					List<Duplicata> list = duplicataService.findAll(where);
-					janelaDuplicataConsulta.setPesquisa(list);				
+					if (list.isEmpty()) {
+						JanelaDuplicataGerar janelaDuplicataGerar = new JanelaDuplicataGerar();
+						janelaDuplicataGerar.showWindow("Gerar Duplicatas", false);
+						janelaDuplicataGerar.setDados(bean);
+					} else {
+						janelaDuplicataConsulta.setPesquisa(list);
+					}
 				} catch (MkServiceException ex) {
 					MkDialog.error("Erro ao consultar duplicatas", ex);
 				}
