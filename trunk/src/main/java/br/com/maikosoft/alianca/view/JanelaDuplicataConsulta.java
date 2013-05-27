@@ -7,13 +7,14 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.alianca.Duplicata;
-import br.com.maikosoft.alianca.EnumMenuAlianca;
 import br.com.maikosoft.alianca.service.DuplicataService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.EnumMkButton;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldDate;
+import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkTable;
 import br.com.maikosoft.mklib.MkTableModel;
@@ -25,20 +26,34 @@ public class JanelaDuplicataConsulta extends MkWindow {
 	
 	private static final Logger logger = Logger.getLogger(JanelaDuplicataConsulta.class);
 	
+	private MkPanelTable panelFiltroPesquisa;
 	private MkFieldDate fieldDataIncial;
 	private MkFieldDate fieldDataFinal;
+	
+	private MkPanelTable panelCliente;
+	private MkFieldText fieldCliente;
+
 	private MkPanelTable panelCenter;
 	private MkTable<Duplicata> table;
+	
+	private ClienteAlianca clienteAlianca;
 	
 	private DuplicataService duplicataService;
 	
 	@Override
 	protected void initWindow() {
 		
-		panelCenter.addRow("Data Vencimento Inicial", fieldDataIncial, "Data Vencimento Final", fieldDataFinal, EnumMkButton.PESQUISAR.getButton(this), GridBagConstraints.NONE);
+		
+		panelFiltroPesquisa.addRow("Data Vencimento Inicial", fieldDataIncial, "Data Vencimento Final", fieldDataFinal);
+		panelCliente.addRow("Cliente:", fieldCliente);
+		
+		panelCenter.addRow(panelFiltroPesquisa, panelCliente, EnumMkButton.PESQUISAR.getButton(this), GridBagConstraints.NONE);
 		panelCenter.addRow(table.getJScrollPane(), GridBagConstraints.BOTH);
 		
 		addPanelCenter(panelCenter, 750, 450);
+		
+		panelCliente.setVisible(false);
+		fieldCliente.setEditable(false);
 		
 		addPanelButton(true, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
 		
@@ -97,9 +112,17 @@ public class JanelaDuplicataConsulta extends MkWindow {
 					Map<String, Object> where = new HashMap<String, Object>();
 					where.put("before_data_vencimento", fieldDataFinal.getDate());
 					where.put("after_data_vencimento", fieldDataIncial.getDate());
+					
+					if (clienteAlianca != null) {
+						where.put("cliente_id", clienteAlianca.getId());	
+					}
 				
 					List<Duplicata> list = duplicataService.findAll(where);
-					setPesquisa(list);
+					if (list.isEmpty() && (clienteAlianca != null)) {
+						novo().execute();
+					} else {
+						setPesquisa(list);
+					}
 					
 				} catch (Exception ex) {
 					MkDialog.error("Erro ao pesquisar", ex);
@@ -109,12 +132,30 @@ public class JanelaDuplicataConsulta extends MkWindow {
 	}
 	
 	protected MkRun novo() {
-		return EnumMenuAlianca.CADASTRO_RECEITA_NOVO.getMenu().getAcao();
+		return new MkRun() {
+			@Override
+			public void execute() {
+				JanelaDuplicataGerar janelaDuplicataGerar = new JanelaDuplicataGerar();
+				janelaDuplicataGerar.showWindow("Gerar Duplicatas", false);
+				if (clienteAlianca != null) {
+					janelaDuplicataGerar.setDados(clienteAlianca);
+				}
+			}
+		};
 	}
 
 	@Override
 	public void refreshWindow() {
 		pesquisar().execute();
+	}
+
+	public void setClienteAlianca(ClienteAlianca clienteAlianca) {
+		this.clienteAlianca = clienteAlianca;
+		pesquisar().execute();
+		panelFiltroPesquisa.setVisible(false);
+		panelCliente.setVisible(true);
+		fieldCliente.setText(clienteAlianca.getNome());
+		
 	}
 	
 	

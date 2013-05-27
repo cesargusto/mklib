@@ -3,7 +3,6 @@ package br.com.maikosoft.alianca;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import br.com.maikosoft.Cliente;
 import br.com.maikosoft.core.MkBean;
 
 @SuppressWarnings("serial")
