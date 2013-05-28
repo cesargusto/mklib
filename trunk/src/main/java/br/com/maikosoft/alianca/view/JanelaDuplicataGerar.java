@@ -1,9 +1,18 @@
 package br.com.maikosoft.alianca.view;
 
 import java.awt.GridBagConstraints;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JRViewer;
+
+import org.apache.commons.lang.StringUtils;
 
 import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.alianca.Duplicata;
@@ -79,8 +88,6 @@ public class JanelaDuplicataGerar extends MkWindow {
 	}
 
 	protected void imprimir() {
-		
-			
 		try {
 			if (clienteAlianca == null) {
 				MkDialog.warm("Informe o Cliente");
@@ -101,19 +108,23 @@ public class JanelaDuplicataGerar extends MkWindow {
 							MkUtil.toLong(fieldNumeroNota.getText()),
 							textObservacao.getText());
 					
-					
-//					HashMap<String, Object> parametro = new HashMap<String, Object>();
-//					parametro.put("cliente", clienteAlianca.getNome());
-//					BigDecimal valor = MkUtil.toBigDecimal(fieldValor.getText());
-//					StringBuilder sb = new StringBuilder(50);
-//					sb.append("R$ ").append(fieldValor.getText()).append(" (").append(new Extenso(valor, true)).append(')');
-//					parametro.put("valor", sb.toString());
-////					parametro.put("data", MkUtil.toString(fieldData.getDate()));
-//					parametro.put("observacao", textObservacao.getText());
-					
-//					InputStream streamResource = JanelaRelatorioClientePorModalidade.class.getClassLoader().getResourceAsStream("report/cadmia/Recibo.jasper");
-//					JasperPrint print = JasperFillManager.fillReport(streamResource, parametro, new JREmptyDataSource());
-//					JasperViewer.viewReport(print, false);
+					HashMap<String,Object> map = new HashMap<String, Object>();
+					map.put("clienteNome", clienteAlianca.getNome());
+					map.put("clienteEndereco", (StringUtils.isBlank(clienteAlianca.getNumero()) ? 
+							clienteAlianca.getEndereco() : 
+							clienteAlianca.getEndereco() + ", " +clienteAlianca.getNumero()));
+					map.put("clienteCPF", clienteAlianca.getCpf());
+					map.put("clienteCidade", clienteAlianca.getCidade());
+										
+					InputStream streamResource = JanelaDuplicataGerar.class.getClassLoader().getResourceAsStream("report/alianca/Duplicata.jasper");
+					final JasperPrint print = JasperFillManager.fillReport(streamResource, map, new JRBeanCollectionDataSource(listDuplicata));
+					MkWindow janelaModal = new MkWindow() {
+						@Override
+						protected void initWindow() {
+							addPanelCenter(new JRViewer(print), application.getDesktopPane().getWidth(), application.getDesktopPane().getHeight());
+						}
+					};
+					janelaModal.showWindow("Gerar Duplicatas", true);
 					
 					if (MkDialog.confirm("Deseja salvar as duplicatas geradas?")) {
 						for (Duplicata duplicata : listDuplicata) {

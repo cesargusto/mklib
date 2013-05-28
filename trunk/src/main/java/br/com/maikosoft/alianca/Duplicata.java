@@ -19,6 +19,8 @@ public class Duplicata extends MkBean {
     private ClienteAlianca cliente;
     private BigDecimal valor;
     private BigDecimal valorTotal;
+    
+    private String valorExtenso;
         
 	public Long getNumeroNota() {
 		return numeroNota;
@@ -85,6 +87,12 @@ public class Duplicata extends MkBean {
 	}
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+	public String getValorExtenso() {
+		return valorExtenso;
+	}
+	public void setValorExtenso(String valorExtenso) {
+		this.valorExtenso = valorExtenso;
 	}
     
     
