@@ -13,6 +13,7 @@ import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.alianca.Duplicata;
 import br.com.maikosoft.alianca.dao.DuplicataDAO;
 import br.com.maikosoft.core.MkService;
+import br.com.maikosoft.util.Extenso;
 import br.com.maikosoft.view.JanelaLogin;
 
 @Service
@@ -30,8 +31,10 @@ public class DuplicataService extends MkService<Duplicata, DuplicataDAO> {
 		String vendedor = JanelaLogin.getInstance().getUsuarioLogado().getNome();
 		Calendar dataVencimento = Calendar.getInstance();
 		dataVencimento.setTime(primeiroVencimento);
+		String valorExtenso = new Extenso(valor, true).toString();
 		
 		LinkedList<Duplicata> result = new LinkedList<Duplicata>();
+		
 		
 		for (int i = 1; i <= numeroParcela; i++) {
 			Duplicata duplicata = new Duplicata();
@@ -44,6 +47,7 @@ public class DuplicataService extends MkService<Duplicata, DuplicataDAO> {
 			duplicata.setValor(valor);
 			duplicata.setValorTotal(valorTotal);
 			duplicata.setVendedor(vendedor);
+			duplicata.setValorExtenso(valorExtenso);
 			
 			result.add(duplicata);
 			
