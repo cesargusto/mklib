@@ -29,6 +29,7 @@ public abstract class MkService<BEAN extends MkBean, DAO extends MkDAO<BEAN>>  i
     		bean.setId(genericDao.nextId());
     		genericDao.insert(bean);
 		} catch (MkDAOException e) {
+			bean.setId(null);
 			throw new MkServiceException(e);
 		}
     }
