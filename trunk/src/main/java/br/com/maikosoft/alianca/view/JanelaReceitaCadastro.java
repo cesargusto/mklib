@@ -1,14 +1,22 @@
 package br.com.maikosoft.alianca.view;
 
 import java.awt.GridBagConstraints;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.alianca.Receita;
 import br.com.maikosoft.alianca.service.ReceitaService;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.mklib.MkButton.MkButtonEditar;
 import br.com.maikosoft.mklib.MkButton.MkButtonExcluir;
+import br.com.maikosoft.mklib.MkButton.MkButtonImprimir;
 import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
 import br.com.maikosoft.mklib.MkButton.MkButtonPesquisar;
 import br.com.maikosoft.mklib.MkButton.MkButtonSalvar;
@@ -44,6 +52,7 @@ public class JanelaReceitaCadastro extends MkWindow {
 	private MkButtonSalvar buttonSalvar;
 	private MkButtonEditar buttonEditar;
 	private MkButtonExcluir buttonExcluir;
+	private MkButtonImprimir buttonImprimir;
 	
 	private MkButtonPesquisar buttonCliente;
 		
@@ -61,7 +70,7 @@ public class JanelaReceitaCadastro extends MkWindow {
 		panelTable.addRow("Codigo:",fieldId, "Data Receita:", fieldDataReceita, GridBagConstraints.NONE);
 		panelTable.addRow("Cliente:", new MkPanelTable().addRow(fieldCliente, buttonCliente, GridBagConstraints.NONE));
 		panelTable.addRow("Telefone:",fieldTelefone, MkPanelTable.getDefaultCell(1));
-		panelTable.addRow("Oftamologista:", fieldOftalmologista);
+		panelTable.addRow("Oftalmologista:", fieldOftalmologista);
 		
 		panelTable.addRow("", "Esquerdo", GridBagConstraints.CENTER, "Direito", GridBagConstraints.CENTER, "Adição", GridBagConstraints.CENTER);
 		panelTable.addRow("Longe", fieldOlhoEsquerdoLonge, fieldOlhoDireitoLonge, fieldAdicao);
@@ -78,7 +87,7 @@ public class JanelaReceitaCadastro extends MkWindow {
 		fieldId.setEnabled(false);
 		fieldTelefone.setMask(EnumMkMask.CELLPHONE);
 	
-		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir);
+		addPanelButton(true, buttonImprimir, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir);
 		
 		if (bean.getId() == null) {
 			novo();
@@ -184,6 +193,7 @@ public class JanelaReceitaCadastro extends MkWindow {
 		buttonSalvar.setEnabled(isEditMode);
 		buttonEditar.setEnabled(!isEditMode);
 		buttonExcluir.setEnabled(!isEditMode);
+		buttonImprimir.setEnabled(!isEditMode);
 		
 	}
 	
@@ -202,6 +212,27 @@ public class JanelaReceitaCadastro extends MkWindow {
 		JanelaClienteConsulta janelaClienteConsulta = new JanelaClienteConsulta();
 		janelaClienteConsulta.setTranferir(transferObject);
 		janelaClienteConsulta.showWindow("Transferir Cliente", false);
+	}
+	
+	protected void imprimir() {
+		try {
+			this.waitCursor(true);
+			
+			List<Receita> list = new LinkedList<Receita>();
+			list.add(bean);
+			
+			InputStream streamResource = JanelaDuplicataGerar.class.getClassLoader().getResourceAsStream("report/alianca/Receita.jasper");
+			JasperPrint print = JasperFillManager.fillReport(streamResource, null, new JRBeanCollectionDataSource(list));
+			JasperViewer.viewReport(print, false);
+					
+					
+			
+		} catch (Exception ex) {
+			MkDialog.error("Erro ao gerar duplicatas", ex);
+		} finally {
+			this.waitCursor(false);
+		}
+			
 	}
 
 }
