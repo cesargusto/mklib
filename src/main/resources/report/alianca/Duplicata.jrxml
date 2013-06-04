@@ -17,7 +17,7 @@
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
-	<property name="ireport.scriptlethandling" value="2" />
+	<property name="ireport.scriptlethandling" value="0" />
 	<property name="ireport.encoding" value="UTF-8" />
 	<import value="java.util.*" />
 	<import value="net.sf.jasperreports.engine.*" />
@@ -54,14 +54,15 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="373"  isSplitAllowed="false" >
+			<band height="385"  isSplitAllowed="false" >
 				<staticText>
 					<reportElement
 						x="80"
 						y="0"
 						width="139"
 						height="23"
-						key="staticText-1"/>
+						key="staticText-1"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center">
 						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
@@ -74,7 +75,8 @@
 						y="23"
 						width="203"
 						height="27"
-						key="staticText-2"/>
+						key="staticText-2"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center">
 						<font/>
@@ -88,7 +90,8 @@ Praça de pagamento: Campo Mourão]]></text>
 						y="0"
 						width="134"
 						height="20"
-						key="staticText-3"/>
+						key="staticText-3"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center">
 						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
@@ -101,7 +104,8 @@ Praça de pagamento: Campo Mourão]]></text>
 						y="23"
 						width="273"
 						height="27"
-						key="staticText-4"/>
+						key="staticText-4"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center">
 						<font/>
@@ -114,8 +118,9 @@ CAMPO MOURÃO - PR]]></text>
 						x="9"
 						y="57"
 						width="168"
-						height="45"
-						key="rectangle-1"/>
+						height="40"
+						key="rectangle-1"
+						isPrintWhenDetailOverflows="true"/>
 					<graphicElement stretchType="NoStretch"/>
 				</rectangle>
 				<staticText>
@@ -123,63 +128,68 @@ CAMPO MOURÃO - PR]]></text>
 						mode="Opaque"
 						x="16"
 						y="50"
-						width="50"
+						width="40"
 						height="16"
-						key="staticText-5"/>
+						key="staticText-5"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
 					</textElement>
 				<text><![CDATA[FATURA]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="16"
-						y="68"
+						y="66"
 						width="56"
 						height="12"
-						key="staticText-6"/>
+						key="staticText-6"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
-						<font/>
+						<font size="9"/>
 					</textElement>
 				<text><![CDATA[VALOR]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="16"
-						y="83"
+						y="79"
 						width="56"
 						height="14"
-						key="staticText-7"/>
+						key="staticText-7"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
-						<font/>
+						<font size="9"/>
 					</textElement>
 				<text><![CDATA[NÚMERO]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="R$ ##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="80"
-						y="65"
+						x="79"
+						y="62"
 						width="92"
-						height="18"
-						key="textField"/>
+						height="15"
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{valorTotal}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="80"
-						y="82"
+						x="79"
+						y="78"
 						width="92"
-						height="18"
-						key="textField"/>
+						height="15"
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{numeroNota}]]></textFieldExpression>
@@ -189,8 +199,9 @@ CAMPO MOURÃO - PR]]></text>
 						x="186"
 						y="57"
 						width="168"
-						height="45"
-						key="rectangle-2"/>
+						height="40"
+						key="rectangle-2"
+						isPrintWhenDetailOverflows="true"/>
 					<graphicElement stretchType="NoStretch"/>
 				</rectangle>
 				<staticText>
@@ -198,63 +209,68 @@ CAMPO MOURÃO - PR]]></text>
 						mode="Opaque"
 						x="193"
 						y="50"
-						width="69"
+						width="55"
 						height="16"
-						key="staticText-8"/>
+						key="staticText-8"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
 					</textElement>
 				<text><![CDATA[DUPLICATA]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="193"
-						y="68"
+						y="66"
 						width="56"
 						height="12"
-						key="staticText-9"/>
+						key="staticText-9"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
-						<font/>
+						<font size="9"/>
 					</textElement>
 				<text><![CDATA[VALOR]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="193"
-						y="83"
+						y="79"
 						width="56"
 						height="14"
-						key="staticText-10"/>
+						key="staticText-10"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
-						<font/>
+						<font size="9"/>
 					</textElement>
 				<text><![CDATA[N° ORDEM]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="R$ ##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="257"
-						y="65"
+						x="255"
+						y="62"
 						width="92"
-						height="18"
-						key="textField-1"/>
+						height="15"
+						key="textField-1"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{valor}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="257"
-						y="82"
+						x="255"
+						y="78"
 						width="92"
-						height="18"
-						key="textField-2"/>
+						height="15"
+						key="textField-2"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{referencia}]]></textFieldExpression>
@@ -264,31 +280,19 @@ CAMPO MOURÃO - PR]]></text>
 						x="362"
 						y="57"
 						width="168"
-						height="45"
-						key="rectangle-3"/>
+						height="39"
+						key="rectangle-3"
+						isPrintWhenDetailOverflows="true"/>
 					<graphicElement stretchType="NoStretch"/>
 				</rectangle>
-				<staticText>
-					<reportElement
-						mode="Opaque"
-						x="369"
-						y="50"
-						width="90"
-						height="16"
-						key="staticText-11"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font/>
-					</textElement>
-				<text><![CDATA[VENCIMENTO]]></text>
-				</staticText>
 				<textField isStretchWithOverflow="true" pattern=" dd MMMMM yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="364"
-						y="66"
+						y="61"
 						width="162"
 						height="31"
-						key="textField"/>
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
@@ -298,10 +302,11 @@ CAMPO MOURÃO - PR]]></text>
 				<staticText>
 					<reportElement
 						x="9"
-						y="108"
+						y="104"
 						width="90"
 						height="14"
-						key="staticText-12"/>
+						key="staticText-12"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Right">
 						<font size="8"/>
@@ -311,10 +316,11 @@ CAMPO MOURÃO - PR]]></text>
 				<staticText>
 					<reportElement
 						x="9"
-						y="125"
+						y="121"
 						width="90"
 						height="14"
-						key="staticText-13"/>
+						key="staticText-13"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Right">
 						<font size="8"/>
@@ -324,10 +330,11 @@ CAMPO MOURÃO - PR]]></text>
 				<staticText>
 					<reportElement
 						x="362"
-						y="108"
+						y="104"
 						width="39"
 						height="14"
-						key="staticText-14"/>
+						key="staticText-14"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Right">
 						<font size="8"/>
@@ -337,10 +344,11 @@ CAMPO MOURÃO - PR]]></text>
 				<staticText>
 					<reportElement
 						x="339"
-						y="124"
+						y="120"
 						width="39"
 						height="14"
-						key="staticText-15"/>
+						key="staticText-15"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Right">
 						<font size="8"/>
@@ -351,10 +359,11 @@ CAMPO MOURÃO - PR]]></text>
 					<reportElement
 						mode="Transparent"
 						x="9"
-						y="140"
+						y="136"
 						width="37"
 						height="16"
-						key="staticText-16"/>
+						key="staticText-16"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Left">
 						<font size="8"/>
@@ -364,10 +373,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="9"
-						y="156"
+						y="152"
 						width="91"
 						height="13"
-						key="textField"/>
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Bottom">
 						<font size="8"/>
@@ -377,10 +387,11 @@ CAMPO MOURÃO - PR]]></text>
 				<staticText>
 					<reportElement
 						x="57"
-						y="140"
+						y="136"
 						width="98"
 						height="16"
-						key="staticText-17"/>
+						key="staticText-17"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
 						<font size="8"/>
@@ -390,23 +401,25 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="154"
-						y="140"
+						y="136"
 						width="381"
 						height="16"
-						key="textField"/>
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
-						<font size="8"/>
+						<font size="9"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{valorExtenso}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="100"
-						y="156"
+						y="152"
 						width="33"
 						height="13"
-						key="staticText-18"/>
+						key="staticText-18"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Right" verticalAlignment="Bottom">
 						<font size="8"/>
@@ -416,10 +429,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="133"
-						y="156"
+						y="152"
 						width="86"
 						height="12"
-						key="textField"/>
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Bottom">
 						<font size="8"/>
@@ -432,7 +446,8 @@ CAMPO MOURÃO - PR]]></text>
 						y="164"
 						width="166"
 						height="15"
-						key="staticText-20"/>
+						key="staticText-20"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
@@ -442,10 +457,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="100"
-						y="107"
+						y="103"
 						width="263"
 						height="15"
-						key="textField"/>
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
 						<font size="8"/>
@@ -455,10 +471,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="100"
-						y="124"
+						y="120"
 						width="239"
 						height="15"
-						key="textField"/>
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
 						<font size="8"/>
@@ -468,10 +485,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="405"
-						y="108"
+						y="104"
 						width="128"
 						height="14"
-						key="textField"/>
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
 						<font size="8"/>
@@ -481,10 +499,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="378"
-						y="124"
+						y="120"
 						width="156"
 						height="15"
-						key="textField"/>
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
 						<font size="8"/>
@@ -494,10 +513,11 @@ CAMPO MOURÃO - PR]]></text>
 				<staticText>
 					<reportElement
 						x="80"
-						y="194"
+						y="196"
 						width="139"
 						height="23"
-						key="staticText-21"/>
+						key="staticText-21"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center">
 						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
@@ -507,10 +527,11 @@ CAMPO MOURÃO - PR]]></text>
 				<staticText>
 					<reportElement
 						x="36"
-						y="217"
+						y="219"
 						width="203"
 						height="27"
-						key="staticText-22"/>
+						key="staticText-22"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center">
 						<font/>
@@ -521,10 +542,11 @@ Praça de pagamento: Campo Mourão]]></text>
 				<staticText>
 					<reportElement
 						x="351"
-						y="194"
+						y="196"
 						width="134"
 						height="20"
-						key="staticText-23"/>
+						key="staticText-23"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center">
 						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
@@ -534,10 +556,11 @@ Praça de pagamento: Campo Mourão]]></text>
 				<staticText>
 					<reportElement
 						x="262"
-						y="217"
+						y="219"
 						width="273"
 						height="27"
-						key="staticText-24"/>
+						key="staticText-24"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center">
 						<font/>
@@ -545,199 +568,14 @@ Praça de pagamento: Campo Mourão]]></text>
 				<text><![CDATA[AV. CAPITÃO ÍNDIO BANDEIRA, 1055 - SALA 03
 CAMPO MOURÃO - PR]]></text>
 				</staticText>
-				<rectangle radius="5" >
-					<reportElement
-						x="9"
-						y="251"
-						width="168"
-						height="45"
-						key="rectangle-4"/>
-					<graphicElement stretchType="NoStretch"/>
-				</rectangle>
-				<staticText>
-					<reportElement
-						mode="Opaque"
-						x="16"
-						y="244"
-						width="50"
-						height="16"
-						key="staticText-25"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font/>
-					</textElement>
-				<text><![CDATA[FATURA]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="16"
-						y="262"
-						width="56"
-						height="12"
-						key="staticText-26"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font/>
-					</textElement>
-				<text><![CDATA[VALOR]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="16"
-						y="277"
-						width="56"
-						height="14"
-						key="staticText-27"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font/>
-					</textElement>
-				<text><![CDATA[NÚMERO]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="R$ ##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="80"
-						y="259"
-						width="92"
-						height="18"
-						key="textField-3"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{valorTotal}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="80"
-						y="276"
-						width="92"
-						height="18"
-						key="textField-4"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{numeroNota}]]></textFieldExpression>
-				</textField>
-				<rectangle radius="5" >
-					<reportElement
-						x="186"
-						y="251"
-						width="168"
-						height="45"
-						key="rectangle-5"/>
-					<graphicElement stretchType="NoStretch"/>
-				</rectangle>
-				<staticText>
-					<reportElement
-						mode="Opaque"
-						x="193"
-						y="244"
-						width="69"
-						height="16"
-						key="staticText-28"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font/>
-					</textElement>
-				<text><![CDATA[DUPLICATA]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="193"
-						y="262"
-						width="56"
-						height="12"
-						key="staticText-29"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font/>
-					</textElement>
-				<text><![CDATA[VALOR]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="193"
-						y="277"
-						width="56"
-						height="14"
-						key="staticText-30"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font/>
-					</textElement>
-				<text><![CDATA[N° ORDEM]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="R$ ##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="257"
-						y="259"
-						width="92"
-						height="18"
-						key="textField-5"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{valor}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="257"
-						y="276"
-						width="92"
-						height="18"
-						key="textField-6"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{referencia}]]></textFieldExpression>
-				</textField>
-				<rectangle radius="5" >
-					<reportElement
-						x="362"
-						y="251"
-						width="168"
-						height="45"
-						key="rectangle-6"/>
-					<graphicElement stretchType="NoStretch"/>
-				</rectangle>
-				<staticText>
-					<reportElement
-						mode="Opaque"
-						x="369"
-						y="244"
-						width="90"
-						height="16"
-						key="staticText-31"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font/>
-					</textElement>
-				<text><![CDATA[VENCIMENTO]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="true" pattern=" dd MMMMM yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="364"
-						y="260"
-						width="162"
-						height="31"
-						key="textField-7"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[$F{dataVencimento}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement
 						x="9"
-						y="302"
+						y="300"
 						width="90"
 						height="14"
-						key="staticText-32"/>
+						key="staticText-32"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Right">
 						<font size="8"/>
@@ -747,10 +585,11 @@ CAMPO MOURÃO - PR]]></text>
 				<staticText>
 					<reportElement
 						x="9"
-						y="319"
+						y="317"
 						width="90"
 						height="14"
-						key="staticText-33"/>
+						key="staticText-33"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Right">
 						<font size="8"/>
@@ -760,10 +599,11 @@ CAMPO MOURÃO - PR]]></text>
 				<staticText>
 					<reportElement
 						x="362"
-						y="302"
+						y="300"
 						width="39"
 						height="14"
-						key="staticText-34"/>
+						key="staticText-34"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Right">
 						<font size="8"/>
@@ -773,10 +613,11 @@ CAMPO MOURÃO - PR]]></text>
 				<staticText>
 					<reportElement
 						x="339"
-						y="318"
+						y="316"
 						width="39"
 						height="14"
-						key="staticText-35"/>
+						key="staticText-35"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Right">
 						<font size="8"/>
@@ -787,10 +628,11 @@ CAMPO MOURÃO - PR]]></text>
 					<reportElement
 						mode="Transparent"
 						x="9"
-						y="334"
+						y="332"
 						width="37"
 						height="16"
-						key="staticText-36"/>
+						key="staticText-36"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Left">
 						<font size="8"/>
@@ -800,10 +642,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="9"
-						y="350"
+						y="348"
 						width="91"
 						height="13"
-						key="textField-8"/>
+						key="textField-8"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Bottom">
 						<font size="8"/>
@@ -813,10 +656,11 @@ CAMPO MOURÃO - PR]]></text>
 				<staticText>
 					<reportElement
 						x="57"
-						y="334"
+						y="332"
 						width="97"
 						height="16"
-						key="staticText-37"/>
+						key="staticText-37"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
 						<font size="8"/>
@@ -826,23 +670,25 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="154"
-						y="334"
+						y="332"
 						width="381"
 						height="16"
-						key="textField-9"/>
+						key="textField-9"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
-						<font size="8"/>
+						<font size="9"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{valorExtenso}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="100"
-						y="350"
+						y="348"
 						width="33"
 						height="13"
-						key="staticText-38"/>
+						key="staticText-38"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Right" verticalAlignment="Bottom">
 						<font size="8"/>
@@ -852,10 +698,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="133"
-						y="350"
+						y="348"
 						width="86"
 						height="13"
-						key="textField-10"/>
+						key="textField-10"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Bottom">
 						<font size="8"/>
@@ -865,10 +712,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="100"
-						y="301"
+						y="299"
 						width="263"
 						height="15"
-						key="textField-11"/>
+						key="textField-11"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
 						<font size="8"/>
@@ -878,10 +726,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="100"
-						y="318"
+						y="316"
 						width="239"
 						height="15"
-						key="textField-12"/>
+						key="textField-12"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
 						<font size="8"/>
@@ -891,10 +740,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="405"
-						y="302"
+						y="300"
 						width="128"
 						height="14"
-						key="textField-13"/>
+						key="textField-13"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
 						<font size="8"/>
@@ -904,10 +754,11 @@ CAMPO MOURÃO - PR]]></text>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="378"
-						y="318"
+						y="316"
 						width="156"
 						height="15"
-						key="textField-14"/>
+						key="textField-14"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement>
 						<font size="8"/>
@@ -920,9 +771,226 @@ CAMPO MOURÃO - PR]]></text>
 						y="160"
 						width="172"
 						height="0"
-						key="line-1"/>
+						key="line-1"
+						isPrintWhenDetailOverflows="true"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="369"
+						y="50"
+						width="70"
+						height="16"
+						key="staticText-11"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+				<text><![CDATA[VENCIMENTO]]></text>
+				</staticText>
+				<rectangle radius="5" >
+					<reportElement
+						x="8"
+						y="253"
+						width="168"
+						height="40"
+						key="rectangle-4"
+						isPrintWhenDetailOverflows="true"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="15"
+						y="246"
+						width="40"
+						height="16"
+						key="staticText-39"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+				<text><![CDATA[FATURA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="262"
+						width="56"
+						height="12"
+						key="staticText-40"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<text><![CDATA[VALOR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="275"
+						width="56"
+						height="14"
+						key="staticText-41"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<text><![CDATA[NÚMERO]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="R$ ##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="78"
+						y="258"
+						width="92"
+						height="15"
+						key="textField-15"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{valorTotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="78"
+						y="274"
+						width="92"
+						height="15"
+						key="textField-16"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{numeroNota}]]></textFieldExpression>
+				</textField>
+				<rectangle radius="5" >
+					<reportElement
+						x="185"
+						y="253"
+						width="168"
+						height="40"
+						key="rectangle-5"
+						isPrintWhenDetailOverflows="true"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="192"
+						y="246"
+						width="55"
+						height="16"
+						key="staticText-42"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+				<text><![CDATA[DUPLICATA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="192"
+						y="262"
+						width="56"
+						height="12"
+						key="staticText-43"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<text><![CDATA[VALOR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="192"
+						y="275"
+						width="56"
+						height="14"
+						key="staticText-44"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<text><![CDATA[N° ORDEM]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="R$ ##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="254"
+						y="258"
+						width="92"
+						height="15"
+						key="textField-17"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{valor}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="254"
+						y="274"
+						width="92"
+						height="15"
+						key="textField-18"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{referencia}]]></textFieldExpression>
+				</textField>
+				<rectangle radius="5" >
+					<reportElement
+						x="361"
+						y="253"
+						width="168"
+						height="39"
+						key="rectangle-6"
+						isPrintWhenDetailOverflows="true"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="true" pattern=" dd MMMMM yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="363"
+						y="257"
+						width="162"
+						height="31"
+						key="textField-19"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{dataVencimento}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="368"
+						y="246"
+						width="70"
+						height="16"
+						key="staticText-45"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+				<text><![CDATA[VENCIMENTO]]></text>
+				</staticText>
 			</band>
 		</detail>
 		<columnFooter>
