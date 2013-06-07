@@ -3,12 +3,12 @@ package br.com.maikosoft.alianca;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.maikosoft.alianca.view.JanelaClienteCadastro;
-import br.com.maikosoft.alianca.view.JanelaClienteConsulta;
-import br.com.maikosoft.alianca.view.JanelaDuplicataConsulta;
-import br.com.maikosoft.alianca.view.JanelaDuplicataGerar;
-import br.com.maikosoft.alianca.view.JanelaReceitaCadastro;
-import br.com.maikosoft.alianca.view.JanelaReceitaConsulta;
+import br.com.maikosoft.alianca.menu.MenuCadastroCliente;
+import br.com.maikosoft.alianca.menu.MenuCadastroReceita;
+import br.com.maikosoft.alianca.menu.MenuConsultaCliente;
+import br.com.maikosoft.alianca.menu.MenuConsultaDuplicata;
+import br.com.maikosoft.alianca.menu.MenuConsultaReceita;
+import br.com.maikosoft.alianca.menu.MenuGerarDuplicata;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
 import br.com.maikosoft.view.menu.MenuCadastroUsuario;
@@ -24,17 +24,17 @@ public enum EnumMenuAlianca {
 	
 	CADASTRO("Cadastro", null),
 		CADASTRO_CLIENTE("Cliente", CADASTRO.getMenu()),
-			CADASTRO_CLIENTE_CONSULTA(MkMenu.createMenu(CADASTRO_CLIENTE.getMenu(), "Consulta Cliente", new JanelaClienteConsulta())),
-    		CADASTRO_CLIENTE_NOVO(MkMenu.createMenu(CADASTRO_CLIENTE.getMenu(), "Cadastro Cliente", new JanelaClienteCadastro(null))),
+			CADASTRO_CLIENTE_CONSULTA(new MenuConsultaCliente(CADASTRO_CLIENTE.getMenu())),
+    		CADASTRO_CLIENTE_NOVO(new MenuCadastroCliente(CADASTRO_CLIENTE.getMenu())),
     	CADASTRO_RECEITA("Receita", CADASTRO.getMenu()),
-			CADASTRO_RECEITA_CONSULTA(MkMenu.createMenu(CADASTRO_RECEITA.getMenu(), "Consulta Receita", new JanelaReceitaConsulta())),
-    		CADASTRO_RECEITA_NOVO(MkMenu.createMenu(CADASTRO_RECEITA.getMenu(), "Cadastro Receita", new JanelaReceitaCadastro(null))),
+			CADASTRO_RECEITA_CONSULTA(new MenuConsultaReceita(CADASTRO_RECEITA.getMenu())),
+    		CADASTRO_RECEITA_NOVO(new MenuCadastroReceita(CADASTRO_RECEITA.getMenu())),
     	CADASTRO_USUARIO("Usuário", CADASTRO.getMenu()),
     		CADASTRO_USUARIO_CONSULTA(new MenuCadastroUsuarioConsulta(CADASTRO_USUARIO.getMenu())),
     		CADASTRO_USUARIO_NOVO(new MenuCadastroUsuario(CADASTRO_USUARIO.getMenu())),	
     MOVIMENTACAO("Movimentação", null),
-    	CADASTRO_DUPLICATA_CONSULTA(MkMenu.createMenu(MOVIMENTACAO.getMenu(), "Consulta Duplicata", new JanelaDuplicataConsulta())),
-    	CADASTRO_DUPLICATA_GERAR(MkMenu.createMenu(MOVIMENTACAO.getMenu(), "Gerar Duplicata", new JanelaDuplicataGerar())),
+    	CADASTRO_DUPLICATA_CONSULTA(new MenuConsultaDuplicata(MOVIMENTACAO.getMenu())),
+    	CADASTRO_DUPLICATA_GERAR(new MenuGerarDuplicata(MOVIMENTACAO.getMenu())),
     SISTEMA("Sistema", null),
 		SISTEMA_BACKUP(new MenuSistemaBackup(SISTEMA.getMenu())),
 		SISTEMA_DEBUG(new MenuDebug(SISTEMA.getMenu())),
