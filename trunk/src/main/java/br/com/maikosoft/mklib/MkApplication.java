@@ -166,13 +166,7 @@ public class MkApplication extends JFrame {
 			}
 			
 			menu.setText(mkMenu.getTitulo());
-			
-//			int mnemonic = macMenu.getText().indexOf("&");
-//	        if (mnemonic > -1) {
-//	           menu.setText(macMenu.getText().replace("&",""));
-//	           menu.setMnemonic(macMenu.getText().charAt(mnemonic+1));
-//	        }
-			
+						
 			listMenuItem.put(mkMenu, menu);
         }
         

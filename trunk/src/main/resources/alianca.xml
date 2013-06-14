@@ -16,8 +16,8 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url" value="jdbc:postgresql://localhost/alianca" />
-		<property name="username" value="postgres" />
-		<property name="password" value="postgres" />
+		<property name="username" value="alianca" />
+		<property name="password" value="alicate" />
 	</bean>
 
 	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">

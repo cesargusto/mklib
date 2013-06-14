@@ -54,7 +54,7 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="385"  isSplitAllowed="false" >
+			<band height="376"  isSplitAllowed="false" >
 				<staticText>
 					<reportElement
 						x="80"
@@ -637,7 +637,7 @@ CAMPO MOURÃO - PR]]></text>
 					<textElement textAlignment="Left">
 						<font size="8"/>
 					</textElement>
-				<text><![CDATA[1º VIA]]></text>
+				<text><![CDATA[2º VIA]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

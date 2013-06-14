@@ -15,6 +15,7 @@ import br.com.maikosoft.alianca.service.ClienteService;
 import br.com.maikosoft.alianca.service.ReceitaService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkServiceException;
+import br.com.maikosoft.mklib.MkButton.MkButtonImprimir;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
@@ -25,6 +26,7 @@ public class JanelaConsultaRapida extends MkWindow {
 	
 	private MkFieldText fieldBuscaCliente;
 	private MkFieldText fieldBuscaReceita;
+	private MkButtonImprimir buttonGerarDuplicata;
 	
 	private ClienteService clienteService;
 	private ReceitaService receitaService;
@@ -39,8 +41,9 @@ public class JanelaConsultaRapida extends MkWindow {
 		MkPanelTable panelTableReceita = new MkPanelTable();
 		panelTableReceita.setTitle("Receita");
 		panelTableReceita.addRow(fieldBuscaReceita);
+		panelTableReceita.addRow(buttonGerarDuplicata);
 		
-		addPanelCenter(new MkPanelTable().addRow(panelTableCliente).addRow(panelTableReceita), 200, 120);
+		addPanelCenter(new MkPanelTable().addRow(panelTableCliente).addRow(panelTableReceita), 200, 150);
 		
 		fieldBuscaCliente.setColumns(15);
 		fieldBuscaReceita.setColumns(15);
@@ -48,6 +51,9 @@ public class JanelaConsultaRapida extends MkWindow {
 		fieldBuscaCliente.onEnter(buscaCliente());
 		
 		fieldBuscaReceita.onEnter(buscaReceita());
+		
+		buttonGerarDuplicata.setText("Gerar Duplicata");
+		buttonGerarDuplicata.onClick(EnumMenuAlianca.CADASTRO_DUPLICATA_GERAR.getMenu().getAcao());
 		
 	}
 

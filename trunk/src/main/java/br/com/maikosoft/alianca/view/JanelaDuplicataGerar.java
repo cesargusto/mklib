@@ -121,7 +121,9 @@ public class JanelaDuplicataGerar extends MkWindow {
 					MkWindow janelaModal = new MkWindow() {
 						@Override
 						protected void initWindow() {
-							addPanelCenter(new JRViewer(print), application.getDesktopPane().getWidth(), application.getDesktopPane().getHeight());
+							JRViewer viewer = new JRViewer(print);
+							addPanelCenter(viewer, application.getDesktopPane().getWidth(), application.getDesktopPane().getHeight());
+							
 						}
 					};
 					janelaModal.showWindow("Gerar Duplicatas", true);
@@ -130,6 +132,7 @@ public class JanelaDuplicataGerar extends MkWindow {
 						for (Duplicata duplicata : listDuplicata) {
 							duplicataService.insert(duplicata);
 						}
+						MkDialog.info("Duplicatas salvas com sucesso", buttonImprimir);
 						application.refreshWindows();
 					}
 					
