@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -455,6 +456,7 @@ public class JanelaClienteCadastro extends MkWindow {
 			InputStream streamResource = JanelaDuplicataGerar.class.getClassLoader().getResourceAsStream("report/alianca/Cliente.jasper");
 			JasperPrint print = JasperFillManager.fillReport(streamResource, null, new JRBeanCollectionDataSource(list));
 			JasperViewer.viewReport(print, false);
+			JasperPrintManager.printReport(print, true);
 			
 		} catch (Exception ex) {
 			MkDialog.error("Erro ao imprimir cliente", ex);

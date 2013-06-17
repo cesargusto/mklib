@@ -9,6 +9,7 @@ import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.cadmia.ClienteCadMia;
@@ -80,6 +81,7 @@ public class JanelaRelatorioClientePorModalidade extends MkWindow {
 					InputStream streamResource = JanelaRelatorioClientePorModalidade.class.getClassLoader().getResourceAsStream("report/cadmia/RelatorioClientePorModalidade.jasper");
 					JasperPrint print = JasperFillManager.fillReport(streamResource, parametro, new JRBeanCollectionDataSource(list));
 					JasperViewer.viewReport(print, false);
+					JasperPrintManager.printReport(print, true);
 					
 			}
 		} catch (MkServiceException exception) {

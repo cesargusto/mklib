@@ -63,30 +63,29 @@
 		</background>
 		<title>
 			<band height="72"  isSplitAllowed="true" >
-				<frame>					<reportElement
-						mode="Opaque"
-						x="-20"
-						y="-20"
-						width="595"
-						height="92"
-						backcolor="#006699"
-						key="frame"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<rectangle radius="5" >
+					<reportElement
+						x="0"
+						y="6"
+						width="554"
+						height="57"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
 				<staticText>
 					<reportElement
-						x="20"
-						y="20"
-						width="487"
-						height="43"
-						forecolor="#FFFFFF"
-						key="staticText"/>
+						x="-1"
+						y="6"
+						width="554"
+						height="58"
+						key="staticText-29"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="34" isBold="true"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="24" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Cadastro de Cliente]]></text>
+				<text><![CDATA[CADASTRO DE CLIENTE]]></text>
 				</staticText>
-				</frame>			</band>
+			</band>
 		</title>
 		<pageHeader>
 			<band height="0"  isSplitAllowed="true" >

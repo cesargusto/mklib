@@ -11,6 +11,7 @@ import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.cadmia.ClienteCadMia;
@@ -145,6 +146,7 @@ public class JanelaRelatorioFinanceiro extends MkWindow {
 					InputStream streamResource = JanelaRelatorioFinanceiro.class.getClassLoader().getResourceAsStream("report/cadmia/RelatorioFinanceiro.jasper");
 					JasperPrint print = JasperFillManager.fillReport(streamResource, parametro, new JRBeanCollectionDataSource(list));
 					JasperViewer.viewReport(print, false);
+					JasperPrintManager.printReport(print, true);
 					
 			}
 		} catch (MkServiceException exception) {
