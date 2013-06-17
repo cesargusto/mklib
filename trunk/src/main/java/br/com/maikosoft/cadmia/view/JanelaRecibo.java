@@ -9,6 +9,7 @@ import java.util.HashMap;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.core.MkTransferObject;
@@ -97,6 +98,7 @@ public class JanelaRecibo extends MkWindow {
 					InputStream streamResource = JanelaRelatorioClientePorModalidade.class.getClassLoader().getResourceAsStream("report/cadmia/Recibo.jasper");
 					JasperPrint print = JasperFillManager.fillReport(streamResource, parametro, new JREmptyDataSource());
 					JasperViewer.viewReport(print, false);
+					JasperPrintManager.printReport(print, true);
 					
 			}
 		} catch (Exception ex) {

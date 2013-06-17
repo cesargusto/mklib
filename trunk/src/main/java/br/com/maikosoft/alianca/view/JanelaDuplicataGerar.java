@@ -123,7 +123,6 @@ public class JanelaDuplicataGerar extends MkWindow {
 						protected void initWindow() {
 							JRViewer viewer = new JRViewer(print);
 							addPanelCenter(viewer, application.getDesktopPane().getWidth(), application.getDesktopPane().getHeight());
-							
 						}
 					};
 					janelaModal.showWindow("Gerar Duplicatas", true);
