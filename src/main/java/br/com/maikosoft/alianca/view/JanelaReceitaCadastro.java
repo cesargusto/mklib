@@ -224,11 +224,9 @@ public class JanelaReceitaCadastro extends MkWindow {
 			InputStream streamResource = JanelaDuplicataGerar.class.getClassLoader().getResourceAsStream("report/alianca/Receita.jasper");
 			JasperPrint print = JasperFillManager.fillReport(streamResource, null, new JRBeanCollectionDataSource(list));
 			JasperViewer.viewReport(print, false);
-					
-					
 			
 		} catch (Exception ex) {
-			MkDialog.error("Erro ao gerar duplicatas", ex);
+			MkDialog.error("Erro ao imprimir receita", ex);
 		} finally {
 			this.waitCursor(false);
 		}
