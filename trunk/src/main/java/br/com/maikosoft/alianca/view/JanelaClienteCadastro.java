@@ -4,25 +4,31 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.InputStream;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
+
 import org.apache.commons.lang.StringUtils;
 
 import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.alianca.service.ClienteService;
-import br.com.maikosoft.cadmia.Modalidade;
 import br.com.maikosoft.core.MkException;
 import br.com.maikosoft.core.MkRun;
-import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.mklib.EnumMkButton;
 import br.com.maikosoft.mklib.MkButton;
 import br.com.maikosoft.mklib.MkButton.MkButtonEditar;
 import br.com.maikosoft.mklib.MkButton.MkButtonExcluir;
+import br.com.maikosoft.mklib.MkButton.MkButtonImprimir;
 import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
 import br.com.maikosoft.mklib.MkButton.MkButtonSalvar;
 import br.com.maikosoft.mklib.MkComboBox;
@@ -90,6 +96,7 @@ public class JanelaClienteCadastro extends MkWindow {
 	private MkButtonSalvar buttonSalvar;
 	private MkButtonEditar buttonEditar;
 	private MkButtonExcluir buttonExcluir;
+	private MkButtonImprimir buttonImprimir;
 	
 	private MkButton buttonDuplicata;
 		
@@ -142,7 +149,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		panelTableConjuge.addRow("Data Nascimento", fieldConjugeNascimento);
 		panelTableConjuge.addRow("Empresa:", fieldConjugeEmpresa);
 		panelTableConjuge.addRow("Cargo:", fieldConjugeCargo);
-		panelTableConjuge.addRow("Endereço:", fieldConjugeEmpresaEndereco);
+		panelTableConjuge.addRow("Endereço Emp.:", fieldConjugeEmpresaEndereco);
 		
 		panelTableEmpresaConjuge.addRow(panelTableConjuge, GridBagConstraints.BOTH);
 		
@@ -182,7 +189,7 @@ public class JanelaClienteCadastro extends MkWindow {
 		buttonDuplicata.setIcon(EnumMkButton.getIcon("dinheiro"));
 		buttonDuplicata.onClick(abrirDuplicata());
 	
-		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir, buttonDuplicata);
+		addPanelButton(true, buttonImprimir, buttonNovo, buttonSalvar, buttonEditar, buttonExcluir, buttonDuplicata);
 		
 		if (bean.getId() == null) {
 			novo();
@@ -436,6 +443,25 @@ public class JanelaClienteCadastro extends MkWindow {
 				janelaDuplicataConsulta.setClienteAlianca(bean);
 			}
 		};
+	}
+	
+	protected void imprimir() {
+		try {
+			this.waitCursor(true);
+			
+			List<ClienteAlianca> list = new LinkedList<ClienteAlianca>();
+			list.add(bean);
+			
+			InputStream streamResource = JanelaDuplicataGerar.class.getClassLoader().getResourceAsStream("report/alianca/Cliente.jasper");
+			JasperPrint print = JasperFillManager.fillReport(streamResource, null, new JRBeanCollectionDataSource(list));
+			JasperViewer.viewReport(print, false);
+			
+		} catch (Exception ex) {
+			MkDialog.error("Erro ao imprimir cliente", ex);
+		} finally {
+			this.waitCursor(false);
+		}
+			
 	}
 
 	
