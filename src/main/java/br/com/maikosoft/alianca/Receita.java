@@ -19,6 +19,8 @@ public class Receita extends MkBean {
     private String lente;
     private String armacao;
     private String observacao;
+    private String dp;
+    private String altura;
     
 	public String getCliente() {
 		return cliente;
@@ -92,7 +94,17 @@ public class Receita extends MkBean {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-    
-    
+	public String getDp() {
+		return dp;
+	}
+	public void setDp(String dp) {
+		this.dp = dp;
+	}
+	public String getAltura() {
+		return altura;
+	}
+	public void setAltura(String altura) {
+		this.altura = altura;
+	}
 
 }

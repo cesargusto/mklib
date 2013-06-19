@@ -48,6 +48,8 @@ public class JanelaReceitaCadastro extends MkWindow {
     private MkFieldText fieldLente;
     private MkFieldText fieldArmacao;
 	private MkTextArea textObservacao;
+	private MkFieldText fieldDP;
+	private MkFieldText fieldAltura;
 	
 	private MkButtonNovo buttonNovo;
 	private MkButtonSalvar buttonSalvar;
@@ -73,9 +75,11 @@ public class JanelaReceitaCadastro extends MkWindow {
 		panelTable.addRow("Telefone:",fieldTelefone, MkPanelTable.getDefaultCell(1));
 		panelTable.addRow("Oftalmologista:", fieldOftalmologista);
 		
-		panelTable.addRow("", "Esquerdo", GridBagConstraints.CENTER, "Direito", GridBagConstraints.CENTER, "Adição", GridBagConstraints.CENTER);
-		panelTable.addRow("Longe", fieldOlhoEsquerdoLonge, fieldOlhoDireitoLonge, fieldAdicao);
-		panelTable.addRow("Perto", fieldOlhoEsquerdoPerto, fieldOlhoDireitoPerto, MkPanelTable.getDefaultCell(1));
+		panelTable.addRow("", "Direito", GridBagConstraints.CENTER, "Esquerdo", GridBagConstraints.CENTER, "DP", GridBagConstraints.CENTER);
+		panelTable.addRow("Longe", fieldOlhoDireitoLonge, fieldOlhoEsquerdoLonge, fieldDP);
+		panelTable.addRow("Perto", fieldOlhoDireitoPerto, fieldOlhoEsquerdoPerto, "Altura", GridBagConstraints.CENTER);
+		
+		panelTable.addRow("Adição", fieldAdicao, MkPanelTable.getDefaultCell(2), fieldAltura);
 		
 		
 		panelTable.addRow("Lente:", fieldLente);
@@ -83,7 +87,7 @@ public class JanelaReceitaCadastro extends MkWindow {
 		
 		panelTable.addRow(textObservacao.getJScrollPane("Observação"), GridBagConstraints.BOTH);
 		
-		addPanelCenter(panelTable, 650, 480);
+		addPanelCenter(panelTable, 610, 480);
 		
 		fieldId.setEnabled(false);
 		fieldTelefone.setMask(EnumMkMask.CELLPHONE);
@@ -123,6 +127,8 @@ public class JanelaReceitaCadastro extends MkWindow {
 			bean.setLente(fieldLente.getText());
 			bean.setArmacao(fieldArmacao.getText());
 			bean.setObservacao(textObservacao.getText());
+			bean.setDp(fieldDP.getText());
+			bean.setAltura(fieldAltura.getText());
 			
 			if (bean.getId() == null) {
 				bean.setOwner(JanelaLogin.getInstance().getUsuarioLogado().getId());
@@ -176,6 +182,8 @@ public class JanelaReceitaCadastro extends MkWindow {
 		fieldLente.setText(bean.getLente());
 		fieldArmacao.setText(bean.getArmacao());
 		textObservacao.setText(bean.getObservacao());
+		fieldDP.setText(bean.getDp());
+		fieldAltura.setText(bean.getAltura());
 		
 		fieldCliente.setEditable(isEditMode);
 		fieldTelefone.setEditable(isEditMode);
@@ -189,6 +197,8 @@ public class JanelaReceitaCadastro extends MkWindow {
 		fieldLente.setEditable(isEditMode);
 		fieldArmacao.setEditable(isEditMode);
 		textObservacao.setEditable(isEditMode);
+		fieldDP.setEditable(isEditMode);
+		fieldAltura.setEditable(isEditMode);
 		
 		buttonNovo.setEnabled(!isEditMode);
 		buttonSalvar.setEnabled(isEditMode);

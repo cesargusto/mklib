@@ -36,6 +36,8 @@
 	<field name="armacao" class="java.lang.String"/>
 	<field name="observacao" class="java.lang.String"/>
 	<field name="telefone" class="java.lang.String"/>
+	<field name="dp" class="java.lang.String"/>
+	<field name="altura" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -76,7 +78,7 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="269"  isSplitAllowed="true" >
+			<band height="338"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
@@ -201,8 +203,8 @@
 				</textField>
 				<staticText>
 					<reportElement
-						x="138"
-						y="91"
+						x="278"
+						y="90"
 						width="112"
 						height="21"
 						forecolor="#006699"
@@ -215,7 +217,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="273"
+						x="138"
 						y="90"
 						width="112"
 						height="21"
@@ -229,9 +231,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="409"
-						y="90"
-						width="125"
+						x="25"
+						y="171"
+						width="103"
 						height="21"
 						forecolor="#006699"
 						key="staticText-6"/>
@@ -271,8 +273,8 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="138"
-						y="116"
+						x="278"
+						y="115"
 						width="124"
 						height="20"
 						forecolor="#666666"
@@ -285,8 +287,8 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="137"
-						y="142"
+						x="277"
+						y="141"
 						width="126"
 						height="20"
 						forecolor="#666666"
@@ -299,7 +301,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="273"
+						x="138"
 						y="116"
 						width="127"
 						height="20"
@@ -313,7 +315,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="272"
+						x="137"
 						y="142"
 						width="127"
 						height="20"
@@ -327,22 +329,22 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="409"
-						y="116"
-						width="126"
+						x="138"
+						y="171"
+						width="252"
 						height="20"
 						forecolor="#666666"
 						key="textField-8"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{adicao}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="137"
-						y="172"
+						x="138"
+						y="215"
 						width="416"
 						height="20"
 						forecolor="#666666"
@@ -355,8 +357,8 @@
 				</textField>
 				<staticText>
 					<reportElement
-						x="24"
-						y="172"
+						x="25"
+						y="215"
 						width="106"
 						height="21"
 						forecolor="#006699"
@@ -369,8 +371,8 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="25"
-						y="195"
+						x="26"
+						y="238"
 						width="106"
 						height="21"
 						forecolor="#006699"
@@ -383,8 +385,8 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="138"
-						y="195"
+						x="139"
+						y="238"
 						width="416"
 						height="20"
 						forecolor="#666666"
@@ -397,8 +399,8 @@
 				</textField>
 				<staticText>
 					<reportElement
-						x="24"
-						y="218"
+						x="25"
+						y="261"
 						width="106"
 						height="21"
 						forecolor="#006699"
@@ -411,8 +413,8 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="137"
-						y="218"
+						x="138"
+						y="261"
 						width="416"
 						height="50"
 						forecolor="#666666"
@@ -422,6 +424,62 @@
 						<font size="12"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{observacao}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="424"
+						y="90"
+						width="112"
+						height="21"
+						forecolor="#006699"
+						key="staticText-13"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="424"
+						y="142"
+						width="112"
+						height="21"
+						forecolor="#006699"
+						key="staticText-14"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Altura]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="419"
+						y="117"
+						width="127"
+						height="20"
+						forecolor="#666666"
+						key="textField-12"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{dp}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="419"
+						y="171"
+						width="127"
+						height="20"
+						forecolor="#666666"
+						key="textField-13"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{altura}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
