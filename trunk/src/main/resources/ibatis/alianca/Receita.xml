@@ -22,6 +22,9 @@
 		<result property="lente" column="lente" />
 		<result property="armacao" column="armacao" />
 		<result property="observacao" column="observacao" />
+		<result property="dp" column="dp" />
+		<result property="altura" column="altura" />
+		
 	</resultMap>
 			
 	<sql id="fragmentWhereReceita">
@@ -56,7 +59,7 @@
 	<update id="updateReceita" parameterClass="Receita">
 		UPDATE Receita SET cliente = #cliente#, telefone = #telefone#, oftalmologista = #oftalmologista#, data = #dataReceita#,
 		od_longe = #olhoDireitoLonge#, oe_longe = #olhoEsquerdoLonge#, od_perto = #olhoDireitoPerto#, oe_perto= #olhoEsquerdoPerto#,
-		adicao = #adicao#, lente = #lente#, armacao = #armacao#, observacao = #observacao#
+		adicao = #adicao#, lente = #lente#, armacao = #armacao#, observacao = #observacao#, dp= #dp#, altura= #altura#
 		WHERE id=#id#
 	</update>	
 	
@@ -66,10 +69,10 @@
 	
 	<insert id="insertReceita" parameterClass="Receita">
 		INSERT INTO Receita (id, cliente, telefone, oftalmologista, data, od_longe, oe_longe, od_perto, oe_perto,
-		adicao, lente, armacao, observacao) VALUES
+		adicao, lente, armacao, observacao, dp, altura) VALUES
 		(#id#, #cliente#, #telefone#, #oftalmologista#, #dataReceita#,
 		#olhoDireitoLonge#, #olhoEsquerdoLonge#, #olhoDireitoPerto#, #olhoEsquerdoPerto#,
-		#adicao#, #lente#, #armacao#, #observacao#)
+		#adicao#, #lente#, #armacao#, #observacao#, #dp#, #altura#)
 	</insert>
 	
 	<delete id="deleteReceita" parameterClass="long" >
