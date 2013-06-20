@@ -1,7 +1,6 @@
 package br.com.maikosoft.alianca.view;
 
 import java.awt.GridBagConstraints;
-import java.util.Date;
 
 import javax.swing.JCheckBox;
 
