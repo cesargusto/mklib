@@ -119,7 +119,9 @@ public class JanelaDuplicataConsulta extends MkWindow {
 				
 					List<Duplicata> list = duplicataService.findAll(where);
 					if (list.isEmpty() && (clienteAlianca != null)) {
-						novo().execute();
+						if (MkDialog.confirm("Nenhuma Duplicata foi encontrada. Deseja gerar nova?")) {
+							novo().execute();
+						}
 					} else {
 						setPesquisa(list);
 					}

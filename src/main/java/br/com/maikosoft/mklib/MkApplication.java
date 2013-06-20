@@ -264,10 +264,9 @@ public class MkApplication extends JFrame {
 	}
 
 	public void refreshWindows() {
-		for (MkWindow mkWindow : listMkWindow) {
-			mkWindow.refreshWindow();
+		for (int i = 0; i < listMkWindow.size(); i++) {
+			listMkWindow.get(i).refreshWindow();
 		}
-		
 	}
 	
 	
