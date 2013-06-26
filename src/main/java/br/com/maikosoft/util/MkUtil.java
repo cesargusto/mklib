@@ -126,6 +126,11 @@ public class MkUtil {
 		return (bigDecimal == null ? null : bigDecimal.longValue());
 	}
 	
+	public static Integer toInteger(String value, Integer padrao) {
+		BigDecimal bigDecimal = toBigDecimal(value);
+		return (bigDecimal == null ? padrao : bigDecimal.intValue());
+	}
+	
 	public static String getHash(String value, String algoritimo) throws MkException {
         try {
         	if (!StringUtils.hasText(value)) {

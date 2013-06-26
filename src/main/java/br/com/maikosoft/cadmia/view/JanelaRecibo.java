@@ -95,7 +95,7 @@ public class JanelaRecibo extends MkWindow {
 					parametro.put("data", MkUtil.toString(fieldData.getDate()));
 					parametro.put("observacao", textObservacao.getText());
 					
-					InputStream streamResource = JanelaRelatorioClientePorModalidade.class.getClassLoader().getResourceAsStream("report/cadmia/Recibo.jasper");
+					InputStream streamResource = JanelaRecibo.class.getClassLoader().getResourceAsStream("report/cadmia/Recibo.jasper");
 					JasperPrint print = JasperFillManager.fillReport(streamResource, parametro, new JREmptyDataSource());
 					JasperViewer.viewReport(print, false);
 					JasperPrintManager.printReport(print, true);

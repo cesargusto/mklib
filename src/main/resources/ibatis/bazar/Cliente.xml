@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+
+<typeAlias alias="ClienteBazar" type="br.com.maikosoft.bazar.ClienteBazar" />
+
+	<resultMap id="resultMapClienteBazar" class="ClienteBazar">
+		<result property="id" column="id" />
+		<result property="nome" column="nome" />
+		<result property="cpf" column="cpf" />
+		<result property="rg" column="rg" />
+		<result property="telefone1" column="telefone1" />
+		<result property="telefone2" column="telefone2" />
+		<result property="telefone3" column="telefone3" />
+		<result property="email" column="email" />
+		<result property="observacao" column="observacao" />
+		<result property="endereco" column="endereco" />
+		<result property="numero" column="numero" />
+		<result property="bairro" column="bairro" />
+		<result property="cep" column="cep" />
+		<result property="cidade" column="cidade" />
+		<result property="uf" column="uf" />
+		<result property="dataNascimento" column="data_nascimento" />
+		
+		<result property="owner" column="owner" />
+		
+	</resultMap>
+		
+	<sql id="fragmentWhereClienteBazar">
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="nomeOrId">			
+				id::varchar = #nomeOrId# OR lower(sem_acento(nome)) like lower(sem_acento( '%' || #nomeOrId# ||'%'))
+			</isNotNull>
+			<isNotNull prepend="and" property="id">			
+				id::varchar = #id#
+			</isNotNull>
+		</dynamic>
+	</sql>
+
+	<select id="countClienteBazar" resultClass="long">
+		SELECT count(*) FROM cliente
+		<include refid="fragmentWhereClienteBazar"/>
+
+	</select>
+
+	<select id="allClienteBazar" resultMap="resultMapClienteBazar">
+		SELECT * FROM cliente
+		<include refid="fragmentWhereClienteBazar"/>
+		ORDER BY nome
+<!-- 		LIMIT 15 OFFSET #limit# -->
+	</select>
+	
+	<select id="getClienteBazar" parameterClass="long" resultMap="resultMapClienteBazar">
+		SELECT * FROM cliente
+		WHERE id = #value#
+	</select>
+	
+	<update id="updateClienteBazar" parameterClass="ClienteBazar">
+		UPDATE cliente SET nome= #nome#, cpf= #cpf#, rg= #rg#, telefone1= #telefone1#, telefone2= #telefone2#,
+		   endereco= #endereco#, numero= #numero#, bairro= #bairro#, 
+			cep= #cep#, cidade= #cidade#, uf= #uf#, 
+			telefone3= #telefone3#, email= #email#, observacao= #observacao#,  
+			data_nascimento=#dataNascimento#
+            
+		WHERE id=#id#
+	</update>	
+	
+	<select id="nextIdClienteBazar" resultClass="long">
+		SELECT nextval('cliente_id_seq');
+	</select>
+	
+	<insert id="insertClienteBazar" parameterClass="ClienteBazar">
+		INSERT INTO cliente (id, nome, cpf, rg, telefone1, telefone2, telefone3, 
+			email, observacao, endereco, numero, bairro, cep, cidade, uf , data_nascimento, 
+			owner) VALUES
+		(#id#, #nome#, #cpf#, #rg#, #telefone1#, #telefone2#, #telefone3#, 
+		#email#, #observacao#, #endereco#, #numero#, #bairro#,
+		 #cep#, #cidade#, #uf#,  #dataNascimento#, #owner#)
+	</insert>
+	
+	<delete id="deleteClienteBazar" parameterClass="long" >
+		DELETE FROM cliente WHERE id = #value#
+	</delete>
+
+</sqlMap>

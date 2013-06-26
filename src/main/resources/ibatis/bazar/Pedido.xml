@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+
+<sqlMap>
+
+<typeAlias alias="Pedido" type="br.com.maikosoft.bazar.Pedido" />
+
+	<resultMap id="resultMapPedido" class="Pedido">
+		<result property="id" column="id" />
+		<result property="cliente.id" column="cliente_id" />
+		<result property="cliente.nome" column="cliente_nome" />
+		<result property="total" column="total" />
+		<result property="dataPedido" column="data_pedido" />
+		<result property="observacao" column="observacao" />
+		<result property="desconto" column="desconto" />
+		
+		<result property="owner" column="owner" />
+		
+	</resultMap>
+	
+	
+	<sql id="fragmentWherePedido">
+			<isNotNull prepend="and" property="cliente_id">			
+				Pedido.cliente_id = #cliente_id#
+			</isNotNull>
+			<isNotNull prepend="and" property="before_data_pedido">			
+				Pedido.data_pedido &lt; #before_data_pedido#
+			</isNotNull>
+			<isNotNull prepend="and" property="after_data_pedido">			
+				Pedido.data_pedido &gt; #after_data_pedido#
+			</isNotNull>
+	</sql>
+	
+<!-- 	<select id="getSaldo" resultClass="java.math.BigDecimal" parameterClass="long"> -->
+<!-- 		SELECT SUM(total) FROM Pedido WHERE data_cadastro &lt; now() AND cliente_id = #value# -->
+<!-- 	</select> -->
+
+	<select id="countPedido" resultClass="long">
+		SELECT count(Pedido.*) FROM Pedido, cliente
+		WHERE Cliente.id = Pedido.cliente_id
+		<include refid="fragmentWherePedido"/>
+
+	</select>
+
+	<select id="allPedido" resultMap="resultMapPedido">
+		SELECT Pedido.*, cliente.nome as cliente_nome FROM Pedido, cliente
+		WHERE Cliente.id = Pedido.cliente_id
+		<include refid="fragmentWherePedido"/>
+		ORDER BY data_pedido DESC
+<!-- 		LIMIT 15 OFFSET #limit# -->
+	</select>
+	
+	<select id="getPedido" parameterClass="long" resultMap="resultMapPedido">
+		SELECT Pedido.*, cliente.nome as cliente_nome FROM Pedido, cliente
+		WHERE Pedido.id = #value# AND Cliente.id = Pedido.cliente_id
+	</select>
+	
+	<update id="updatePedido" parameterClass="Pedido">
+		UPDATE Pedido SET cliente_id= #cliente.id#, total= #total#, observacao= #observacao#, 
+		desconto=#desconto#, data_pedido=#dataPedido#, 
+		WHERE id=#id#
+	</update>	
+	
+	<select id="nextIdPedido" resultClass="long">
+		SELECT nextval('Pedido_id_seq');
+	</select>
+	
+	<insert id="insertPedido" parameterClass="Pedido">
+		INSERT INTO Pedido (id, cliente_id, total, observacao, desconto, data_pedido, owner) VALUES
+		(#id#, #cliente.id#, #total#, #observacao#, #desconto#, #dataPedido#, #owner#)
+	</insert>
+	
+	<delete id="deletePedido" parameterClass="long" >
+		DELETE FROM Pedido WHERE id = #value#
+	</delete>
+
+</sqlMap>
