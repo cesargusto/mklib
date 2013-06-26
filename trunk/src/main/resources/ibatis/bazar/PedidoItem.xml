@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+
+<sqlMap>
+
+<typeAlias alias="PedidoItem" type="br.com.maikosoft.bazar.PedidoItem" />
+
+	<resultMap id="resultMapPedidoItem" class="PedidoItem">
+		<result property="id" column="id" />
+		<result property="produto.id" column="produto_id" />
+		<result property="produto.nome" column="produto_nome" />
+		<result property="valor" column="valor" />
+		<result property="quantidade" column="quantidade" />
+		<result property="pedido.id" column="pedido_id" />
+		
+		<result property="owner" column="owner" />
+		
+	</resultMap>
+	
+	
+	<sql id="fragmentWherePedidoItem">
+			<isNotNull prepend="and" property="produto_id">			
+				Pedido_Item.produto_id = #produto_id#
+			</isNotNull>
+	</sql>
+	
+<!-- 	<select id="getSaldo" resultClass="java.math.BigDecimal" parameterClass="long"> -->
+<!-- 		SELECT SUM(valor) FROM PedidoItem WHERE data_cadastro &lt; now() AND produto_id = #value# -->
+<!-- 	</select> -->
+
+	<select id="countPedidoItem" resultClass="long">
+		SELECT count(Pedido_Item.*) FROM Pedido_Item, produto
+		WHERE produto.id = Pedido_Item.produto_id
+		<include refid="fragmentWherePedidoItem"/>
+
+	</select>
+
+	<select id="allPedidoItem" resultMap="resultMapPedidoItem">
+		SELECT Pedido_Item.*, produto.nome as produto_nome FROM Pedido_Item, produto
+		WHERE produto.id = Pedido_Item.produto_id
+		<include refid="fragmentWherePedidoItem"/>
+		ORDER BY pedido_item.id
+<!-- 		LIMIT 15 OFFSET #limit# -->
+	</select>
+	
+	<select id="getPedidoItem" parameterClass="long" resultMap="resultMapPedidoItem">
+		SELECT Pedido_Item.*, produto.nome as produto_nome FROM Pedido_Item, produto
+		WHERE Pedido_Item.id = #value# AND produto.id = Pedido_Item.produto_id
+	</select>
+	
+	<update id="updatePedidoItem" parameterClass="PedidoItem">
+		UPDATE Pedido_Item SET produto_id= #produto.id#, valor= #valor#, pedido_id= #pedido.id#, quantidade=#quantidade#, 
+		WHERE id=#id#
+	</update>	
+	
+	<select id="nextIdPedidoItem" resultClass="long">
+		SELECT nextval('Pedido_Item_id_seq');
+	</select>
+	
+	<insert id="insertPedidoItem" parameterClass="PedidoItem">
+		INSERT INTO Pedido_Item (id, produto_id, valor, pedido_id, quantidade, owner) VALUES
+		(#id#, #produto.id#, #valor#, #pedido.id#,#quantidade#, #owner#)
+	</insert>
+	
+	<delete id="deletePedidoItem" parameterClass="long" >
+		DELETE FROM Pedido_Item WHERE id = #value#
+	</delete>
+
+</sqlMap>

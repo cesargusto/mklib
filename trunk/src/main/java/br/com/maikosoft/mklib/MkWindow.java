@@ -24,6 +24,7 @@ import org.springframework.util.ReflectionUtils;
 import br.com.maikosoft.core.MkNotInstance;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkService;
+import br.com.maikosoft.mklib.MkButton.MkButtonFechar;
 
 
 
@@ -75,14 +76,14 @@ public abstract class MkWindow extends JPanel {
         add(panelButton, java.awt.BorderLayout.SOUTH);
         
         if (isShowButtonFechar) {
-        	MkButton mkButton = new MkButton(EnumMkButton.FECHAR);
-			mkButton.onClick(new MkRun() {
+        	MkButtonFechar mkButtonFechar = new MkButton().new MkButtonFechar();
+        	mkButtonFechar.onClick(new MkRun() {
 				@Override
 				public void execute() {
 					closeWindow();
 				}
 			});
-        	panelButton.add(mkButton);
+        	panelButton.add(mkButtonFechar);
         }
     	
 		for (int i = (listButton.length - 1); i >= 0; i--) {

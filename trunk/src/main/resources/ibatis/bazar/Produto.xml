@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+
+<typeAlias alias="Produto" type="br.com.maikosoft.bazar.Produto" />
+
+	<resultMap id="resultMapProduto" class="Produto">
+		<result property="id" column="id" />
+		<result property="nome" column="nome" />
+		<result property="codigoBarra" column="codigo_barra" />
+		<result property="observacao" column="observacao" />
+		<result property="valor" column="valor" />
+		
+		<result property="owner" column="owner" />
+		
+	</resultMap>
+		
+	<sql id="fragmentWhereProduto">
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="nomeOrId">			
+				codigo_barra = #nomeOrId# OR lower(sem_acento(nome)) like lower(sem_acento( '%' || #nomeOrId# ||'%')) OR id::varchar = #nomeOrId#
+			</isNotNull>
+			<isNotNull prepend="and" property="id">			
+				id::varchar = #id#
+			</isNotNull>
+		</dynamic>
+	</sql>
+
+	<select id="countProduto" resultClass="long">
+		SELECT count(*) FROM produto
+		<include refid="fragmentWhereProduto"/>
+
+	</select>
+
+	<select id="allProduto" resultMap="resultMapProduto">
+		SELECT * FROM produto
+		<include refid="fragmentWhereProduto"/>
+		ORDER BY nome
+<!-- 		LIMIT 15 OFFSET #limit# -->
+	</select>
+	
+	<select id="getProduto" parameterClass="long" resultMap="resultMapProduto">
+		SELECT * FROM produto
+		WHERE id = #value#
+	</select>
+	
+	<update id="updateProduto" parameterClass="Produto">
+		UPDATE produto SET nome= #nome#,  observacao= #observacao#, codigo_barra= #codigoBarra#, valor=#valor#
+            
+		WHERE id=#id#
+	</update>	
+	
+	<select id="nextIdProduto" resultClass="long">
+		SELECT nextval('produto_id_seq');
+	</select>
+	
+	<insert id="insertProduto" parameterClass="Produto">
+		INSERT INTO produto (id, nome, codigo_barra, observacao, valor,
+			owner) VALUES
+		(#id#, #nome#, #codigoBarra#, #observacao#, #valor#, #owner#)
+	</insert>
+	
+	<delete id="deleteProduto" parameterClass="long" >
+		DELETE FROM produto WHERE id = #value#
+	</delete>
+
+</sqlMap>
