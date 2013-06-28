@@ -5,10 +5,13 @@ import java.awt.EventQueue;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 import br.com.maikosoft.core.MkRun;
 
@@ -154,6 +157,18 @@ public class MkTable<T> extends JTable {
 		@SuppressWarnings("unchecked")
 		MkTableModel<T> model = (MkTableModel<T>) this.getModel();
 		return model.getBean(index);
+	}
+
+	public static TableCellRenderer getCenterRenderer() {
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+		renderer.setHorizontalAlignment( JLabel.CENTER );
+		return renderer;
+	}
+	
+	public static TableCellRenderer getRightRenderer() {
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+		renderer.setHorizontalAlignment( JLabel.RIGHT );
+		return renderer;
 	}
 	
 }

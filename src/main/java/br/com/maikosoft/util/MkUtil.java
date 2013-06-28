@@ -5,6 +5,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
+import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -180,5 +181,10 @@ public class MkUtil {
 		return sb.toString();
 		
 	}
-
+	
+	public static String removerAcento(String str) {
+		str = Normalizer.normalize(str, Normalizer.Form.NFD);
+		str = str.replaceAll("[^\\p{ASCII}]", "");
+		return str;
+	}
 }

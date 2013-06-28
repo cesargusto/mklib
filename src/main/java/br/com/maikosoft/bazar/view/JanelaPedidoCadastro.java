@@ -90,9 +90,9 @@ public class JanelaPedidoCadastro extends MkWindow {
 		
 		panelTable.addRow(panelTableItem, GridBagConstraints.BOTH);
 		
-		panelTable.addRow("","","", "Total Produto:", labelTotal);
-		panelTable.addRow("","","", "Desconto:", fieldDesconto );
-		panelTable.addRow("","","", "Saldo:", labelSaldo);
+		panelTable.addRow("","","","","Total Produto:", labelTotal, GridBagConstraints.EAST);
+		panelTable.addRow("","","","", "Desconto:", fieldDesconto );
+		panelTable.addRow("","","","", "Saldo:", labelSaldo, GridBagConstraints.EAST);
 		
 		panelTable.addRow(textObservacao.getJScrollPane("Observação"), GridBagConstraints.BOTH);
 		
@@ -224,7 +224,10 @@ public class JanelaPedidoCadastro extends MkWindow {
 					
 					HashMap<String,Object> map = new HashMap<String, Object>();
 					map.put("clienteNome", bean.getCliente().getNome());
+					map.put("clienteCPF", bean.getCliente().getCpf());
+					map.put("clienteRG", bean.getCliente().getRg());
 					map.put("dataPedido", bean.getDataPedido());
+					map.put("pedido", bean.getId());
 					map.put("total", bean.getTotal());
 					map.put("desconto", bean.getDesconto());
 					map.put("saldo", bean.getSaldo());
@@ -269,14 +272,16 @@ public class JanelaPedidoCadastro extends MkWindow {
 		if (list.size() >0 ) {
 			tableItem.getColumnModel().getColumn(0).setPreferredWidth(400);
 			tableItem.getColumnModel().getColumn(1).setPreferredWidth(80);
+			tableItem.getColumnModel().getColumn(1).setCellRenderer(MkTable.getCenterRenderer());
 			tableItem.getColumnModel().getColumn(2).setPreferredWidth(100);
+			tableItem.getColumnModel().getColumn(2).setCellRenderer(MkTable.getRightRenderer());
 			for (PedidoItem pedidoItem : list) {
 				total = total.add(pedidoItem.getValor().multiply(new BigDecimal(pedidoItem.getQuantidade())));
 			}
 		}
 		bean.setTotal(total);
 		labelTotal.setText(MkUtil.toString(total));
-		labelSaldo.setText(MkUtil.toString(bean.getSaldo()));
+		labelSaldo.setText("<html><font size=+1><b>"+MkUtil.toString(bean.getSaldo())+"</b></font></html>");
 	}
 	
 	private void adicionaProduto(Produto produto) {

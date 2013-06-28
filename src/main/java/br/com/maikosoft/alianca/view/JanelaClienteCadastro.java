@@ -378,45 +378,6 @@ public class JanelaClienteCadastro extends MkWindow {
 						
 	}
 	
-	
-//	protected void adicionar() {
-//		MkTransferObject<Modalidade> transferObject = new MkTransferObject<Modalidade>() {
-//			@Override
-//			public void postTranfer(Modalidade object) {
-//				ClienteModalidade clienteModalidade = new ClienteModalidade();
-//				clienteModalidade.setModalidade(object);
-//				clienteModalidade.setCliente(bean);
-//				bean.getListModalidade().add(clienteModalidade);
-//				atualizaListaModalidade();
-//				if ("0,00".equals(fieldValorMensalidade.getText())) {
-//					fieldValorMensalidade.setText(MkUtil.toString(object.getValor()));
-//				}
-//			}
-//		};
-//		JanelaModalidadeConsulta janelaModalidadeConsulta = new JanelaModalidadeConsulta();
-//		janelaModalidadeConsulta.setTranferir(transferObject);
-//		janelaModalidadeConsulta.showWindow("Transferir Modalidade", false);
-//	}
-	
-	
-//	protected void pesquisar() {
-//		JanelaFinanceiroConsulta janelaFinanceiroConsulta = new JanelaFinanceiroConsulta(bean);
-//		janelaFinanceiroConsulta.showWindow("Financeiro", false);
-//	}
-	
-//	protected void atualizar() {
-//		try {
-//			BigDecimal saldo = financeiroService.getSaldo(bean);
-//			if (saldo.compareTo(BigDecimal.ZERO) < 0) {
-//				labelSaldoFinanceiro.setText("<html><b><font color=red>"+MkUtil.toString(saldo)+"</font></b></html>");
-//			} else {
-//				labelSaldoFinanceiro.setText("<html><b><font color=blue>EM DIA</font></b></html>");
-//			}
-//		} catch (MkServiceException ex) {
-//			MkDialog.error(ex.getMessage(), ex);
-//		}
-//	}
-	
 	private void editarFoto() {
 		JanelaCamera janelaCamera = new JanelaCamera();
 		janelaCamera.showWindow("Foto", true);
@@ -512,7 +473,7 @@ public class JanelaClienteCadastro extends MkWindow {
 							&& (!StringUtils.isBlank(fieldCidade.getText()))) {
 					try {
 						final List<CEP> buscarCEP = CEP.buscarCEP(fieldEndereco.getText()+
-								", "+fieldCidade.getText());
+								", "+MkUtil.removerAcento(fieldCidade.getText()));
 						if (buscarCEP.size() == 0) {
 							MkDialog.info("CEP não encontrado", fieldEndereco);
 						} else if (buscarCEP.size() == 1) {

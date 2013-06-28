@@ -65,10 +65,18 @@ public class JanelaDuplicataGerar extends MkWindow {
 		
 		addPanelCenter(panelTable, 610, 300);
 		
-		addPanelButton(true, buttonImprimir);
-				
+		addPanelButton(true, buttonImprimir);		
 	}
 	
+	@Override
+	public Object showWindow(String title, boolean isModal) {
+		Object showWindow = super.showWindow(title, isModal);
+		buttonPesquisar.grabFocus();
+		return showWindow;
+	}
+
+
+
 	protected void pesquisar() {
 		JanelaClienteConsulta janelaConsulta = new JanelaClienteConsulta();
 		janelaConsulta.setTranferir(getTransferObject());
