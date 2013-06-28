@@ -109,6 +109,7 @@ public class JanelaProdutoConsulta extends MkWindow {
 		if (list.size() >0 ) {
 			table.getColumnModel().getColumn(0).setPreferredWidth(400);
 			table.getColumnModel().getColumn(1).setPreferredWidth(100);
+			table.getColumnModel().getColumn(1).setCellRenderer(MkTable.getRightRenderer());
 			table.requestFocusInWindow();
 		}
 	}

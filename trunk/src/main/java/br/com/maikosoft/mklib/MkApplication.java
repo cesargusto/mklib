@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyVetoException;
 import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -185,19 +186,27 @@ public class MkApplication extends JFrame {
             JInternalFrame modalFrame = (JInternalFrame) window;
             modalFrame.dispose();
         }
+        
+        logger.debug("Removendo MkWindow "+mkWindow.getClass().getName());
+        listMkWindow.remove(mkWindow);
        
         // ajuste para respeitar o maximizar da ultima janela aberta
         JInternalFrame[] allFrames = desktopPane.getAllFrames();
-        if (allFrames != null) {
+        if (allFrames != null ) {
             for (int i = allFrames.length; i > 0; i--) {
                 if (allFrames[i - 1].isVisible() && allFrames[i - 1].isMaximizable()) {
                     desktopPane.getDesktopManager().activateFrame(allFrames[i - 1]);
-                    allFrames[i - 1].requestFocusInWindow();
+                    try {
+						allFrames[i - 1].setSelected(true);
+						break;
+					} catch (PropertyVetoException ex) {
+						logger.error("Erro foco ulma janela", ex);
+					}
+                    
                 }
             }
         }
-        logger.debug("Removendo MkWindow "+mkWindow.getClass().getName());
-        listMkWindow.remove(mkWindow);
+        
     }
 	
 	public Object showWindow(final MkWindow macWindow, String title, boolean isModal) {

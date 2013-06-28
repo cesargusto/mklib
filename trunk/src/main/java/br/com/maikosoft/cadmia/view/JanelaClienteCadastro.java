@@ -436,7 +436,7 @@ public class JanelaClienteCadastro extends MkWindow {
 							&& (!StringUtils.isBlank(fieldCidade.getText()))) {
 					try {
 						final List<CEP> buscarCEP = CEP.buscarCEP(fieldEndereco.getText()+
-								", "+fieldCidade.getText());
+								", "+MkUtil.removerAcento(fieldCidade.getText()));
 						if (buscarCEP.size() == 0) {
 							MkDialog.info("CEP não encontrado", fieldEndereco);
 						} else if (buscarCEP.size() == 1) {
