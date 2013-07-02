@@ -15,7 +15,7 @@ import br.com.maikosoft.alianca.service.ClienteService;
 import br.com.maikosoft.alianca.service.ReceitaService;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkServiceException;
-import br.com.maikosoft.mklib.MkButton.MkButtonImprimir;
+import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
@@ -26,7 +26,7 @@ public class JanelaConsultaRapida extends MkWindow {
 	
 	private MkFieldText fieldBuscaCliente;
 	private MkFieldText fieldBuscaReceita;
-	private MkButtonImprimir buttonGerarDuplicata;
+	private MkButtonNovo buttonGerarDuplicata;
 	
 	private ClienteService clienteService;
 	private ReceitaService receitaService;

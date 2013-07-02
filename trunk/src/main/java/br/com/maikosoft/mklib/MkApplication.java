@@ -26,6 +26,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -189,23 +190,8 @@ public class MkApplication extends JFrame {
         
         logger.debug("Removendo MkWindow "+mkWindow.getClass().getName());
         listMkWindow.remove(mkWindow);
-       
-        // ajuste para respeitar o maximizar da ultima janela aberta
-        JInternalFrame[] allFrames = desktopPane.getAllFrames();
-        if (allFrames != null ) {
-            for (int i = allFrames.length; i > 0; i--) {
-                if (allFrames[i - 1].isVisible() && allFrames[i - 1].isMaximizable()) {
-                    desktopPane.getDesktopManager().activateFrame(allFrames[i - 1]);
-                    try {
-						allFrames[i - 1].setSelected(true);
-						break;
-					} catch (PropertyVetoException ex) {
-						logger.error("Erro foco ulma janela", ex);
-					}
-                    
-                }
-            }
-        }
+               
+        focusLastFrame();
         
     }
 	
@@ -275,6 +261,25 @@ public class MkApplication extends JFrame {
 	public void refreshWindows() {
 		for (int i = 0; i < listMkWindow.size(); i++) {
 			listMkWindow.get(i).refreshWindow();
+		}
+		focusLastFrame();
+	}
+	
+	private void focusLastFrame() {
+		for (int i = listMkWindow.size()-1; i >= 0; i--) {
+			JRootPane rootPaneJanela = SwingUtilities.getRootPane(listMkWindow.get(i));
+			Container parentContainer = rootPaneJanela.getParent();
+			if (parentContainer instanceof JInternalFrame) {
+				JInternalFrame internalFrame =  (JInternalFrame) parentContainer;
+				desktopPane.getDesktopManager().activateFrame(internalFrame);
+				try {
+					internalFrame.setSelected(true);
+				} catch (PropertyVetoException ex) {
+					logger.error("Erro foco ulma janela", ex);
+				}
+				break;
+			}
+			
 		}
 	}
 	

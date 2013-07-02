@@ -9,8 +9,9 @@ import org.apache.log4j.Logger;
 
 import br.com.maikosoft.Usuario;
 import br.com.maikosoft.cadmia.EnumMenuCadMia;
-import br.com.maikosoft.core.MkRun;
-import br.com.maikosoft.mklib.EnumMkButton;
+import br.com.maikosoft.mklib.MkButton.MkButtonAbrir;
+import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
+import br.com.maikosoft.mklib.MkButton.MkButtonPesquisar;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
@@ -27,6 +28,9 @@ public class JanelaUsuarioConsulta extends MkWindow {
 	private MkFieldText fieldBusca;
 	private MkPanelTable panelCenter;
 	private MkTable<Usuario> table;
+	private MkButtonNovo buttonNovo;
+	private MkButtonAbrir buttonAbrir;
+	private MkButtonPesquisar buttonPesquisar;
 	
 	private UsuarioService usuarioService;
 	
@@ -34,70 +38,59 @@ public class JanelaUsuarioConsulta extends MkWindow {
 	@Override
 	protected void initWindow() {
 		
-		panelCenter.addRow("Busca", fieldBusca, EnumMkButton.PESQUISAR.getButton(this), GridBagConstraints.NONE);
+		panelCenter.addRow("Busca", fieldBusca, buttonPesquisar, GridBagConstraints.NONE);
 		panelCenter.addRow(table.getJScrollPane(), GridBagConstraints.BOTH);
 		
 		addPanelCenter(panelCenter, 500, 450);
 		
-		addPanelButton(true, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
+		addPanelButton(true, buttonAbrir, buttonNovo);
 		
-		fieldBusca.onEnter(pesquisar());
+		fieldBusca.onEnter(buttonPesquisar.getOnClick());		
+		table.onDoubleClickOrEnter(buttonAbrir.getOnClick());
 		
-		table.onDoubleClickOrEnter(abrir());
-		
-		pesquisar().execute();
+		pesquisar();
 		
 	}
 	
-	protected MkRun abrir() {
-		return new MkRun() {
-			@Override
-			public void execute() {
-				Usuario bean = table.getSeleted(true);
-				if (bean !=null) {
-					JanelaUsuarioCadastro view = new JanelaUsuarioCadastro(bean);
-					view.showWindow("Cadastro Usuario", false);					
+	protected void abrir() {
+		Usuario bean = table.getSeleted(true);
+		if (bean !=null) {
+			JanelaUsuarioCadastro view = new JanelaUsuarioCadastro(bean);
+			view.showWindow("Cadastro Usuario", false);					
+		}
+	}
+	
+	protected void pesquisar() {
+		logger.debug("Executando perquisar");
+		Map<String, Object> where = new HashMap<String, Object>();
+		where.put("nomeOrId", fieldBusca.getText());
+		try {
+			List<Usuario> list = usuarioService.findAll(where);
+			table.setModel(new MkTableModel<Usuario>(list, "Nome", "Ativo", "Administrador") {
+				@Override
+				protected Object getRow(Usuario bean, int rowIndex, int columnIndex) {
+					switch (columnIndex) {
+					case 1:
+						return bean.getAtivo();
+					case 2:
+						return bean.isAdministrador();	
+					default:
+						return bean.getNome();
+					}
 				}
-			}
-		}; 
+			});
+		} catch (Exception ex) {
+			MkDialog.error("Erro ao pesquisar", ex);
+		}
 	}
 	
-	protected MkRun pesquisar() {
-		return new MkRun() {
-			@Override
-			public void execute() {
-				logger.debug("Executando perquisar");
-				Map<String, Object> where = new HashMap<String, Object>();
-				where.put("nomeOrId", fieldBusca.getText());
-				try {
-					List<Usuario> list = usuarioService.findAll(where);
-					table.setModel(new MkTableModel<Usuario>(list, "Nome", "Ativo", "Administrador") {
-						@Override
-						protected Object getRow(Usuario bean, int rowIndex, int columnIndex) {
-							switch (columnIndex) {
-							case 1:
-								return bean.getAtivo();
-							case 2:
-								return bean.isAdministrador();	
-							default:
-								return bean.getNome();
-							}
-						}
-					});
-				} catch (Exception ex) {
-					MkDialog.error("Erro ao pesquisar", ex);
-				}
-			}
-		};
-	}
-	
-	protected MkRun novo() {
-		return EnumMenuCadMia.CADASTRO_USUARIO_NOVO.getMenu().getAcao();
+	protected void novo() {
+		EnumMenuCadMia.CADASTRO_USUARIO_NOVO.getMenu().getAcao().execute();
 	}
 	
 	@Override
 	public void refreshWindow() {
-		pesquisar().execute();
+		pesquisar();
 	}
 
 }
