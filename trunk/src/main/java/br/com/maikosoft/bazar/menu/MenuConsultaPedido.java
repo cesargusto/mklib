@@ -1,6 +1,6 @@
 package br.com.maikosoft.bazar.menu;
 
-import br.com.maikosoft.bazar.view.JanelaClienteConsulta;
+import br.com.maikosoft.bazar.view.JanelaPedidoConsulta;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
 
@@ -16,7 +16,7 @@ public class MenuConsultaPedido extends MkMenu {
 			
 			@Override
 			public void execute() {
-				JanelaClienteConsulta janela = new JanelaClienteConsulta();
+				JanelaPedidoConsulta janela = new JanelaPedidoConsulta();
 				janela.showWindow("Consulta Pedido", false);
 			}
 		};

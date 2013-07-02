@@ -189,6 +189,8 @@ public class JanelaPedidoCadastro extends MkWindow {
 		
 		buttonNovo.setEnabled(!isEditMode);
 		buttonSalvar.setEnabled(isEditMode);
+		buttonAdicionar.setEnabled(isEditMode);
+		buttonRemover.setEnabled(isEditMode);
 		buttonEditar.setEnabled(!isEditMode);
 		buttonExcluir.setEnabled(!isEditMode);
 		
