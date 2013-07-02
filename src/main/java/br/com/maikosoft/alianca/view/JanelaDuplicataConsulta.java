@@ -10,8 +10,9 @@ import org.apache.log4j.Logger;
 import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.alianca.Duplicata;
 import br.com.maikosoft.alianca.service.DuplicataService;
-import br.com.maikosoft.core.MkRun;
-import br.com.maikosoft.mklib.EnumMkButton;
+import br.com.maikosoft.mklib.MkButton.MkButtonAbrir;
+import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
+import br.com.maikosoft.mklib.MkButton.MkButtonPesquisar;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldDate;
 import br.com.maikosoft.mklib.MkFieldText;
@@ -35,6 +36,9 @@ public class JanelaDuplicataConsulta extends MkWindow {
 
 	private MkPanelTable panelCenter;
 	private MkTable<Duplicata> table;
+	private MkButtonNovo buttonNovo;
+	private MkButtonAbrir buttonAbrir;
+	private MkButtonPesquisar buttonPesquisar;
 	
 	private ClienteAlianca clienteAlianca;
 	
@@ -47,7 +51,7 @@ public class JanelaDuplicataConsulta extends MkWindow {
 		panelFiltroPesquisa.addRow("Data Vencimento Inicial", fieldDataIncial, "Data Vencimento Final", fieldDataFinal);
 		panelCliente.addRow("Cliente:", fieldCliente);
 		
-		panelCenter.addRow(panelFiltroPesquisa, panelCliente, EnumMkButton.PESQUISAR.getButton(this), GridBagConstraints.NONE);
+		panelCenter.addRow(panelFiltroPesquisa, panelCliente, buttonPesquisar, GridBagConstraints.NONE);
 		panelCenter.addRow(table.getJScrollPane(), GridBagConstraints.BOTH);
 		
 		addPanelCenter(panelCenter, 750, 450);
@@ -55,23 +59,18 @@ public class JanelaDuplicataConsulta extends MkWindow {
 		panelCliente.setVisible(false);
 		fieldCliente.setEditable(false);
 		
-		addPanelButton(true, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
+		table.onDoubleClickOrEnter(buttonAbrir.getOnClick());
 		
-		table.onDoubleClickOrEnter(abrir());
+		addPanelButton(true, buttonAbrir, buttonNovo);
 		
 	}
 	
-	protected MkRun abrir() {
-		return new MkRun() {
-			@Override
-			public void execute() {
-				Duplicata bean = table.getSeleted(true);
-				if (bean !=null) {
-					JanelaDuplicataCadastro view = new JanelaDuplicataCadastro(bean);
-					view.showWindow("Cadastro Duplicata", false);					
-				}
-			}
-		}; 
+	protected void abrir() {
+		Duplicata bean = table.getSeleted(true);
+		if (bean !=null) {
+			JanelaDuplicataCadastro view = new JanelaDuplicataCadastro(bean);
+			view.showWindow("Cadastro Duplicata", false);					
+		}
 	}
 	
 	public void setPesquisa(List<Duplicata> list) {
@@ -103,57 +102,47 @@ public class JanelaDuplicataConsulta extends MkWindow {
 		
 	}
 	
-	protected MkRun pesquisar() {
-		return new MkRun() {
-			@Override
-			public void execute() {
-				try {
-					logger.debug("Executando perquisar");
-					Map<String, Object> where = new HashMap<String, Object>();
-					where.put("before_data_vencimento", fieldDataFinal.getDate());
-					where.put("after_data_vencimento", fieldDataIncial.getDate());
-					
-					if (clienteAlianca != null) {
-						where.put("cliente_id", clienteAlianca.getId());	
-					}
-				
-					List<Duplicata> list = duplicataService.findAll(where);
-					if (list.isEmpty() && (clienteAlianca != null)) {
-						if (MkDialog.confirm("Nenhuma Duplicata foi encontrada. Deseja gerar nova?")) {
-							novo().execute();
-						}
-					} else {
-						setPesquisa(list);
-					}
-					
-				} catch (Exception ex) {
-					MkDialog.error("Erro ao pesquisar", ex);
-				}
+	protected void pesquisar() {
+		try {
+			logger.debug("Executando perquisar");
+			Map<String, Object> where = new HashMap<String, Object>();
+			where.put("before_data_vencimento", fieldDataFinal.getDate());
+			where.put("after_data_vencimento", fieldDataIncial.getDate());
+			
+			if (clienteAlianca != null) {
+				where.put("cliente_id", clienteAlianca.getId());	
 			}
-		};
+			
+			List<Duplicata> list = duplicataService.findAll(where);
+			if (list.isEmpty() && (clienteAlianca != null)) {
+				if (MkDialog.confirm("Nenhuma Duplicata foi encontrada. Deseja gerar nova?")) {
+					novo();
+				}
+			} else {
+				setPesquisa(list);
+			}
+			
+		} catch (Exception ex) {
+			MkDialog.error("Erro ao pesquisar", ex);
+		}
 	}
 	
-	protected MkRun novo() {
-		return new MkRun() {
-			@Override
-			public void execute() {
-				JanelaDuplicataGerar janelaDuplicataGerar = new JanelaDuplicataGerar();
-				janelaDuplicataGerar.showWindow("Gerar Duplicatas", false);
-				if (clienteAlianca != null) {
-					janelaDuplicataGerar.setDados(clienteAlianca);
-				}
-			}
-		};
+	protected void novo() {
+		JanelaDuplicataGerar janelaDuplicataGerar = new JanelaDuplicataGerar();
+		janelaDuplicataGerar.showWindow("Gerar Duplicatas", false);
+		if (clienteAlianca != null) {
+			janelaDuplicataGerar.setDados(clienteAlianca);
+		}
 	}
 
 	@Override
 	public void refreshWindow() {
-		pesquisar().execute();
+		pesquisar();
 	}
 
 	public void setClienteAlianca(ClienteAlianca clienteAlianca) {
 		this.clienteAlianca = clienteAlianca;
-		pesquisar().execute();
+		pesquisar();
 		panelFiltroPesquisa.setVisible(false);
 		panelCliente.setVisible(true);
 		fieldCliente.setText(clienteAlianca.getNome());

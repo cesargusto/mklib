@@ -28,6 +28,7 @@ import net.java.balloontip.utils.TimingUtils;
 import org.apache.log4j.Logger;
 
 import br.com.maikosoft.core.MkRun;
+import br.com.maikosoft.mklib.MkButton.MkButtonFechar;
 
 
 @SuppressWarnings("serial")
@@ -37,6 +38,7 @@ public class MkDialog extends MkWindow {
 	
 	private EnumDialog enumDialog;
 	private String message;
+	private MkButtonFechar buttonFechar;
 	
 	public MkDialog(EnumDialog enumDialog, String message) {
 		logger.debug("Chamando dialog tipo: "+enumDialog.name());
@@ -89,17 +91,11 @@ public class MkDialog extends MkWindow {
 		
 		addPanelCenter(panel, (textAreaMessage.getText().length()<150 ? 500: 800), (textAreaMessage.getText().length()<150 ? 100: 300));
 		
-		MkButton buttonFechar = EnumMkButton.FECHAR.getButton(this);
 		addPanelButton(false, buttonFechar, buttonCopy);
 	}
 	
-	protected MkRun fechar() {
-    	return new MkRun() {
-			@Override
-			public void execute() {
-				closeWindow();
-			}
-		};
+	protected void fechar() {
+		closeWindow();
     }
 	
 

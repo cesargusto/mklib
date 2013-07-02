@@ -19,6 +19,8 @@ import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.mklib.EnumMkButton;
 import br.com.maikosoft.mklib.MkButton;
+import br.com.maikosoft.mklib.MkButton.MkButtonAbrir;
+import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
@@ -35,9 +37,10 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 	private MkFieldText fieldCliente;
 	private MkPanelTable panelCenter;
 	private MkTable<Financeiro> table;
+	private MkButtonNovo buttonNovo;
+	private MkButtonAbrir buttonAbrir;
 	private JLabel labelSaldo;
 	
-//	private MkButtonAtualizar buttonAtualizar;
 	private MkButton buttonPagar;
 	private MkButton buttonRecibo;
 	
@@ -51,13 +54,12 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 	@Override
 	protected void initWindow() {
 		
-//		buttonAtualizar.setText("Atualizar");
 		panelCenter.addRow("Cliente", fieldCliente);
 		panelCenter.addRow(table.getJScrollPane(), GridBagConstraints.BOTH);
 		
 		addPanelCenter(panelCenter, 750, 450);
 		
-		addPanelButton(true, buttonPagar, buttonRecibo, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
+		addPanelButton(true, buttonPagar, buttonRecibo, buttonAbrir, buttonNovo);
 		
 		fieldCliente.setEditable(false);
 		labelSaldo = new JLabel();
@@ -71,18 +73,18 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 		buttonRecibo.setIcon(EnumMkButton.getIcon("imprimir"));
 		buttonRecibo.onClick(recibo());
 		
-		table.onDoubleClickOrEnter(abrir());
+		table.onDoubleClickOrEnter(buttonAbrir.getOnClick());
 		
 		atualizar();
 		
 	}
 	
-	protected MkRun abrir() {
-		return abrirFinanceiro(false);
+	protected void abrir() {
+		abrirFinanceiro(false);
 	}
 	
-	protected MkRun novo() {
-		return abrirFinanceiro(true);
+	protected void novo() {
+		abrirFinanceiro(true);
 	}
 	
 	protected void atualizar() {

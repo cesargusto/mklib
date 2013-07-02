@@ -95,8 +95,6 @@ public class JanelaProdutoCadastro extends MkWindow {
 			beanToForm(false);
 			
 			application.refreshWindows();
-			
-			this.requestFocusInWindow();
 
 		} catch (Exception ex) {
 			MkDialog.error(ex.getMessage(), ex);

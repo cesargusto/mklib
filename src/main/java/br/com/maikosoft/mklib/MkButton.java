@@ -42,6 +42,10 @@ public class MkButton extends JButton {
 	public void onClick(MkRun adapter) {
     	this.adapter = adapter;
     }
+	
+	public MkRun getOnClick() {
+		return this.adapter;
+	}
         
     @Override
 	public void setText(String text) {

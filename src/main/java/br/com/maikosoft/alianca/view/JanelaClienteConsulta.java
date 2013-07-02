@@ -10,9 +10,10 @@ import org.apache.log4j.Logger;
 import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.alianca.EnumMenuAlianca;
 import br.com.maikosoft.alianca.service.ClienteService;
-import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.core.MkTransferObject;
-import br.com.maikosoft.mklib.EnumMkButton;
+import br.com.maikosoft.mklib.MkButton.MkButtonAbrir;
+import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
+import br.com.maikosoft.mklib.MkButton.MkButtonPesquisar;
 import br.com.maikosoft.mklib.MkButton.MkButtonTransferir;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldText;
@@ -29,7 +30,11 @@ public class JanelaClienteConsulta extends MkWindow {
 	private MkFieldText fieldBusca;
 	private MkPanelTable panelCenter;
 	private MkTable<ClienteAlianca> table;
+	private MkButtonNovo buttonNovo;
+	private MkButtonAbrir buttonAbrir;
+	private MkButtonPesquisar buttonPesquisar;
 	private MkButtonTransferir buttonTransferir;
+	
 	
 	private MkTransferObject<ClienteAlianca> transferObject;
 	private ClienteService clienteService;
@@ -37,57 +42,42 @@ public class JanelaClienteConsulta extends MkWindow {
 	@Override
 	protected void initWindow() {
 		
-		panelCenter.addRow("Busca", fieldBusca, EnumMkButton.PESQUISAR.getButton(this), GridBagConstraints.NONE);
+		panelCenter.addRow("Busca", fieldBusca, buttonPesquisar, GridBagConstraints.NONE);
 		panelCenter.addRow(table.getJScrollPane(), GridBagConstraints.BOTH);
 		
 		addPanelCenter(panelCenter, 700, 450);
 		
-		addPanelButton(true, buttonTransferir, EnumMkButton.ABRIR.getButton(this), EnumMkButton.NOVO.getButton(this));
+		addPanelButton(true, buttonTransferir, buttonAbrir, buttonNovo);
 		
-		fieldBusca.onEnter(pesquisar());
-		table.onDoubleClickOrEnter((transferObject==null ? abrir() : new MkRun() {
-			@Override
-			public void execute() {
-				transferir();
-			}
-		}));
+		fieldBusca.onEnter(buttonPesquisar.getOnClick());
+		table.onDoubleClickOrEnter((transferObject==null ? buttonAbrir.getOnClick() : buttonTransferir.getOnClick()));
 		
 		buttonTransferir.setVisible((transferObject!=null));
 		
 	}
 	
-	protected MkRun abrir() {
-		return new MkRun() {
-			@Override
-			public void execute() {
-				ClienteAlianca bean = table.getSeleted(true);
-				if (bean !=null) {
-					JanelaClienteCadastro view = new JanelaClienteCadastro(bean);
-					view.showWindow("Cadastro Cliente", false);					
-				}
-			}
-		}; 
+	protected void abrir() {
+		ClienteAlianca bean = table.getSeleted(true);
+		if (bean !=null) {
+			JanelaClienteCadastro view = new JanelaClienteCadastro(bean);
+			view.showWindow("Cadastro Cliente", false);					
+		} 
 	}
 	
-	protected MkRun pesquisar() {
-		return new MkRun() {
-			@Override
-			public void execute() {
-				logger.debug("Executando perquisar");
-				Map<String, Object> where = new HashMap<String, Object>();
-				where.put("nomeOrId", fieldBusca.getText());
-				try {
-					List<ClienteAlianca> list = clienteService.findAll(where);
-					setPesquisa(list);
-				} catch (Exception ex) {
-					MkDialog.error("Erro ao pesquisar", ex);
-				}
-			}
-		};
+	protected void pesquisar() {
+		logger.debug("Executando perquisar");
+		Map<String, Object> where = new HashMap<String, Object>();
+		where.put("nomeOrId", fieldBusca.getText());
+		try {
+			List<ClienteAlianca> list = clienteService.findAll(where);
+			setPesquisa(list);
+		} catch (Exception ex) {
+			MkDialog.error("Erro ao pesquisar", ex);
+		}
 	}
 	
-	protected MkRun novo() {
-		return EnumMenuAlianca.CADASTRO_CLIENTE_NOVO.getMenu().getAcao();
+	protected void novo() {
+		EnumMenuAlianca.CADASTRO_CLIENTE_NOVO.getMenu().getAcao().execute();
 	}
 
 	public void setPesquisa(List<ClienteAlianca> list) {
@@ -126,7 +116,7 @@ public class JanelaClienteConsulta extends MkWindow {
 
 	@Override
 	public void refreshWindow() {
-		pesquisar().execute();
+		pesquisar();
 	}
 	
 	
