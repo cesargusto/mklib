@@ -25,6 +25,9 @@
 			<isNotNull prepend="and" property="produto_id">			
 				Pedido_Item.produto_id = #produto_id#
 			</isNotNull>
+			<isNotNull prepend="and" property="pedido_id">			
+				Pedido_Item.pedido_id = #pedido_id#
+			</isNotNull>
 	</sql>
 	
 <!-- 	<select id="getSaldo" resultClass="java.math.BigDecimal" parameterClass="long"> -->

@@ -1,5 +1,9 @@
 package br.com.maikosoft.bazar.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -38,6 +42,16 @@ public class PedidoService extends MkService<Pedido, PedidoDAO> {
 		}
 	}
 
+	public void getItens(Pedido bean) throws MkServiceException {
+		try {
+			Map<String, Object> where = new HashMap<String, Object>();
+			where.put("pedido_id", bean.getId());
+			List<PedidoItem> findAll = pedidoItemDAO.findAll(where);
+    		bean.setListPedidoItem(findAll);
+		} catch (MkDAOException e) {
+			throw new MkServiceException(e);
+		}
+	} 
 	
 	
 }
