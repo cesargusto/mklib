@@ -145,6 +145,7 @@ public class MkApplication extends JFrame {
         	JMenuItem menu;
 			if (mkMenu.getPai() == null)  {
 				menu = new JMenu();
+				menu.setMnemonic(mkMenu.getTitulo().charAt(0));
 				menuPrincipal.add(menu);
 			} else {
 				final MkRun acao = mkMenu.getAcao();

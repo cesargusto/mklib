@@ -49,7 +49,7 @@
 		SELECT Pedido.*, cliente.nome as cliente_nome FROM Pedido, cliente
 		WHERE Cliente.id = Pedido.cliente_id
 		<include refid="fragmentWherePedido"/>
-		ORDER BY data_pedido DESC
+		ORDER BY Pedido.data_pedido DESC, Pedido.id DESC
 <!-- 		LIMIT 15 OFFSET #limit# -->
 	</select>
 	
@@ -60,7 +60,7 @@
 	
 	<update id="updatePedido" parameterClass="Pedido">
 		UPDATE Pedido SET cliente_id= #cliente.id#, total= #total#, observacao= #observacao#, 
-		desconto=#desconto#, data_pedido=#dataPedido#, 
+		desconto=#desconto#, data_pedido=#dataPedido#
 		WHERE id=#id#
 	</update>	
 	

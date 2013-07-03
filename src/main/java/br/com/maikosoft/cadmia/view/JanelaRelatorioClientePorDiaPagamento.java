@@ -11,20 +11,19 @@ import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
-import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.cadmia.ClienteAndSaldoVO;
+import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.cadmia.service.ClienteService;
 import br.com.maikosoft.cadmia.service.FinanceiroService;
 import br.com.maikosoft.core.MkServiceException;
+import br.com.maikosoft.mklib.MkButton.MkButtonImprimir;
 import br.com.maikosoft.mklib.MkComboBox;
 import br.com.maikosoft.mklib.MkDialog;
 import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkWindow;
-import br.com.maikosoft.mklib.MkButton.MkButtonImprimir;
+import br.com.maikosoft.view.JanelaPrintPreview;
 
 @SuppressWarnings("serial")
 public class JanelaRelatorioClientePorDiaPagamento extends MkWindow {
@@ -72,8 +71,7 @@ public class JanelaRelatorioClientePorDiaPagamento extends MkWindow {
 					parametro.put("diaPagamento", comboDiaPagamentoMensalidade.getSelected());
 					InputStream streamResource = JanelaRelatorioClientePorDiaPagamento.class.getClassLoader().getResourceAsStream("report/cadmia/RelatorioClientePorDiaPagamento.jasper");
 					JasperPrint print = JasperFillManager.fillReport(streamResource, parametro, new JRBeanCollectionDataSource(list));
-					JasperViewer.viewReport(print, false);
-					JasperPrintManager.printReport(print, true);
+					JanelaPrintPreview.showView(print, true);
 					
 			
 		} catch (MkServiceException exception) {

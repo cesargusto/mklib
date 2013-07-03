@@ -8,9 +8,7 @@ import java.util.List;
 
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.alianca.Receita;
 import br.com.maikosoft.alianca.service.ReceitaService;
@@ -31,6 +29,7 @@ import br.com.maikosoft.mklib.MkTextArea;
 import br.com.maikosoft.mklib.MkWindow;
 import br.com.maikosoft.util.MkUtil;
 import br.com.maikosoft.view.JanelaLogin;
+import br.com.maikosoft.view.JanelaPrintPreview;
 
 @SuppressWarnings("serial")
 public class JanelaReceitaCadastro extends MkWindow {
@@ -234,8 +233,7 @@ public class JanelaReceitaCadastro extends MkWindow {
 			
 			InputStream streamResource = JanelaDuplicataGerar.class.getClassLoader().getResourceAsStream("report/alianca/Receita.jasper");
 			JasperPrint print = JasperFillManager.fillReport(streamResource, null, new JRBeanCollectionDataSource(list));
-			JasperViewer.viewReport(print, false);
-			JasperPrintManager.printReport(print, true);
+			JanelaPrintPreview.showView(print, true);
 			
 		} catch (Exception ex) {
 			MkDialog.error("Erro ao imprimir receita", ex);

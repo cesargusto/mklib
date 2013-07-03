@@ -12,6 +12,8 @@ public class PedidoItem extends MkBean {
     private Integer quantidade;
     private BigDecimal valor;
     
+    private boolean delete;
+    
 	public Pedido getPedido() {
 		return pedido;
 	}
@@ -36,24 +38,31 @@ public class PedidoItem extends MkBean {
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-    
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PedidoItem other = (PedidoItem) obj;
-		if (getId() == null) {
-			if(other.getId() != null)
-				return false;
-			if (!getProduto().equals(other.getProduto()))
-				return false;
-		} else if (!getId().equals(other.getId()))
-			return false;
-		return true;
+	
+	public boolean isDelete() {
+		return delete;
 	}
+	public void setDelete(boolean delete) {
+		this.delete = delete;
+	}
+    
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		PedidoItem other = (PedidoItem) obj;
+//		if (getId() == null) {
+//			if(other.getId() != null)
+//				return false;
+//			if (!getProduto().equals(other.getProduto()))
+//				return false;
+//		} else if (!getId().equals(other.getId()))
+//			return false;
+//		return true;
+//	}
 
 }
