@@ -1,6 +1,5 @@
 package br.com.maikosoft.bazar.view;
 
-import br.com.maikosoft.bazar.Produto;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkFieldMask;
 import br.com.maikosoft.mklib.MkFieldMask.EnumMkMask;

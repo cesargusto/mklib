@@ -10,7 +10,6 @@ import java.util.List;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JRViewer;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -30,6 +29,7 @@ import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkTextArea;
 import br.com.maikosoft.mklib.MkWindow;
 import br.com.maikosoft.util.MkUtil;
+import br.com.maikosoft.view.JanelaPrintPreview;
 
 @SuppressWarnings("serial")
 public class JanelaDuplicataGerar extends MkWindow {
@@ -125,16 +125,9 @@ public class JanelaDuplicataGerar extends MkWindow {
 					map.put("clienteCidade", clienteAlianca.getCidade());
 										
 					InputStream streamResource = JanelaDuplicataGerar.class.getClassLoader().getResourceAsStream("report/alianca/Duplicata.jasper");
-					final JasperPrint print = JasperFillManager.fillReport(streamResource, map, new JRBeanCollectionDataSource(listDuplicata));
-					MkWindow janelaModal = new MkWindow() {
-						@Override
-						protected void initWindow() {
-							JRViewer viewer = new JRViewer(print);
-							addPanelCenter(viewer, application.getDesktopPane().getWidth(), application.getDesktopPane().getHeight());
-						}
-					};
-					janelaModal.showWindow("Gerar Duplicatas", true);
-					
+					JasperPrint print = JasperFillManager.fillReport(streamResource, map, new JRBeanCollectionDataSource(listDuplicata));
+					JanelaPrintPreview.showView(print, true);
+										
 					if (MkDialog.confirm("Deseja salvar as duplicatas geradas?")) {
 						for (Duplicata duplicata : listDuplicata) {
 							duplicataService.insert(duplicata);

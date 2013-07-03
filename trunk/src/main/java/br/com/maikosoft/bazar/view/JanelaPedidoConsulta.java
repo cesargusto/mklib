@@ -10,12 +10,9 @@ import org.apache.log4j.Logger;
 import br.com.maikosoft.bazar.EnumMenuBazar;
 import br.com.maikosoft.bazar.Pedido;
 import br.com.maikosoft.bazar.service.PedidoService;
-import br.com.maikosoft.core.MkRun;
-import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.mklib.MkButton.MkButtonAbrir;
 import br.com.maikosoft.mklib.MkButton.MkButtonNovo;
 import br.com.maikosoft.mklib.MkDialog;
-import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkTable;
 import br.com.maikosoft.mklib.MkTableModel;
@@ -27,7 +24,7 @@ public class JanelaPedidoConsulta extends MkWindow {
 	
 	private static final Logger logger = Logger.getLogger(JanelaPedidoConsulta.class);
 	
-	private MkFieldText fieldBusca;
+//	private MkFieldText fieldBusca;
 	private MkPanelTable panelCenter;
 	private MkTable<Pedido> table;
 	private MkButtonNovo buttonNovo;
@@ -45,45 +42,30 @@ public class JanelaPedidoConsulta extends MkWindow {
 		
 		addPanelButton(true, buttonAbrir, buttonNovo);
 		
-		fieldBusca.onEnter(pesquisar());
-		table.onDoubleClickOrEnter(abrir());
+//		fieldBusca.onEnter(pesquisar());
+		table.onDoubleClickOrEnter(buttonAbrir.getOnClick());
 		
-		pesquisar().execute();
+		pesquisar();
 		
 	}
 	
-	protected MkRun abrir() {
-		return new MkRun() {
-			@Override
-			public void execute() {
-				Pedido bean = table.getSeleted(true);
-				if (bean !=null) {
-					try {
-						pedidoService.getItens(bean);
-					} catch (MkServiceException ex) {
-						MkDialog.error("Erro carregando iten pedido", ex);
-					}
-					JanelaPedidoCadastro view = new JanelaPedidoCadastro(bean);
-					view.showWindow("Cadastro Pedido", false);					
-				}
-			}
-		}; 
+	protected void abrir() {
+		Pedido bean = table.getSeleted(true);
+		if (bean !=null) {
+			JanelaPedidoCadastro view = new JanelaPedidoCadastro(bean);
+			view.showWindow("Cadastro Pedido", false);					
+		}
 	}
 	
-	protected MkRun pesquisar() {
-		return new MkRun() {
-			@Override
-			public void execute() {
-				logger.debug("Executando perquisar");
-				Map<String, Object> where = new HashMap<String, Object>();
-				try {
-					List<Pedido> list = pedidoService.findAll(where);
-					setPesquisa(list);
-				} catch (Exception ex) {
-					MkDialog.error("Erro ao pesquisar", ex);
-				}
-			}
-		};
+	protected void pesquisar() {
+		logger.debug("Executando perquisar");
+		Map<String, Object> where = new HashMap<String, Object>();
+		try {
+			List<Pedido> list = pedidoService.findAll(where);
+			setPesquisa(list);
+		} catch (Exception ex) {
+			MkDialog.error("Erro ao pesquisar", ex);
+		}
 	}
 	
 	protected void novo() {
@@ -116,7 +98,7 @@ public class JanelaPedidoConsulta extends MkWindow {
 	
 	@Override
 	public void refreshWindow() {
-		pesquisar().execute();
+		pesquisar();
 	}
 	
 	

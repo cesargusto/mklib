@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,9 +13,7 @@ import javax.swing.JLabel;
 
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.bazar.ClienteBazar;
 import br.com.maikosoft.bazar.Pedido;
 import br.com.maikosoft.bazar.PedidoItem;
@@ -22,6 +21,7 @@ import br.com.maikosoft.bazar.Produto;
 import br.com.maikosoft.bazar.service.PedidoService;
 import br.com.maikosoft.bazar.service.ProdutoService;
 import br.com.maikosoft.core.MkRun;
+import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.mklib.MkButton.MkButtonAdicionar;
 import br.com.maikosoft.mklib.MkButton.MkButtonEditar;
@@ -44,6 +44,7 @@ import br.com.maikosoft.mklib.MkWindow;
 import br.com.maikosoft.util.Extenso;
 import br.com.maikosoft.util.MkUtil;
 import br.com.maikosoft.view.JanelaLogin;
+import br.com.maikosoft.view.JanelaPrintPreview;
 
 @SuppressWarnings("serial")
 public class JanelaPedidoCadastro extends MkWindow {
@@ -104,10 +105,18 @@ public class JanelaPedidoCadastro extends MkWindow {
 		fieldDesconto.onChange(desconto());
 		fieldProduto.onEnter(enterFieldProduto());
 	
-		//addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonImprimir, buttonExcluir);
-		addPanelButton(true, buttonNovo, buttonSalvar, buttonImprimir);
+		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonImprimir);
 		
-		beanToForm(false);
+		if (bean.getId() == null) {
+			novo();
+		} else {
+			try {
+				bean = pedidoService.findById(bean.getId());
+			} catch (MkServiceException ex) {
+				MkDialog.error("Erro carregando pedido", ex);
+			}
+			beanToForm(false);
+		}
 	}
 	
 	public void novo() {
@@ -129,7 +138,7 @@ public class JanelaPedidoCadastro extends MkWindow {
 	protected void salvar() {
 		try {
 			bean.setDataPedido(fieldDataPedido.getDate());
-//			bean.setTotal(MkUtil.toBigDecimal(labelTotal.getText()));
+			bean.setTotal(MkUtil.toBigDecimal(labelTotal.getText()));
 			bean.setDesconto(MkUtil.toBigDecimal(fieldDesconto.getText()));
 			bean.setObservacao(textObservacao.getText());
 						
@@ -140,9 +149,11 @@ public class JanelaPedidoCadastro extends MkWindow {
 			} else {
 				pedidoService.update(bean);
 			}
+			
+			pedidoService.updateItens(bean);
+			
 			MkDialog.info("Pedido salvo com sucesso", buttonSalvar);
 
-			//bean = pedidoService.findById(bean.getId());
 			beanToForm(false);
 			application.refreshWindows();
 
@@ -224,6 +235,13 @@ public class JanelaPedidoCadastro extends MkWindow {
 			} else {
 					this.waitCursor(true);
 					
+					List<PedidoItem> list = new LinkedList<PedidoItem>();
+					for (PedidoItem pedidoItem : bean.getListPedidoItem()) {
+						if (!pedidoItem.isDelete()) {
+							list.add(pedidoItem);
+						}
+					}
+					
 					HashMap<String,Object> map = new HashMap<String, Object>();
 					map.put("clienteNome", bean.getCliente().getNome());
 					map.put("clienteCPF", bean.getCliente().getCpf());
@@ -236,10 +254,8 @@ public class JanelaPedidoCadastro extends MkWindow {
 					map.put("saldoExtenso", new Extenso(bean.getSaldo(), true));
 										
 					InputStream streamResource = JanelaPedidoCadastro.class.getClassLoader().getResourceAsStream("report/bazar/Pedido.jasper");
-					JasperPrint print = JasperFillManager.fillReport(streamResource, map, new JRBeanCollectionDataSource(bean.getListPedidoItem()));
-					JasperViewer.viewReport(print, false);
-					JasperPrintManager.printReport(print, true);
-					
+					JasperPrint print = JasperFillManager.fillReport(streamResource, map, new JRBeanCollectionDataSource(list));
+					JanelaPrintPreview.showView(print, true);
 					
 			}
 		} catch (Exception ex) {
@@ -252,7 +268,12 @@ public class JanelaPedidoCadastro extends MkWindow {
 	
 	private void atualizaTableItemESaldo() {
 		
-		List<PedidoItem> list = bean.getListPedidoItem();
+		List<PedidoItem> list = new LinkedList<PedidoItem>();
+		for (PedidoItem pedidoItem : bean.getListPedidoItem()) {
+			if (!pedidoItem.isDelete()) {
+				list.add(pedidoItem);
+			}
+		}
 		
 		tableItem.setModel(new MkTableModel<PedidoItem>(list, "Produto", "Qtd", "Valor") {
 			@Override
@@ -340,7 +361,8 @@ public class JanelaPedidoCadastro extends MkWindow {
 		
 		PedidoItem pedidoItem = tableItem.getSeleted(true);
 		if (pedidoItem !=null) {
-			bean.getListPedidoItem().remove(pedidoItem);
+			pedidoItem.setDelete(true);
+			//bean.getListPedidoItem().remove(tableItem.getr) .remove(pedidoItem);
 			atualizaTableItemESaldo();
 			MkDialog.info("Produto removido com sucesso", buttonRemover);
 		}

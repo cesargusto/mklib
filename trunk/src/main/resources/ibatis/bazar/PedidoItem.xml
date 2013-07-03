@@ -55,7 +55,7 @@
 	</select>
 	
 	<update id="updatePedidoItem" parameterClass="PedidoItem">
-		UPDATE Pedido_Item SET produto_id= #produto.id#, valor= #valor#, pedido_id= #pedido.id#, quantidade=#quantidade#, 
+		UPDATE Pedido_Item SET produto_id= #produto.id#, valor= #valor#, pedido_id= #pedido.id#, quantidade=#quantidade# 
 		WHERE id=#id#
 	</update>	
 	

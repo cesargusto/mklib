@@ -1,7 +1,6 @@
 package br.com.maikosoft.bazar.service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,19 @@ public class PedidoService extends MkService<Pedido, PedidoDAO> {
 	
 	@Autowired
 	private PedidoItemDAO pedidoItemDAO;
+	
+	@Override
+	public Pedido findById(Long id) throws MkServiceException {
+		Pedido bean = super.findById(id);
+		Map<String, Object> where = new HashMap<String, Object>();
+		where.put("pedido_id", bean.getId());
+		try {
+			bean.setListPedidoItem(pedidoItemDAO.findAll(where));
+		} catch (MkDAOException ex) {
+			throw new MkServiceException("Erro carregando itens pedido", ex);
+		}
+		return bean;
+	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
@@ -29,11 +41,11 @@ public class PedidoService extends MkService<Pedido, PedidoDAO> {
 		try {
     		bean.setId(genericDao.nextId());
     		genericDao.insert(bean);
-    		for (PedidoItem item : bean.getListPedidoItem()) {
-    			item.setId(pedidoItemDAO.nextId());
-    			item.setOwner(bean.getOwner());
-    			item.setPedido(bean);
-				pedidoItemDAO.insert(item);
+    		for (PedidoItem pedidoItem : bean.getListPedidoItem()) {
+    			pedidoItem.setId(pedidoItemDAO.nextId());
+    			pedidoItem.setOwner(bean.getOwner());
+    			pedidoItem.setPedido(bean);
+				pedidoItemDAO.insert(pedidoItem);
 			}
     		
 		} catch (MkDAOException e) {
@@ -41,17 +53,27 @@ public class PedidoService extends MkService<Pedido, PedidoDAO> {
 			throw new MkServiceException(e);
 		}
 	}
-
-	public void getItens(Pedido bean) throws MkServiceException {
-		try {
-			Map<String, Object> where = new HashMap<String, Object>();
-			where.put("pedido_id", bean.getId());
-			List<PedidoItem> findAll = pedidoItemDAO.findAll(where);
-    		bean.setListPedidoItem(findAll);
-		} catch (MkDAOException e) {
-			throw new MkServiceException(e);
-		}
-	} 
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public void updateItens(Pedido bean) throws MkServiceException {
+		try {
+			for (PedidoItem pedidoItem : bean.getListPedidoItem()) {
+				if (pedidoItem.isDelete()) {
+					if (pedidoItem.getId() != null) {
+						pedidoItemDAO.delete(pedidoItem.getId());
+					}
+				} else {
+					if (pedidoItem.getId() == null) {
+						pedidoItem.setId(pedidoItemDAO.nextId());
+						pedidoItem.setOwner(bean.getOwner());
+						pedidoItem.setPedido(bean);
+						pedidoItemDAO.insert(pedidoItem);
+					}
+				}
+			}
+		} catch (MkDAOException ex) {
+			throw new MkServiceException("Erro atualizando itens pedido", ex);
+		}
+	}
 	
 }

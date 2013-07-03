@@ -9,8 +9,6 @@ import java.util.HashMap;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
-import net.sf.jasperreports.view.JasperViewer;
 import br.com.maikosoft.cadmia.ClienteCadMia;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.mklib.MkButton.MkButtonImprimir;
@@ -25,6 +23,7 @@ import br.com.maikosoft.mklib.MkTextArea;
 import br.com.maikosoft.mklib.MkWindow;
 import br.com.maikosoft.util.Extenso;
 import br.com.maikosoft.util.MkUtil;
+import br.com.maikosoft.view.JanelaPrintPreview;
 
 @SuppressWarnings("serial")
 public class JanelaRecibo extends MkWindow {
@@ -97,8 +96,7 @@ public class JanelaRecibo extends MkWindow {
 					
 					InputStream streamResource = JanelaRecibo.class.getClassLoader().getResourceAsStream("report/cadmia/Recibo.jasper");
 					JasperPrint print = JasperFillManager.fillReport(streamResource, parametro, new JREmptyDataSource());
-					JasperViewer.viewReport(print, false);
-					JasperPrintManager.printReport(print, true);
+					JanelaPrintPreview.showView(print, true);
 					
 			}
 		} catch (Exception ex) {
