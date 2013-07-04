@@ -172,5 +172,10 @@
 			<artifactId>jcalendarbutton</artifactId>
 			<version>1.4.4</version>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>1.8.6</version>
+		</dependency>
 	</dependencies>
 </project>

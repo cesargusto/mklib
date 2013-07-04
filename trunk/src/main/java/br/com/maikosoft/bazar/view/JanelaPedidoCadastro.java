@@ -105,7 +105,7 @@ public class JanelaPedidoCadastro extends MkWindow {
 		fieldDesconto.onChange(desconto());
 		fieldProduto.onEnter(enterFieldProduto());
 	
-		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonImprimir);
+		addPanelButton(true, buttonNovo, buttonSalvar, buttonEditar, buttonImprimir, buttonExcluir);
 		
 		if (bean.getId() == null) {
 			novo();
