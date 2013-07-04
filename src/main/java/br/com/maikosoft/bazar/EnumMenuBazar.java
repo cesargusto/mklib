@@ -3,7 +3,13 @@ package br.com.maikosoft.bazar;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.maikosoft.bazar.menu.*;
+import br.com.maikosoft.bazar.menu.MenuCadastroCliente;
+import br.com.maikosoft.bazar.menu.MenuCadastroPedido;
+import br.com.maikosoft.bazar.menu.MenuCadastroProduto;
+import br.com.maikosoft.bazar.menu.MenuConsultaCliente;
+import br.com.maikosoft.bazar.menu.MenuConsultaPedido;
+import br.com.maikosoft.bazar.menu.MenuConsultaProduto;
+import br.com.maikosoft.bazar.menu.MenuRelatorioPedido;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
 import br.com.maikosoft.view.menu.MenuCadastroUsuario;
@@ -30,6 +36,8 @@ public enum EnumMenuBazar {
     MOVIMENTACAO("Movimentação", null),
 		CADASTRO_PEDIDO_CADASTRAR(new MenuCadastroPedido(MOVIMENTACAO.getMenu())),
 		CADASTRO_PEDIDO_CONSULTA(new MenuConsultaPedido(MOVIMENTACAO.getMenu())),
+	RELATORIO("Relatório", null),
+    	RELATORIO_PEDIDO(new MenuRelatorioPedido(RELATORIO.getMenu())),	
     SISTEMA("Sistema", null),
 		SISTEMA_BACKUP(new MenuSistemaBackup(SISTEMA.getMenu())),
 		SISTEMA_DEBUG(new MenuDebug(SISTEMA.getMenu())),

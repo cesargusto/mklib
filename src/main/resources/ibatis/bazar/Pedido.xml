@@ -12,6 +12,8 @@
 		<result property="id" column="id" />
 		<result property="cliente.id" column="cliente_id" />
 		<result property="cliente.nome" column="cliente_nome" />
+		<result property="cliente.cpf" column="cliente_cpf" />
+		<result property="cliente.rg" column="cliente_rg" />
 		<result property="total" column="total" />
 		<result property="dataPedido" column="data_pedido" />
 		<result property="observacao" column="observacao" />
@@ -34,10 +36,6 @@
 			</isNotNull>
 	</sql>
 	
-<!-- 	<select id="getSaldo" resultClass="java.math.BigDecimal" parameterClass="long"> -->
-<!-- 		SELECT SUM(total) FROM Pedido WHERE data_cadastro &lt; now() AND cliente_id = #value# -->
-<!-- 	</select> -->
-
 	<select id="countPedido" resultClass="long">
 		SELECT count(Pedido.*) FROM Pedido, cliente
 		WHERE Cliente.id = Pedido.cliente_id
@@ -46,7 +44,7 @@
 	</select>
 
 	<select id="allPedido" resultMap="resultMapPedido">
-		SELECT Pedido.*, cliente.nome as cliente_nome FROM Pedido, cliente
+		SELECT Pedido.*, cliente.nome as cliente_nome, cliente.cpf as cliente_cpf, cliente.rg as cliente_rg FROM Pedido, cliente
 		WHERE Cliente.id = Pedido.cliente_id
 		<include refid="fragmentWherePedido"/>
 		ORDER BY Pedido.data_pedido DESC, Pedido.id DESC
@@ -54,7 +52,7 @@
 	</select>
 	
 	<select id="getPedido" parameterClass="long" resultMap="resultMapPedido">
-		SELECT Pedido.*, cliente.nome as cliente_nome FROM Pedido, cliente
+		SELECT Pedido.*, cliente.nome as cliente_nome, cliente.cpf as cliente_cpf, cliente.rg as cliente_rg FROM Pedido, cliente
 		WHERE Pedido.id = #value# AND Cliente.id = Pedido.cliente_id
 	</select>
 	
