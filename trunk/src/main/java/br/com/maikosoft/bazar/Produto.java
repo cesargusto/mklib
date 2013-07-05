@@ -10,7 +10,7 @@ public class Produto extends MkBean {
 	private String nome;
 	private BigDecimal valor;
 	private String codigoBarra;
-	private String observacao;	
+	private String observacao;
 		
 	public String getNome() {
 		return nome;
@@ -38,6 +38,8 @@ public class Produto extends MkBean {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+	
+	
 	
 	@Override
 	public String toString() {

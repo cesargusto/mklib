@@ -45,18 +45,16 @@ public class JanelaBackup extends MkWindow {
 		panelTable.addRow("Caminho Backup ", fieldPathBackup);
 		panelTable.addRow(textAreaMensagem.getJScrollPane("Saída"), GridBagConstraints.BOTH);
 		
-		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
-			File filePGDump = new File(
-					"C:\\Arquivos de Programas\\PostgreSQL\\9.1\\bin\\pg_dump.exe");
-			if (filePGDump.exists()) {
-				fieldPathDB.setText(filePGDump.getAbsolutePath());
-			} else {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.showOpenDialog(this);
-				fieldPathDB.setText(fileChooser.getSelectedFile().getAbsolutePath());
-			}
-		} else {
+		if (new File("C:\\Arquivos de Programas\\PostgreSQL\\9.1\\bin\\pg_dump.exe").exists()) {
+			fieldPathDB.setText("C:\\Arquivos de Programas\\PostgreSQL\\9.1\\bin\\pg_dump.exe");
+		} else if (new File("C:\\Program Files (x86)\\PostgreSQL\\9.2\\bin\\pg_dump.exe").exists()) {
+			fieldPathDB.setText("C:\\Program Files (x86)\\PostgreSQL\\9.2\\bin\\pg_dump.exe");
+		} else if (new File("/usr/bin/pg_dump").exists()) {
 			fieldPathDB.setText("/usr/bin/pg_dump");
+		} else {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.showOpenDialog(this);
+			fieldPathDB.setText(fileChooser.getSelectedFile().getAbsolutePath());
 		}
 		
 		File file = new File("");
@@ -95,7 +93,9 @@ public class JanelaBackup extends MkWindow {
 				baseCmds.add("--inserts");
 				baseCmds.add("-f");
 				baseCmds.add(fieldPathBackup.getText());
-				baseCmds.add("cadmia");
+				String url = dataSource.getUrl();
+				String dataBase = url.substring(url.lastIndexOf('/')+1);
+				baseCmds.add(dataBase);
 				
 				logger.debug("Executando backup:"+baseCmds.toString());
 				
