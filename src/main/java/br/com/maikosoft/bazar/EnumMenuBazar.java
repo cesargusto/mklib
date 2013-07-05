@@ -10,6 +10,7 @@ import br.com.maikosoft.bazar.menu.MenuConsultaCliente;
 import br.com.maikosoft.bazar.menu.MenuConsultaPedido;
 import br.com.maikosoft.bazar.menu.MenuConsultaProduto;
 import br.com.maikosoft.bazar.menu.MenuRelatorioPedido;
+import br.com.maikosoft.bazar.menu.MenuRelatorioProduto;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
 import br.com.maikosoft.view.menu.MenuCadastroUsuario;
@@ -37,7 +38,8 @@ public enum EnumMenuBazar {
 		CADASTRO_PEDIDO_CADASTRAR(new MenuCadastroPedido(MOVIMENTACAO.getMenu())),
 		CADASTRO_PEDIDO_CONSULTA(new MenuConsultaPedido(MOVIMENTACAO.getMenu())),
 	RELATORIO("Relatório", null),
-    	RELATORIO_PEDIDO(new MenuRelatorioPedido(RELATORIO.getMenu())),	
+    	RELATORIO_PEDIDO(new MenuRelatorioPedido(RELATORIO.getMenu())),
+    	RELATORIO_PRODUTO(new MenuRelatorioProduto(RELATORIO.getMenu())),	
     SISTEMA("Sistema", null),
 		SISTEMA_BACKUP(new MenuSistemaBackup(SISTEMA.getMenu())),
 		SISTEMA_DEBUG(new MenuDebug(SISTEMA.getMenu())),
