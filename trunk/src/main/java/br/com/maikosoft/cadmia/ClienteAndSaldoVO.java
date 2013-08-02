@@ -14,6 +14,7 @@ public class ClienteAndSaldoVO extends ClienteCadMia {
 		this.saldoDevedor = saldoDevedor;
 		this.setNome(clienteCadMia.getNome());
 		this.setId(clienteCadMia.getId());
+		this.setCpf(clienteCadMia.getCpf());
 	}
 
 	public BigDecimal getTotalPago() {
