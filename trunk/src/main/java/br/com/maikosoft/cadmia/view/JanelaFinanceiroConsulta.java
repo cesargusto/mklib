@@ -80,11 +80,11 @@ public class JanelaFinanceiroConsulta extends MkWindow {
 	}
 	
 	protected void abrir() {
-		abrirFinanceiro(false);
+		abrirFinanceiro(false).execute();
 	}
 	
 	protected void novo() {
-		abrirFinanceiro(true);
+		abrirFinanceiro(true).execute();
 	}
 	
 	protected void atualizar() {
