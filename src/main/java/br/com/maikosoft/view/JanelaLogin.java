@@ -40,7 +40,7 @@ public class JanelaLogin extends MkWindow {
 	
 	private int tentativa = 0;
 	private long tempo = 0;
-    private long tempoLimite = 300000;
+    private long tempoLimite = 6000000;
     
     public static JanelaLogin getInstance() {
 		if (instance == null) {
