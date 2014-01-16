@@ -37,6 +37,10 @@
 			</isNotNull>	
 		</dynamic>
 	</sql>
+	
+	<select id="oftalmoReceita" resultClass="java.lang.String">
+		SELECT DISTINCT(oftalmologista) FROM Receita
+	</select>
 
 	<select id="countReceita" resultClass="long">
 		SELECT count(*) FROM Receita

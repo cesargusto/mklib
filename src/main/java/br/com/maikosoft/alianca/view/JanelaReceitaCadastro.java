@@ -12,6 +12,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import br.com.maikosoft.alianca.ClienteAlianca;
 import br.com.maikosoft.alianca.Receita;
 import br.com.maikosoft.alianca.service.ReceitaService;
+import br.com.maikosoft.core.MkServiceException;
 import br.com.maikosoft.core.MkTransferObject;
 import br.com.maikosoft.mklib.MkButton.MkButtonEditar;
 import br.com.maikosoft.mklib.MkButton.MkButtonExcluir;
@@ -24,6 +25,7 @@ import br.com.maikosoft.mklib.MkFieldDate;
 import br.com.maikosoft.mklib.MkFieldMask;
 import br.com.maikosoft.mklib.MkFieldMask.EnumMkMask;
 import br.com.maikosoft.mklib.MkFieldText;
+import br.com.maikosoft.mklib.MkFieldTextComplete;
 import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkTextArea;
 import br.com.maikosoft.mklib.MkWindow;
@@ -37,7 +39,7 @@ public class JanelaReceitaCadastro extends MkWindow {
 	private MkFieldText fieldId;
 	private MkFieldText fieldCliente;
 	private MkFieldMask fieldTelefone;
-    private MkFieldText fieldOftalmologista;
+    private MkFieldTextComplete fieldOftalmologista;
     private MkFieldDate fieldDataReceita;
     private MkFieldText fieldOlhoDireitoLonge;
     private MkFieldText fieldOlhoEsquerdoLonge;
@@ -98,6 +100,7 @@ public class JanelaReceitaCadastro extends MkWindow {
 		} else {
 			beanToForm(false);
 		}
+		
 	}
 	
 	public void novo() {
@@ -105,6 +108,13 @@ public class JanelaReceitaCadastro extends MkWindow {
 		bean.setDataReceita(new Date());
 		beanToForm(true);
 		fieldCliente.grabFocus();
+		
+		try {
+			List<String> listOftal = receitaService.findAllOftamologista();
+			fieldOftalmologista.addPossibility(listOftal);
+		} catch (MkServiceException ex) {
+			MkDialog.error(ex.getMessage(), ex);
+		}
 	}
 
 	protected void editar() {
