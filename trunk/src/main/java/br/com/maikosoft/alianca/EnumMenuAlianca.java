@@ -9,6 +9,7 @@ import br.com.maikosoft.alianca.menu.MenuConsultaCliente;
 import br.com.maikosoft.alianca.menu.MenuConsultaDuplicata;
 import br.com.maikosoft.alianca.menu.MenuConsultaReceita;
 import br.com.maikosoft.alianca.menu.MenuGerarDuplicata;
+import br.com.maikosoft.alianca.menu.MenuNotaEncomenda;
 import br.com.maikosoft.core.MkRun;
 import br.com.maikosoft.mklib.MkMenu;
 import br.com.maikosoft.view.menu.MenuCadastroUsuario;
@@ -35,6 +36,7 @@ public enum EnumMenuAlianca {
     MOVIMENTACAO("Movimentação", null),
     	CADASTRO_DUPLICATA_CONSULTA(new MenuConsultaDuplicata(MOVIMENTACAO.getMenu())),
     	CADASTRO_DUPLICATA_GERAR(new MenuGerarDuplicata(MOVIMENTACAO.getMenu())),
+    	NOTA_ENCOMENDA(new MenuNotaEncomenda(MOVIMENTACAO.getMenu())),
     SISTEMA("Sistema", null),
 		SISTEMA_BACKUP(new MenuSistemaBackup(SISTEMA.getMenu())),
 		SISTEMA_DEBUG(new MenuDebug(SISTEMA.getMenu())),
