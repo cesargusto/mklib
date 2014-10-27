@@ -1,6 +1,13 @@
 package br.com.maikosoft.alianca.view;
 
+import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -15,6 +22,7 @@ import br.com.maikosoft.mklib.MkFieldText;
 import br.com.maikosoft.mklib.MkPanelTable;
 import br.com.maikosoft.mklib.MkWindow;
 import br.com.maikosoft.util.MkUtil;
+import br.com.maikosoft.view.JanelaPrintPreview;
 
 @SuppressWarnings("serial")
 public class JanelaNotaEncomenda extends MkWindow {
@@ -26,7 +34,7 @@ public class JanelaNotaEncomenda extends MkWindow {
 	private MkFieldText fieldArmacao;
 	private MkFieldText fieldLente;
 	private MkFieldDate fieldProcurarDia;
-	private MkFieldText fieldProcuaraHora;
+	private MkFieldText fieldProcurarHora;
 	private MkFieldMask fieldTotal;
 	private MkFieldMask fieldSinal;
 //	private MkFieldMask fieldApagar;
@@ -46,7 +54,7 @@ public class JanelaNotaEncomenda extends MkWindow {
 		panelTable.addRow("Endereço:", fieldEndereco, MkPanelTable.getDefaultCell(3));
 		panelTable.addRow("Armação:", fieldArmacao, MkPanelTable.getDefaultCell(3));
 		panelTable.addRow("Lente:", fieldLente, MkPanelTable.getDefaultCell(3));
-		panelTable.addRow("Procurar dia:", fieldProcurarDia, "Hora:", fieldProcuaraHora);
+		panelTable.addRow("Procurar dia:", fieldProcurarDia, "Hora:", fieldProcurarHora);
 		panelTable.addRow("Total:", fieldTotal, "Sinal:", fieldSinal);
 		
 		
@@ -89,24 +97,28 @@ public class JanelaNotaEncomenda extends MkWindow {
 					
 					Long numero = MkUtil.toLong(fieldNumero.getText());
 					
-//					List<Duplicata> listDuplicata = duplicataService.gerarDuplicatas(clienteAlianca, 
-//							fieldDataVencimento.getDate(), 
-//							MkUtil.toBigDecimal(fieldValor.getText()),
-//							fieldNumeroParcela.getSelected(),
-//							MkUtil.toLong(fieldNumeroNota.getText()),
-//							textObservacao.getText());
+					HashMap<String,Object> map = new HashMap<String, Object>();
+					map.put("fieldNumero", fieldNumero.getText());
+					map.put("fieldDataCadastro", MkUtil.toString(fieldDataCadastro.getDate()));
+					map.put("fieldNome", fieldNome.getText());
+					map.put("fieldEndereco", fieldEndereco.getText());
+					map.put("fieldArmacao", fieldArmacao.getText());
+					map.put("fieldLente", fieldLente.getText());
+					map.put("fieldProcurarDia", MkUtil.toString(fieldProcurarDia.getDate()));
+					map.put("fieldProcurarHora", fieldProcurarHora.getText());
+					map.put("fieldTotal", fieldTotal.getText());
+					map.put("fieldSinal", fieldSinal.getText());
 					
-//					HashMap<String,Object> map = new HashMap<String, Object>();
-//					map.put("clienteNome", clienteAlianca.getNome());
-//					map.put("clienteEndereco", (StringUtils.isBlank(clienteAlianca.getNumero()) ? 
-//							clienteAlianca.getEndereco() : 
-//							clienteAlianca.getEndereco() + ", " +clienteAlianca.getNumero()));
-//					map.put("clienteCPF", clienteAlianca.getCpf());
-//					map.put("clienteCidade", clienteAlianca.getCidade());
-//										
-//					InputStream streamResource = JanelaNotaEncomenda.class.getClassLoader().getResourceAsStream("report/alianca/Duplicata.jasper");
-//					JasperPrint print = JasperFillManager.fillReport(streamResource, map, new JRBeanCollectionDataSource(listDuplicata));
-//					JanelaPrintPreview.showView(print, true);
+					BigDecimal total = MkUtil.toBigDecimal(fieldTotal.getText());
+					BigDecimal sinal = MkUtil.toBigDecimal(fieldSinal.getText());
+					
+					if (total != null && sinal != null) {
+						map.put("fieldAPagar", MkUtil.toString(total.subtract(sinal)));
+					}
+										
+					InputStream streamResource = JanelaNotaEncomenda.class.getClassLoader().getResourceAsStream("report/alianca/NotaEncomenda.jasper");
+					JasperPrint print = JasperFillManager.fillReport(streamResource, map, new JREmptyDataSource());
+					JanelaPrintPreview.showView(print, true);
 										
 					notaEncomendaService.updateNumero(numero);
 					
