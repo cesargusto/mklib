@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Duplicata" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="42" bottomMargin="42" uuid="0f801a15-2c33-456a-8593-56899564386e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Duplicata" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0f801a15-2c33-456a-8593-56899564386e">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="67"/>
+	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -32,12 +32,12 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="706" splitType="Prevent">
+		<band height="333" splitType="Prevent">
 			<rectangle radius="5">
-				<reportElement uuid="fe4c5fa8-689b-429e-bd82-400086dfdc32" key="rectangle-1" x="0" y="0" width="534" height="295" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="fe4c5fa8-689b-429e-bd82-400086dfdc32" key="rectangle-1" x="12" y="10" width="389" height="292" isPrintWhenDetailOverflows="true"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="ad6e2fe0-84c2-4a2c-aba3-2d7431c1dba1" key="staticText-1" x="68" y="14" width="139" height="23" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="ad6e2fe0-84c2-4a2c-aba3-2d7431c1dba1" key="staticText-1" x="20" y="21" width="139" height="23" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -50,7 +50,7 @@
 				<text><![CDATA[ÓTICA ALIANÇA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c6d08e44-a6f0-4c07-a7f1-5632776a7b8f" key="staticText-2" x="34" y="37" width="203" height="27" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="c6d08e44-a6f0-4c07-a7f1-5632776a7b8f" key="staticText-2" x="12" y="44" width="147" height="30" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -58,12 +58,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TELEFONE: (44) 3523-0090]]></text>
+				<text><![CDATA[TEL.: (44) 3523-0090]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3219090e-b9de-4ed1-aa12-9413cafbfc6c" key="staticText-3" x="260" y="14" width="271" height="20" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="3219090e-b9de-4ed1-aa12-9413cafbfc6c" key="staticText-3" x="159" y="21" width="235" height="20" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -76,7 +76,7 @@
 				<text><![CDATA[NOTA DE ENCOMENDA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dbb86561-b339-40b2-be12-a7996b96900d" key="staticText-4" x="260" y="37" width="273" height="27" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="dbb86561-b339-40b2-be12-a7996b96900d" key="staticText-4" x="159" y="44" width="235" height="30" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -88,10 +88,10 @@
 CAMPO MOURÃO - PR]]></text>
 			</staticText>
 			<rectangle radius="5">
-				<reportElement uuid="fe4c5fa8-689b-429e-bd82-400086dfdc32" key="rectangle-1" x="18" y="71" width="168" height="40" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="fe4c5fa8-689b-429e-bd82-400086dfdc32" key="rectangle-1" x="30" y="81" width="168" height="40" isPrintWhenDetailOverflows="true"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="aca006ea-068f-4e8a-bfa2-6afd4a9d41e5" key="staticText-5" mode="Opaque" x="25" y="64" width="53" height="16" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="aca006ea-068f-4e8a-bfa2-6afd4a9d41e5" key="staticText-5" mode="Opaque" x="37" y="74" width="53" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -104,10 +104,10 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[NUMERO]]></text>
 			</staticText>
 			<rectangle radius="5">
-				<reportElement uuid="519fc8f9-6ad2-404b-9282-34939ab02af5" key="rectangle-3" x="351" y="71" width="168" height="39" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="519fc8f9-6ad2-404b-9282-34939ab02af5" key="rectangle-3" x="211" y="81" width="168" height="39" isPrintWhenDetailOverflows="true"/>
 			</rectangle>
 			<textField isStretchWithOverflow="true" pattern=" dd MMMMM yyyy" isBlankWhenNull="true">
-				<reportElement uuid="90a69cf1-d6af-4465-aca4-84e44a23dca4" key="textField" x="353" y="75" width="162" height="31" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="90a69cf1-d6af-4465-aca4-84e44a23dca4" key="textField" x="217" y="85" width="162" height="31" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -120,7 +120,7 @@ CAMPO MOURÃO - PR]]></text>
 				<textFieldExpression><![CDATA[$P{fieldDataCadastro}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="6a29058c-44b1-48e6-b5ca-9551708c1a27" key="staticText-12" x="7" y="118" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="6a29058c-44b1-48e6-b5ca-9551708c1a27" key="staticText-12" x="19" y="128" width="53" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -133,7 +133,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Nome:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6fc640b4-17e9-4c7a-8cb6-da325522de45" key="staticText-13" x="7" y="134" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="6fc640b4-17e9-4c7a-8cb6-da325522de45" key="staticText-13" x="19" y="148" width="53" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -146,7 +146,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Endereço:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f7a1f4cf-3311-4f95-a86d-e6f557d25979" key="staticText-14" x="7" y="150" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="f7a1f4cf-3311-4f95-a86d-e6f557d25979" key="staticText-14" x="19" y="168" width="53" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -159,7 +159,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Armação:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="41a15e19-7fd4-4349-8d0c-8c4db3e9ea1f" key="staticText-15" x="7" y="166" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="41a15e19-7fd4-4349-8d0c-8c4db3e9ea1f" key="staticText-15" x="19" y="188" width="53" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -172,7 +172,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Lente:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2a76bf96-2e76-4995-bbdf-3395bda48775" key="staticText-20" x="20" y="261" width="217" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="2a76bf96-2e76-4995-bbdf-3395bda48775" key="staticText-20" x="20" y="284" width="217" height="15" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -185,7 +185,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Não vale como recibo]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="1950c36f-761f-41c8-b766-bc91dccd8707" key="textField" x="78" y="118" width="450" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="1950c36f-761f-41c8-b766-bc91dccd8707" key="textField" x="74" y="128" width="320" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -193,12 +193,12 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="8"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldNome}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="060e4a84-0972-4ae2-85a4-c53f7e929dd8" key="textField" x="78" y="134" width="450" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="060e4a84-0972-4ae2-85a4-c53f7e929dd8" key="textField" x="74" y="148" width="320" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -206,12 +206,12 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="8"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldEndereco}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="760d0247-06b8-4393-83b4-9468897fede1" key="textField" x="78" y="150" width="450" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="760d0247-06b8-4393-83b4-9468897fede1" key="textField" x="74" y="168" width="320" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -219,12 +219,12 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="8"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldArmacao}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="78" y="166" width="450" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="74" y="188" width="320" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -232,15 +232,15 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="8"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldLente}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="8e32bbe2-5c0c-4be8-9d35-cd1daf976b5e" key="line-1" x="336" y="199" width="192" height="1" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="8e32bbe2-5c0c-4be8-9d35-cd1daf976b5e" key="line-1" x="227" y="224" width="167" height="1" isPrintWhenDetailOverflows="true"/>
 			</line>
 			<staticText>
-				<reportElement uuid="c3a62682-7f3e-4f93-b116-535cad28e8bf" key="staticText-11" mode="Opaque" x="358" y="64" width="70" height="16" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="c3a62682-7f3e-4f93-b116-535cad28e8bf" key="staticText-11" mode="Opaque" x="217" y="74" width="70" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -253,7 +253,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[DATA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e53b95dc-20e4-4b4a-8600-c65c0b5f8fb2" key="staticText-9" x="341" y="220" width="75" height="12" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="e53b95dc-20e4-4b4a-8600-c65c0b5f8fb2" key="staticText-9" x="244" y="242" width="75" height="12" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -266,7 +266,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[TOTAL.......R$]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="85f03d82-b4c2-4529-91e4-c480d3dc8756" key="staticText-9" x="341" y="241" width="75" height="12" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="85f03d82-b4c2-4529-91e4-c480d3dc8756" key="staticText-9" x="244" y="263" width="75" height="12" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -279,7 +279,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[SINAL........R$]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="edbca703-9344-436f-b9f4-6365bedd002b" key="staticText-9" x="341" y="262" width="75" height="12" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="edbca703-9344-436f-b9f4-6365bedd002b" key="staticText-9" x="244" y="284" width="75" height="12" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -292,7 +292,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[A PAGAR...R$]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" pattern=" dd MMMMM yyyy" isBlankWhenNull="true">
-				<reportElement uuid="1ae8be23-3c81-4f2f-9b1c-ead72133150e" key="textField" x="20" y="75" width="162" height="31" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="1ae8be23-3c81-4f2f-9b1c-ead72133150e" key="textField" x="32" y="85" width="162" height="31" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -305,7 +305,7 @@ CAMPO MOURÃO - PR]]></text>
 				<textFieldExpression><![CDATA[$P{fieldNumero}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="8" y="184" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="20" y="210" width="52" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -318,7 +318,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Procurar dia:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="78" y="184" width="86" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="74" y="210" width="85" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -326,25 +326,25 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="8"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldProcurarDia}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="190" y="184" width="58" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="178" y="210" width="46" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement>
-					<font size="8"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldProcurarHora}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="167" y="184" width="19" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="159" y="211" width="19" height="15" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -357,7 +357,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[às:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="267" y="185" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="286" y="226" width="59" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -370,7 +370,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Ass. Cliente:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2a76bf96-2e76-4995-bbdf-3395bda48775" key="staticText-20" x="18" y="208" width="219" height="44" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="2a76bf96-2e76-4995-bbdf-3395bda48775" key="staticText-20" x="20" y="238" width="217" height="44" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -378,7 +378,7 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+					<font size="7" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[NOTA
 Não sendo procurado dentro de 60 dias,
@@ -386,7 +386,7 @@ não nos responsabilizamos pela mercadoria.
 Só entregamos a encomenda mediante esta nota.]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="428" y="220" width="80" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="323" y="242" width="71" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -399,7 +399,7 @@ Só entregamos a encomenda mediante esta nota.]]></text>
 				<textFieldExpression><![CDATA[$P{fieldTotal}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="428" y="239" width="80" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="323" y="261" width="71" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -412,7 +412,7 @@ Só entregamos a encomenda mediante esta nota.]]></text>
 				<textFieldExpression><![CDATA[$P{fieldSinal}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="428" y="259" width="80" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="323" y="281" width="71" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -425,10 +425,10 @@ Só entregamos a encomenda mediante esta nota.]]></text>
 				<textFieldExpression><![CDATA[$P{fieldAPagar}]]></textFieldExpression>
 			</textField>
 			<rectangle radius="5">
-				<reportElement uuid="fe4c5fa8-689b-429e-bd82-400086dfdc32" key="rectangle-1" x="1" y="331" width="534" height="295" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="fe4c5fa8-689b-429e-bd82-400086dfdc32" key="rectangle-1" x="411" y="10" width="389" height="292" isPrintWhenDetailOverflows="true"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="ad6e2fe0-84c2-4a2c-aba3-2d7431c1dba1" key="staticText-1" x="69" y="345" width="139" height="23" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="ad6e2fe0-84c2-4a2c-aba3-2d7431c1dba1" key="staticText-1" x="419" y="21" width="139" height="23" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -441,7 +441,7 @@ Só entregamos a encomenda mediante esta nota.]]></text>
 				<text><![CDATA[ÓTICA ALIANÇA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c6d08e44-a6f0-4c07-a7f1-5632776a7b8f" key="staticText-2" x="35" y="368" width="203" height="27" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="c6d08e44-a6f0-4c07-a7f1-5632776a7b8f" key="staticText-2" x="411" y="44" width="147" height="30" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -449,12 +449,12 @@ Só entregamos a encomenda mediante esta nota.]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TELEFONE: (44) 3523-0090]]></text>
+				<text><![CDATA[TEL.: (44) 3523-0090]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3219090e-b9de-4ed1-aa12-9413cafbfc6c" key="staticText-3" x="261" y="345" width="271" height="20" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="3219090e-b9de-4ed1-aa12-9413cafbfc6c" key="staticText-3" x="558" y="21" width="235" height="20" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -467,7 +467,7 @@ Só entregamos a encomenda mediante esta nota.]]></text>
 				<text><![CDATA[NOTA DE ENCOMENDA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dbb86561-b339-40b2-be12-a7996b96900d" key="staticText-4" x="261" y="368" width="273" height="27" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="dbb86561-b339-40b2-be12-a7996b96900d" key="staticText-4" x="558" y="44" width="235" height="30" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -479,10 +479,10 @@ Só entregamos a encomenda mediante esta nota.]]></text>
 CAMPO MOURÃO - PR]]></text>
 			</staticText>
 			<rectangle radius="5">
-				<reportElement uuid="fe4c5fa8-689b-429e-bd82-400086dfdc32" key="rectangle-1" x="19" y="402" width="168" height="40" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="fe4c5fa8-689b-429e-bd82-400086dfdc32" key="rectangle-1" x="429" y="81" width="168" height="40" isPrintWhenDetailOverflows="true"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="aca006ea-068f-4e8a-bfa2-6afd4a9d41e5" key="staticText-5" mode="Opaque" x="26" y="395" width="53" height="16" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="aca006ea-068f-4e8a-bfa2-6afd4a9d41e5" key="staticText-5" mode="Opaque" x="436" y="74" width="53" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -495,10 +495,10 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[NUMERO]]></text>
 			</staticText>
 			<rectangle radius="5">
-				<reportElement uuid="519fc8f9-6ad2-404b-9282-34939ab02af5" key="rectangle-3" x="352" y="402" width="168" height="39" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="519fc8f9-6ad2-404b-9282-34939ab02af5" key="rectangle-3" x="610" y="81" width="168" height="39" isPrintWhenDetailOverflows="true"/>
 			</rectangle>
 			<textField isStretchWithOverflow="true" pattern=" dd MMMMM yyyy" isBlankWhenNull="true">
-				<reportElement uuid="90a69cf1-d6af-4465-aca4-84e44a23dca4" key="textField" x="354" y="406" width="162" height="31" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="90a69cf1-d6af-4465-aca4-84e44a23dca4" key="textField" x="616" y="85" width="162" height="31" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -511,7 +511,7 @@ CAMPO MOURÃO - PR]]></text>
 				<textFieldExpression><![CDATA[$P{fieldDataCadastro}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="6a29058c-44b1-48e6-b5ca-9551708c1a27" key="staticText-12" x="8" y="449" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="6a29058c-44b1-48e6-b5ca-9551708c1a27" key="staticText-12" x="418" y="128" width="53" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -524,7 +524,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Nome:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6fc640b4-17e9-4c7a-8cb6-da325522de45" key="staticText-13" x="8" y="465" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="6fc640b4-17e9-4c7a-8cb6-da325522de45" key="staticText-13" x="418" y="148" width="53" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -537,7 +537,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Endereço:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f7a1f4cf-3311-4f95-a86d-e6f557d25979" key="staticText-14" x="8" y="481" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="f7a1f4cf-3311-4f95-a86d-e6f557d25979" key="staticText-14" x="418" y="168" width="53" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -550,7 +550,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Armação:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="41a15e19-7fd4-4349-8d0c-8c4db3e9ea1f" key="staticText-15" x="8" y="497" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="41a15e19-7fd4-4349-8d0c-8c4db3e9ea1f" key="staticText-15" x="418" y="188" width="53" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -563,7 +563,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Lente:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2a76bf96-2e76-4995-bbdf-3395bda48775" key="staticText-20" x="21" y="592" width="217" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="2a76bf96-2e76-4995-bbdf-3395bda48775" key="staticText-20" x="419" y="284" width="217" height="15" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -576,7 +576,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Não vale como recibo]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="1950c36f-761f-41c8-b766-bc91dccd8707" key="textField" x="79" y="449" width="450" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="1950c36f-761f-41c8-b766-bc91dccd8707" key="textField" x="473" y="128" width="320" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -584,12 +584,12 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="8"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldNome}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="060e4a84-0972-4ae2-85a4-c53f7e929dd8" key="textField" x="79" y="465" width="450" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="060e4a84-0972-4ae2-85a4-c53f7e929dd8" key="textField" x="473" y="148" width="320" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -597,12 +597,12 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="8"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldEndereco}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="760d0247-06b8-4393-83b4-9468897fede1" key="textField" x="79" y="481" width="450" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="760d0247-06b8-4393-83b4-9468897fede1" key="textField" x="473" y="168" width="320" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -610,12 +610,12 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="8"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldArmacao}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="79" y="497" width="450" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="473" y="188" width="320" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -623,15 +623,15 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="8"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldLente}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="8e32bbe2-5c0c-4be8-9d35-cd1daf976b5e" key="line-1" x="337" y="530" width="192" height="1" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="8e32bbe2-5c0c-4be8-9d35-cd1daf976b5e" key="line-1" x="626" y="224" width="167" height="1" isPrintWhenDetailOverflows="true"/>
 			</line>
 			<staticText>
-				<reportElement uuid="c3a62682-7f3e-4f93-b116-535cad28e8bf" key="staticText-11" mode="Opaque" x="359" y="395" width="70" height="16" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="c3a62682-7f3e-4f93-b116-535cad28e8bf" key="staticText-11" mode="Opaque" x="616" y="74" width="70" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -644,7 +644,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[DATA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e53b95dc-20e4-4b4a-8600-c65c0b5f8fb2" key="staticText-9" x="342" y="551" width="75" height="12" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="e53b95dc-20e4-4b4a-8600-c65c0b5f8fb2" key="staticText-9" x="643" y="242" width="75" height="12" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -657,7 +657,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[TOTAL.......R$]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="85f03d82-b4c2-4529-91e4-c480d3dc8756" key="staticText-9" x="342" y="572" width="75" height="12" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="85f03d82-b4c2-4529-91e4-c480d3dc8756" key="staticText-9" x="643" y="263" width="75" height="12" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -670,7 +670,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[SINAL........R$]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="edbca703-9344-436f-b9f4-6365bedd002b" key="staticText-9" x="342" y="593" width="75" height="12" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="edbca703-9344-436f-b9f4-6365bedd002b" key="staticText-9" x="643" y="284" width="75" height="12" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -683,7 +683,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[A PAGAR...R$]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" pattern=" dd MMMMM yyyy" isBlankWhenNull="true">
-				<reportElement uuid="1ae8be23-3c81-4f2f-9b1c-ead72133150e" key="textField" x="21" y="406" width="162" height="31" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="1ae8be23-3c81-4f2f-9b1c-ead72133150e" key="textField" x="431" y="85" width="162" height="31" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -696,7 +696,7 @@ CAMPO MOURÃO - PR]]></text>
 				<textFieldExpression><![CDATA[$P{fieldNumero}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="9" y="515" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="419" y="210" width="52" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -709,7 +709,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Procurar dia:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="79" y="515" width="86" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="473" y="210" width="85" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -717,25 +717,25 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="8"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldProcurarDia}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="191" y="515" width="58" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="577" y="210" width="46" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement>
-					<font size="8"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fieldProcurarHora}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="168" y="515" width="19" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="558" y="211" width="19" height="15" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -748,7 +748,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[às:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="268" y="516" width="59" height="14" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="e2bdeed9-be8b-43f0-bbe1-f0357a73dff0" key="staticText-15" x="685" y="226" width="59" height="14" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -761,7 +761,7 @@ CAMPO MOURÃO - PR]]></text>
 				<text><![CDATA[Ass. Cliente:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2a76bf96-2e76-4995-bbdf-3395bda48775" key="staticText-20" x="19" y="539" width="219" height="44" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="2a76bf96-2e76-4995-bbdf-3395bda48775" key="staticText-20" x="419" y="238" width="217" height="44" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -769,7 +769,7 @@ CAMPO MOURÃO - PR]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+					<font size="7" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[NOTA
 Não sendo procurado dentro de 60 dias,
@@ -777,7 +777,7 @@ não nos responsabilizamos pela mercadoria.
 Só entregamos a encomenda mediante esta nota.]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="429" y="551" width="80" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="722" y="242" width="71" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -790,7 +790,7 @@ Só entregamos a encomenda mediante esta nota.]]></text>
 				<textFieldExpression><![CDATA[$P{fieldTotal}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="429" y="570" width="80" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="722" y="261" width="71" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -803,7 +803,7 @@ Só entregamos a encomenda mediante esta nota.]]></text>
 				<textFieldExpression><![CDATA[$P{fieldSinal}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="429" y="590" width="80" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="60da84f5-4f5c-4fb4-a6a6-0a9ad60526a1" key="textField" x="722" y="281" width="71" height="16" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
