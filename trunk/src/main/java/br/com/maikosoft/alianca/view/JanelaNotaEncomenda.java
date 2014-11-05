@@ -100,10 +100,10 @@ public class JanelaNotaEncomenda extends MkWindow {
 					HashMap<String,Object> map = new HashMap<String, Object>();
 					map.put("fieldNumero", fieldNumero.getText());
 					map.put("fieldDataCadastro", MkUtil.toString(fieldDataCadastro.getDate()));
-					map.put("fieldNome", fieldNome.getText());
-					map.put("fieldEndereco", fieldEndereco.getText());
-					map.put("fieldArmacao", fieldArmacao.getText());
-					map.put("fieldLente", fieldLente.getText());
+					map.put("fieldNome", fieldNome.getText().toUpperCase());
+					map.put("fieldEndereco", fieldEndereco.getText().toUpperCase());
+					map.put("fieldArmacao", fieldArmacao.getText().toUpperCase());
+					map.put("fieldLente", fieldLente.getText().toUpperCase());
 					map.put("fieldProcurarDia", MkUtil.toString(fieldProcurarDia.getDate()));
 					map.put("fieldProcurarHora", fieldProcurarHora.getText());
 					map.put("fieldTotal", fieldTotal.getText());
